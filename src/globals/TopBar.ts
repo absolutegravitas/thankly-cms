@@ -24,10 +24,6 @@ export const TopBar: GlobalConfig = {
         },
       ],
     },
-    {
-      name: 'announcement',
-      type: 'relationship',
-      relationTo: 'announcements',
-    },
+   
   ],
 }

@@ -4,8 +4,6 @@ import { isAdmin } from '../access/isAdmin'
 import { publishedOnly } from '../access/publishedOnly'
 import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
-import { CaseStudiesHighlight } from '../blocks/CaseStudiesHighlight'
-import { CaseStudyCards } from '../blocks/CaseStudyCards'
 import { CodeFeature } from '../blocks/CodeFeature'
 import { Content } from '../blocks/Content'
 import { ContentGrid } from '../blocks/ContentGrid'
@@ -77,8 +75,6 @@ export const Pages: CollectionConfig = {
               blocks: [
                 CallToAction,
                 CardGrid,
-                CaseStudyCards,
-                CaseStudiesHighlight,
                 CodeFeature,
                 Content,
                 ContentGrid,

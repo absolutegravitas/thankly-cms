@@ -6,8 +6,6 @@ import { BlogContent } from '../blocks/BlogContent'
 import { BlogMarkdown } from '../blocks/BlogMarkdown'
 import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
-import { CaseStudiesHighlight } from '../blocks/CaseStudiesHighlight'
-import { CaseStudyCards } from '../blocks/CaseStudyCards'
 import { Code } from '../blocks/Code'
 import { CodeFeature } from '../blocks/CodeFeature'
 import { Content } from '../blocks/Content'
@@ -54,8 +52,6 @@ export const ReusableContent: CollectionConfig = {
         BlogMarkdown,
         CallToAction,
         CardGrid,
-        CaseStudyCards,
-        CaseStudiesHighlight,
         Code,
         CodeFeature,
         Content,

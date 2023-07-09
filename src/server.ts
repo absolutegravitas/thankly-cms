@@ -2,7 +2,6 @@ import express from 'express'
 import nodemailerSendgrid from 'nodemailer-sendgrid'
 import payload from 'payload'
 
-import { syncToAlgoliaCron } from './collections/CommunityHelp/syncToAlgolia'
 
 // eslint-disable-next-line
 require('dotenv').config()
@@ -44,7 +43,6 @@ const start = async (): Promise<void> => {
     payload.logger.info(`Server listening on port ${process.env.PORT}`)
   })
 
-  syncToAlgoliaCron.start()
 }
 
 start()

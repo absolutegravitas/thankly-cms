@@ -2,16 +2,26 @@ import formBuilder from '@payloadcms/plugin-form-builder'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
+import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
+
 import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload/config'
+import stripePlugin from '@payloadcms/plugin-stripe'
 
-import { Announcements } from './collections/Announcements'
-import { CaseStudies } from './collections/CaseStudies'
-import { CommunityHelp } from './collections/CommunityHelp'
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
+import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
+
+import BeforeDashboard from './components/BeforeDashboard'
+
+import Categories from './collections/Categories'
 import { Media } from './collections/Media'
+import Orders from './collections/Orders'
+
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import Products from './collections/Products'
+
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
 import richText from './fields/richText'
@@ -19,34 +29,93 @@ import { Footer } from './globals/Footer'
 import { MainMenu } from './globals/MainMenu'
 import { TopBar } from './globals/TopBar'
 
+import { Header } from './globals/Header'
+import { Settings } from './globals/Settings'
+import { checkout } from './routes/checkout'
+import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdated'
+import { priceUpdated } from './stripe/webhooks/priceUpdated'
+import { productUpdated } from './stripe/webhooks/productUpdated'
+
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 })
 
+const generateTitle: GenerateTitle = () => {
+  return 'My Store'
+}
+
 const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js')
 
-export default buildConfig({
-  rateLimit: {
-    trustProxy: true,
-    max: 4000,
+const adapter = s3Adapter({
+  config: {
+    credentials: {
+      accessKeyId: String(process.env.S3_ACCESS_KEY_ID),
+      secretAccessKey: String(process.env.S3_SECRET_ACCESS_KEY),
+    },
+    region: process.env.S3_REGION,
+    // ... Other S3 configuration
   },
+  bucket: process.env.S3_BUCKET,
+})
+
+export default buildConfig({
+  admin: {
+    components: {
+      // The BeforeDashboard component renders the 'welcome' block that you see after logging into your admin panel.
+      // Feel free to delete this at any time. Simply remove the line below and the import BeforeDashboard statement on line 15.
+      beforeDashboard: [BeforeDashboard],
+    },
+    webpack: config => ({
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          react: path.resolve(__dirname, '../node_modules/react'),
+          'react-dom': path.resolve(__dirname, '../node_modules/react-dom'),
+          'react-router-dom': path.resolve(__dirname, '../node_modules/react-router-dom'),
+          // [path.resolve(__dirname, './scripts/fetch-discord')]: mockModulePath,
+          [path.resolve(__dirname, '../node_modules/cli-progress')]: mockModulePath,
+          // [path.resolve(__dirname, '../node_modules/discord.js')]: mockModulePath,
+          // [path.resolve(__dirname, '../node_modules/discord-markdown')]: mockModulePath,
+          // [path.resolve(__dirname, './scripts/fetch-github')]: mockModulePath,
+          [path.resolve(__dirname, 'collections/Products/hooks/beforeChange')]: mockModulePath,
+          [path.resolve(__dirname, 'collections/Users/hooks/createStripeCustomer')]: mockModulePath,
+          [path.resolve(__dirname, 'routes/checkout')]: mockModulePath,
+        },
+      },
+    }),
+  },
+
   collections: [
-    Announcements,
-    CaseStudies,
-    CommunityHelp,
-    Media,
+    Orders,
+    Products,
     Pages,
     Posts,
+
+    Categories,
+    Media,
     ReusableContent,
     Users,
   ],
-  globals: [Footer, MainMenu, TopBar],
+  csrf: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://www.thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
+
+  cors: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://www.thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
+
+  endpoints: [
+    {
+      path: '/checkout',
+      method: 'post',
+      handler: checkout,
+    },
+  ],
+  globals: [Footer, MainMenu, TopBar, Header, Settings],
   graphQL: {
-    disablePlaygroundInProduction: false,
+    disablePlaygroundInProduction: true,
+    schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+
   },
-  typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
-  },
+
   plugins: [
     formBuilder({
       formOverrides: {
@@ -109,37 +178,52 @@ export default buildConfig({
         },
       },
     }),
-    seo({
-      collections: ['case-studies', 'pages', 'posts'],
-      uploadsCollection: 'media',
-    }),
+
     nestedDocs({
-      collections: ['pages'],
+      collections: ['pages', 'categories'],
       generateLabel: (_, doc) => doc.title as string,
       generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
     redirects({
-      collections: ['case-studies', 'pages', 'posts'],
+      collections: ['pages', 'posts'],
     }),
-  ],
-  cors: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://payloadcms.com'].filter(Boolean),
-  admin: {
-    webpack: config => ({
-      ...config,
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          react: path.resolve(__dirname, '../node_modules/react'),
-          'react-dom': path.resolve(__dirname, '../node_modules/react-dom'),
-          'react-router-dom': path.resolve(__dirname, '../node_modules/react-router-dom'),
-          [path.resolve(__dirname, './scripts/fetch-discord')]: mockModulePath,
-          [path.resolve(__dirname, '../node_modules/cli-progress')]: mockModulePath,
-          [path.resolve(__dirname, '../node_modules/discord.js')]: mockModulePath,
-          [path.resolve(__dirname, '../node_modules/discord-markdown')]: mockModulePath,
-          [path.resolve(__dirname, './scripts/fetch-github')]: mockModulePath,
+    seo({
+      collections: ['pages', 'posts', 'products'],
+      uploadsCollection: 'media',
+      generateTitle,
+
+    }),
+    stripePlugin({
+      stripeSecretKey: String(process.env.STRIPE_SECRET_KEY),
+      isTestKey: Boolean(process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY),
+      stripeWebhooksEndpointSecret: String(process.env.STRIPE_WEBHOOKS_ENDPOINT_SECRET),
+      webhooks: {
+        'invoice.created': invoiceCreatedOrUpdated,
+        'invoice.updated': invoiceCreatedOrUpdated,
+        'product.created': productUpdated,
+        'product.updated': productUpdated,
+        'price.updated': priceUpdated,
+      },
+    }),
+    cloudStorage({
+      enabled: true,
+      
+      collections: {
+        media: {
+          disableLocalStorage:true,
+          generateFileURL: ({ filename, prefix }) => {
+            return ['https://thankly-content.s3.ap-southeast-2.amazonaws.com', prefix, filename].filter(Boolean).join('/')
+          },
+          adapter: adapter, // see docs for the adapter you want to use
         },
       },
     }),
+  ],
+  rateLimit: {
+    trustProxy: true,
+    max: 4000,
+  },
+  typescript: {
+    outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
 })
