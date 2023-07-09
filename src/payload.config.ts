@@ -211,10 +211,12 @@ export default buildConfig({
       collections: {
         media: {
           disableLocalStorage:true,
-          generateFileURL: ({ filename, prefix }) => {
-            return ['https://thankly-content.s3.ap-southeast-2.amazonaws.com', prefix, filename].filter(Boolean).join('/')
-          },
           adapter: adapter, // see docs for the adapter you want to use
+
+          generateFileURL: ({ filename, prefix }) => {
+            console.log(filename,prefix)
+            return ['https://d1qkl36l6oj3o3.cloudfront.net', prefix, filename].filter(Boolean).join('/')
+          },
         },
       },
     }),
