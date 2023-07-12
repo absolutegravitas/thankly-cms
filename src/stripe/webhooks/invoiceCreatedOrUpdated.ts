@@ -103,7 +103,7 @@ export const invoiceCreatedOrUpdated: StripeWebhookHandler<{
       //   items,
       // }
 
-      // have to fuckign do this otherwise New Order fucks up because of some shitty type safety nonsense
+      // have to do this otherwise New Order screws up because of some shitty type safety nonsense that I can't be bothered fixing
       const orderData: any = {
         stripeInvoiceID,
         stripePaymentIntentID,

@@ -25,16 +25,13 @@ import Products from './collections/Products'
 import { ReusableContent } from './collections/ReusableContent'
 import { Users } from './collections/Users'
 import richText from './fields/richText'
-import { Footer } from './globals/Footer'
-import { MainMenu } from './globals/MainMenu'
-import { TopBar } from './globals/TopBar'
+import { Menus } from './globals/Menus'
 
-import { Header } from './globals/Header'
-import { Settings } from './globals/Settings'
 import { checkout } from './routes/checkout'
 import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdated'
 import { priceUpdated } from './stripe/webhooks/priceUpdated'
 import { productUpdated } from './stripe/webhooks/productUpdated'
+import { Brand } from './globals/Brand'
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -109,7 +106,7 @@ export default buildConfig({
       handler: checkout,
     },
   ],
-  globals: [Footer, MainMenu, TopBar, Header, Settings],
+  globals: [Menus, Brand,],
   graphQL: {
     disablePlaygroundInProduction: true,
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
@@ -207,14 +204,14 @@ export default buildConfig({
     }),
     cloudStorage({
       enabled: true,
-      
+
       collections: {
         media: {
-          disableLocalStorage:true,
+          disableLocalStorage: true,
           adapter: adapter, // see docs for the adapter you want to use
 
           generateFileURL: ({ filename, prefix }) => {
-            console.log(filename,prefix)
+            console.log(filename, prefix)
             return ['https://d1qkl36l6oj3o3.cloudfront.net', prefix, filename].filter(Boolean).join('/')
           },
         },

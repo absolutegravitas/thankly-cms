@@ -9,6 +9,7 @@ const Orders: CollectionConfig = {
   admin: {
     useAsTitle: 'createdAt',
     defaultColumns: ['createdAt'],
+    group: 'Shop'
   },
   access: {
     read: adminsAndOrderedBy,
@@ -25,7 +26,7 @@ const Orders: CollectionConfig = {
       name: 'orderedBy',
       type: 'group',
       admin: {
-        readOnly: true,
+        readOnly: false,
       },
       fields: [
         {
@@ -54,7 +55,7 @@ const Orders: CollectionConfig = {
       name: 'items',
       type: 'array',
       admin: {
-        readOnly: true,
+        readOnly: false,
       },
       fields: [
         {
@@ -81,6 +82,7 @@ const Orders: CollectionConfig = {
             position: 'sidebar',
           },
         },
+        { name: 'note', type: 'richText' },
         {
           name: 'quantity',
           type: 'number',

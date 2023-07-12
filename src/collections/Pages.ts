@@ -4,7 +4,6 @@ import { isAdmin } from '../access/isAdmin'
 import { publishedOnly } from '../access/publishedOnly'
 import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
-import { CodeFeature } from '../blocks/CodeFeature'
 import { Content } from '../blocks/Content'
 import { ContentGrid } from '../blocks/ContentGrid'
 import { Form } from '../blocks/Form'
@@ -29,6 +28,8 @@ export const Pages: CollectionConfig = {
     useAsTitle: 'fullTitle',
     preview: doc => formatPreviewURL('pages', doc),
     defaultColumns: ['fullTitle', 'slug', 'createdAt', 'updatedAt'],
+    group:'Website'
+
   },
   versions: {
     drafts: true,
@@ -75,7 +76,6 @@ export const Pages: CollectionConfig = {
               blocks: [
                 CallToAction,
                 CardGrid,
-                CodeFeature,
                 Content,
                 ContentGrid,
                 Form,

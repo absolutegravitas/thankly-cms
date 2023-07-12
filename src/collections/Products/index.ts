@@ -63,15 +63,15 @@ export const ProductFields: CollectionConfig['fields'] = [
               rows: 10,
             },
           },
-          {
-            name: 'paywall',
-            label: 'Paywall',
-            type: 'blocks',
-            access: {
-              read: checkUserPurchases,
-            },
-            blocks: [CallToAction, Content, MediaBlock, Archive],
-          },
+          // {
+          //   name: 'paywall',
+          //   label: 'Paywall',
+          //   type: 'blocks',
+          //   access: {
+          //     read: checkUserPurchases,
+          //   },
+          //   blocks: [CallToAction, Content, MediaBlock, Archive],
+          // },
         ],
       },
     ],
@@ -103,6 +103,8 @@ const Products: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'stripeProductID', '_status'],
+    group:'Shop'
+
   },
   hooks: {
     beforeChange: [populatePublishedDate, beforeProductChange],

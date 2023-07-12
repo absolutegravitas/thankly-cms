@@ -5,6 +5,9 @@ import { isAdmin } from '../access/isAdmin'
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  admin: {
+    group:'Globals'
+  },
   upload: {
     staticDir: path.resolve(__dirname, '../../media'),
   },

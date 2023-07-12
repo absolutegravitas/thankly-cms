@@ -6,8 +6,6 @@ import { BlogContent } from '../blocks/BlogContent'
 import { BlogMarkdown } from '../blocks/BlogMarkdown'
 import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
-import { Code } from '../blocks/Code'
-import { CodeFeature } from '../blocks/CodeFeature'
 import { Content } from '../blocks/Content'
 import { ContentGrid } from '../blocks/ContentGrid'
 import { Form } from '../blocks/Form'
@@ -24,6 +22,8 @@ export const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
   admin: {
     useAsTitle: 'title',
+    group:'Website'
+
   },
   access: {
     create: isAdmin,
@@ -52,8 +52,6 @@ export const ReusableContent: CollectionConfig = {
         BlogMarkdown,
         CallToAction,
         CardGrid,
-        Code,
-        CodeFeature,
         Content,
         ContentGrid,
         Form,

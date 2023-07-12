@@ -5,7 +5,6 @@ import { publishedOnly } from '../access/publishedOnly'
 import { Banner } from '../blocks/Banner'
 import { BlogContent } from '../blocks/BlogContent'
 import { BlogMarkdown } from '../blocks/BlogMarkdown'
-import { Code } from '../blocks/Code'
 import { MediaBlock } from '../blocks/Media'
 import { ReusableContent } from '../blocks/ReusableContent'
 import richText from '../fields/richText'
@@ -18,6 +17,8 @@ export const Posts: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     preview: doc => formatPreviewURL('posts', doc),
+    group:'Website'
+
   },
   versions: {
     drafts: true,
@@ -58,7 +59,7 @@ export const Posts: CollectionConfig = {
     {
       name: 'content',
       type: 'blocks',
-      blocks: [Banner, BlogContent, Code, BlogMarkdown, MediaBlock, ReusableContent],
+      blocks: [Banner, BlogContent, BlogMarkdown, MediaBlock, ReusableContent],
       required: true,
     },
     slugField(),

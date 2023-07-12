@@ -4,6 +4,8 @@ const Categories: CollectionConfig = {
   slug: 'categories',
   admin: {
     useAsTitle: 'title',
+    group:'Shop'
+
   },
   access: {
     read: () => true,
