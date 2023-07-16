@@ -51,7 +51,9 @@ export const MediaContent: Block = {
           type: 'checkbox',
         },
         link({
-          appearances: false,
+          // appearances: false,
+          appearances: ['primary', 'secondary','default'],
+
           overrides: {
             admin: {
               condition: (_, { enableLink }) => enableLink,

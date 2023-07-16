@@ -30,9 +30,24 @@ export const CallToAction: Block = {
               value: 'cpa',
             },
           ],
+        }, {
+          name: 'layout',
+          type: 'select',
+          defaultValue: 'none',
+          required: true,
+          options: [
+            {
+              label: 'None',
+              value: 'none',
+            },
+            {
+              label: 'Create Payload App',
+              value: 'cpa',
+            },
+          ],
         },
         linkGroup({
-          appearances: false,
+          appearances: ['primary', 'secondary','default'],
         }),
       ],
     }),

@@ -14,9 +14,16 @@ import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
 import { ProductSelect } from './ui/ProductSelect'
 
 export const ProductFields: CollectionConfig['fields'] = [
+  slugField(),
+
   {
-    name: 'title',
+    name: 'name',
     type: 'text',
+    required: true,
+  },
+  {
+    name: 'description',
+    type: 'textarea',
     required: true,
   },
   {
@@ -27,54 +34,78 @@ export const ProductFields: CollectionConfig['fields'] = [
     },
   },
   {
-    type: 'tabs',
-    tabs: [
+    type: 'row', // required
+    fields: [
       {
-        label: 'Content',
-        fields: [
-          {
-            name: 'layout',
-            type: 'blocks',
-            required: true,
-            blocks: [CallToAction, Content, MediaBlock, Archive],
-          },
-        ],
+        name: 'quantity',
+        type: 'number',
+        required: true,
       },
       {
-        label: 'Product Details',
-        fields: [
-          {
-            name: 'stripeProductID',
-            label: 'Stripe Product',
-            type: 'text',
-            admin: {
-              components: {
-                Field: ProductSelect,
-              },
-            },
-          },
-          {
-            name: 'priceJSON',
-            label: 'Price JSON',
-            type: 'textarea',
-            admin: {
-              readOnly: true,
-              hidden: true,
-              rows: 10,
-            },
-          },
-          // {
-          //   name: 'paywall',
-          //   label: 'Paywall',
-          //   type: 'blocks',
-          //   access: {
-          //     read: checkUserPurchases,
-          //   },
-          //   blocks: [CallToAction, Content, MediaBlock, Archive],
-          // },
-        ],
+        name: 'sku',
+        label: 'SKU',
+        type: 'text',
+        required: true,
+        // admin: {
+        //   width: '50%',
+        // },
+      },
+    
+    ],
+  },
+  {
+    name: "images", // required
+    type: "array", // required
+    label: "Images",
+    minRows: 1,
+    maxRows: 4,
+    // interfaceName: "CardSlider", // optional
+    labels: {
+      singular: "Image",
+      plural: "Images",
+    },
+    fields: [
+      // required
+      {
+        name: "title",
+        type: "text",
+      },
+      {
+        name: "image",
+        type: "upload",
+        relationTo: "media",
+        required: true,
+      },
+      {
+        name: "alt",
+        type: "text",
       },
     ],
+    // admin: {
+    //   components: {
+    //     RowLabel: ({ data, index }) => {
+    //       return data?.title || `Slide ${String(index).padStart(2, "0")}`;
+    //     },
+    //   },
+    // },
+  },
+  {
+    name: 'layout',
+    type: 'blocks',
+    required: true,
+    blocks: [CallToAction, Content, MediaBlock, Archive],
+  },
+ 
+  {
+    name: 'stockItems',
+    type: 'relationship',
+    label: 'Component Stock Items',
+    relationTo: 'stockItems',
+    required: true,
+    hasMany: true,
+    admin: {
+      position: 'sidebar',
+    },
   },
   {
     name: 'categories',
@@ -85,7 +116,6 @@ export const ProductFields: CollectionConfig['fields'] = [
       position: 'sidebar',
     },
   },
-  slugField(),
   {
     name: 'skipSync',
     label: 'Skip Sync',
@@ -96,6 +126,7 @@ export const ProductFields: CollectionConfig['fields'] = [
       hidden: true,
     },
   },
+
 ]
 
 const Products: CollectionConfig = {
@@ -103,7 +134,7 @@ const Products: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'stripeProductID', '_status'],
-    group:'Shop'
+    group: 'Shop'
 
   },
   hooks: {

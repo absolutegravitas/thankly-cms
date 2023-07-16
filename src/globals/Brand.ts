@@ -29,6 +29,8 @@ export const Brand: GlobalConfig = {
             { name: "name", label: "Name", type: "text",required: true, },
             { name: "tagline", label: "Tagline", type: "text",required: true,  },
             { name: "domain", label: "Domain", type: "text",required: true,  },
+            { name: "copyright", label: "Copyright", type: "text",required: true,  },
+
           ],
         },
         {

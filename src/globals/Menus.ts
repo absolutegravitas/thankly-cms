@@ -11,7 +11,6 @@ export const Menus: GlobalConfig = {
   },
 
   fields: [
-    { name: "topBar", label: "Top Bar Text", type: "text", required: false, },
     {
       type: "tabs",
       tabs: [
@@ -34,7 +33,6 @@ export const Menus: GlobalConfig = {
             },
           ],
         },
-
         {
           name: "footer",
           label: "Footer", // required
@@ -57,6 +55,16 @@ export const Menus: GlobalConfig = {
                 },
               ],
             },
+          ],
+        },
+        {
+          name: "topBar",
+          label: "Top Bar", // required
+          interfaceName: "topBar", // optional (`name` must be present)
+          fields: [
+            { name: "text", label: "Text", type: "text", required: false, },
+            { name: "icon", label: "Text", type: "text", required: false, },
+
           ],
         },
       ],

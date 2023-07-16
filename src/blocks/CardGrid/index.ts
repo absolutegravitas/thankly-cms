@@ -13,7 +13,9 @@ export const CardGrid: Block = {
       fields: [
         richText(),
         linkGroup({
-          appearances: false,
+          // appearances: false,
+          appearances: ['primary', 'secondary','default'],
+
           overrides: {
             admin: {
               description: 'These links will be placed above the card grid as calls-to-action.',
@@ -39,7 +41,9 @@ export const CardGrid: Block = {
             },
             link({
               disableLabel: true,
-              appearances: false,
+              // appearances: false,
+          appearances: ['primary', 'secondary','default'],
+
               overrides: {
                 admin: {
                   condition: (_, { enableLink }) => enableLink,

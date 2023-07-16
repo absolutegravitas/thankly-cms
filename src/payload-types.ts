@@ -21,11 +21,7 @@ export interface Config {
     redirects: Redirect;
   };
   globals: {
-    footer: Footer;
-    'main-menu': MainMenu;
-    'top-bar': TopBar;
-    header: Header;
-    settings: Settings;
+    menus: Menu;
     brand: Brand;
   };
 }
@@ -42,6 +38,9 @@ export interface Order {
     title?: string;
     priceJSON?: string;
     stripeProductID?: string;
+    note?: {
+      [k: string]: unknown;
+    }[];
     quantity?: number;
     id?: string;
   }[];
@@ -182,101 +181,6 @@ export interface Product {
   )[];
   stripeProductID?: string;
   priceJSON?: string;
-  paywall?: (
-    | {
-        ctaFields: {
-          richText: {
-            [k: string]: unknown;
-          }[];
-          feature: 'none' | 'cpa';
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  };
-              url: string;
-              label: string;
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cta';
-      }
-    | {
-        contentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-          columnOne: {
-            [k: string]: unknown;
-          }[];
-          columnTwo: {
-            [k: string]: unknown;
-          }[];
-          columnThree: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'content';
-      }
-    | {
-        mediaBlockFields: {
-          position?: 'default' | 'wide';
-          media: string | Media;
-          caption?: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaBlock';
-      }
-    | {
-        introContent: {
-          [k: string]: unknown;
-        }[];
-        populateBy?: 'collection' | 'selection';
-        relationTo?: 'products';
-        categories?: string[] | Category[];
-        limit?: number;
-        selectedDocs?:
-          | {
-              value: string;
-              relationTo: 'products';
-            }[]
-          | {
-              value: Product;
-              relationTo: 'products';
-            }[];
-        populatedDocs?:
-          | {
-              value: string;
-              relationTo: 'products';
-            }[]
-          | {
-              value: Product;
-              relationTo: 'products';
-            }[];
-        populatedDocsTotal?: number;
-        id?: string;
-        blockName?: string;
-        blockType: 'archive';
-      }
-  )[];
   categories?: string[] | Category[];
   slug?: string;
   skipSync?: boolean;
@@ -457,38 +361,6 @@ export interface Page {
         blockType: 'cardGrid';
       }
     | {
-        codeFeatureFields: {
-          disableBlockSpacing?: boolean;
-          heading: string;
-          richText: {
-            [k: string]: unknown;
-          }[];
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-              | {
-                  value: string | Page;
-                  relationTo: 'pages';
-                }
-              | {
-                  value: string | Post;
-                  relationTo: 'posts';
-                };
-            url: string;
-            label: string;
-            appearance?: 'default' | 'primary' | 'secondary';
-          };
-          language?: 'none' | 'js' | 'ts';
-          label?: string;
-          code: string;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'codeFeature';
-      }
-    | {
         contentFields: {
           useLeadingHeader?: boolean;
           leadingHeader: {
@@ -708,38 +580,6 @@ export interface Page {
         stepsFields: {
           steps: {
             layout?: (
-              | {
-                  codeFeatureFields: {
-                    disableBlockSpacing?: boolean;
-                    heading: string;
-                    richText: {
-                      [k: string]: unknown;
-                    }[];
-                    enableLink?: boolean;
-                    link?: {
-                      type?: 'reference' | 'custom';
-                      newTab?: boolean;
-                      reference:
-                        | {
-                            value: string | Page;
-                            relationTo: 'pages';
-                          }
-                        | {
-                            value: string | Post;
-                            relationTo: 'posts';
-                          };
-                      url: string;
-                      label: string;
-                      appearance?: 'default' | 'primary' | 'secondary';
-                    };
-                    language?: 'none' | 'js' | 'ts';
-                    label?: string;
-                    code: string;
-                  };
-                  id?: string;
-                  blockName?: string;
-                  blockType: 'codeFeature';
-                }
               | {
                   contentFields: {
                     useLeadingHeader?: boolean;
@@ -914,15 +754,6 @@ export interface Post {
         blockType: 'blogContent';
       }
     | {
-        codeFields: {
-          language?: 'none' | 'js' | 'ts';
-          code: string;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'code';
-      }
-    | {
         blogMarkdownFields: {
           markdown: string;
         };
@@ -1073,47 +904,6 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'cardGrid';
-      }
-    | {
-        codeFields: {
-          language?: 'none' | 'js' | 'ts';
-          code: string;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'code';
-      }
-    | {
-        codeFeatureFields: {
-          disableBlockSpacing?: boolean;
-          heading: string;
-          richText: {
-            [k: string]: unknown;
-          }[];
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-              | {
-                  value: string | Page;
-                  relationTo: 'pages';
-                }
-              | {
-                  value: string | Post;
-                  relationTo: 'posts';
-                };
-            url: string;
-            label: string;
-            appearance?: 'default' | 'primary' | 'secondary';
-          };
-          language?: 'none' | 'js' | 'ts';
-          label?: string;
-          code: string;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'codeFeature';
       }
     | {
         contentFields: {
@@ -1327,38 +1117,6 @@ export interface ReusableContent {
         stepsFields: {
           steps: {
             layout?: (
-              | {
-                  codeFeatureFields: {
-                    disableBlockSpacing?: boolean;
-                    heading: string;
-                    richText: {
-                      [k: string]: unknown;
-                    }[];
-                    enableLink?: boolean;
-                    link?: {
-                      type?: 'reference' | 'custom';
-                      newTab?: boolean;
-                      reference:
-                        | {
-                            value: string | Page;
-                            relationTo: 'pages';
-                          }
-                        | {
-                            value: string | Post;
-                            relationTo: 'posts';
-                          };
-                      url: string;
-                      label: string;
-                      appearance?: 'default' | 'primary' | 'secondary';
-                    };
-                    language?: 'none' | 'js' | 'ts';
-                    label?: string;
-                    code: string;
-                  };
-                  id?: string;
-                  blockName?: string;
-                  blockType: 'codeFeature';
-                }
               | {
                   contentFields: {
                     useLeadingHeader?: boolean;
@@ -1653,9 +1411,10 @@ export interface Redirect {
   updatedAt: string;
   createdAt: string;
 }
-export interface Footer {
+export interface Menu {
   id: string;
-  columns?: {
+  topBar?: string;
+  header: {
     navItems?: {
       link: {
         type?: 'reference' | 'custom';
@@ -1674,90 +1433,59 @@ export interface Footer {
       };
       id?: string;
     }[];
-    id?: string;
-  }[];
-  updatedAt?: string;
-  createdAt?: string;
-}
-export interface MainMenu {
-  id: string;
-  navItems?: {
-    link: {
-      type?: 'reference' | 'custom';
-      newTab?: boolean;
-      reference:
-        | {
-            value: string | Page;
-            relationTo: 'pages';
-          }
-        | {
-            value: string | Post;
-            relationTo: 'posts';
-          };
-      url: string;
-      label: string;
-    };
-    id?: string;
-  }[];
-  updatedAt?: string;
-  createdAt?: string;
-}
-export interface TopBar {
-  id: string;
-  starText?: {
-    desktop?: {
-      [k: string]: unknown;
-    }[];
-    mobile?: {
-      [k: string]: unknown;
+  };
+  footer: {
+    columns?: {
+      navItems?: {
+        link: {
+          type?: 'reference' | 'custom';
+          newTab?: boolean;
+          reference:
+            | {
+                value: string | Page;
+                relationTo: 'pages';
+              }
+            | {
+                value: string | Post;
+                relationTo: 'posts';
+              };
+          url: string;
+          label: string;
+        };
+        id?: string;
+      }[];
+      id?: string;
     }[];
   };
   updatedAt?: string;
   createdAt?: string;
 }
-export interface Header {
-  id: string;
-  navItems?: {
-    link: {
-      type?: 'reference' | 'custom';
-      newTab?: boolean;
-      reference:
-        | {
-            value: string | Page;
-            relationTo: 'pages';
-          }
-        | {
-            value: string | Post;
-            relationTo: 'posts';
-          };
-      url: string;
-      label: string;
-    };
-    id?: string;
-  }[];
-  updatedAt?: string;
-  createdAt?: string;
-}
-export interface Settings {
-  id: string;
-  shopPage?: string | Page;
-  desktop?: {
-    [k: string]: unknown;
-  }[];
-  mobile?: {
-    [k: string]: unknown;
-  }[];
-  updatedAt?: string;
-  createdAt?: string;
-}
 export interface Brand {
   id: string;
-  desktop?: {
-    [k: string]: unknown;
-  }[];
-  mobile?: {
-    [k: string]: unknown;
-  }[];
+  basicInfo: {
+    name: string;
+    tagline: string;
+    domain: string;
+  };
+  styleLight: {
+    logo?: string | Media;
+    colorText: string;
+    colorAccent: string;
+    colorBackground: string;
+  };
+  styleDark: {
+    logo?: string | Media;
+    colorText: string;
+    colorAccent: string;
+    colorBackground: string;
+  };
+  keyPages: {
+    homePage?: string | Page;
+    shopPage?: string | Page;
+    blogPage?: string | Page;
+    privacyPage?: string | Page;
+    termsPage?: string | Page;
+  };
   updatedAt?: string;
   createdAt?: string;
 }

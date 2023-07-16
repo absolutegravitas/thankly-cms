@@ -17,6 +17,7 @@ import BeforeDashboard from './components/BeforeDashboard'
 import Categories from './collections/Categories'
 import { Media } from './collections/Media'
 import Orders from './collections/Orders'
+import  Stock from './collections/StockItems'
 
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -32,6 +33,7 @@ import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdat
 import { priceUpdated } from './stripe/webhooks/priceUpdated'
 import { productUpdated } from './stripe/webhooks/productUpdated'
 import { Brand } from './globals/Brand'
+import StockItems from './collections/StockItems'
 
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -89,7 +91,7 @@ export default buildConfig({
     Products,
     Pages,
     Posts,
-
+StockItems,
     Categories,
     Media,
     ReusableContent,
