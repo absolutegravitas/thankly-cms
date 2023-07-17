@@ -10,7 +10,8 @@ export const LinkGrid: Block = {
       name: 'linkGridFields',
       fields: [
         linkGroup({
-          appearances: false,
+              // appearances: false,
+              appearances: ['primary', 'secondary', 'default'],
         }),
       ],
     }),

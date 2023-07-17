@@ -66,8 +66,8 @@ export const hero: Field = {
       },
     }),
     linkGroup({
-      appearances: false,
-      overrides: {
+              // appearances: false,
+              appearances: ['primary', 'secondary', 'default'],      overrides: {
         name: 'actions',
         label: 'Sidebar Actions',
         maxRows: 3,

@@ -36,8 +36,8 @@ const richText: RichText = (
                   label: 'Enable Link',
                 },
                 link({
-                  appearances: false,
-                  disableLabel: true,
+              // appearances: false,
+              appearances: ['primary', 'secondary', 'default'],                  disableLabel: true,
                   overrides: {
                     admin: {
                       condition: (_, data) => Boolean(data?.enableLink),

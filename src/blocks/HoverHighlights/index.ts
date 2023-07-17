@@ -44,7 +44,9 @@ export const HoverHighlights: Block = {
               type: 'checkbox',
             },
             link({
-              appearances: false,
+              // appearances: false,
+              appearances: ['primary', 'secondary', 'default'],
+
               disableLabel: true,
               overrides: {
                 admin: {

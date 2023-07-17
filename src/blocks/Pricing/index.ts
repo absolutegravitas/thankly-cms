@@ -52,8 +52,8 @@ export const Pricing: Block = {
             },
             link({
               disableLabel: true,
-              appearances: false,
-              overrides: {
+              // appearances: false,
+              appearances: ['primary', 'secondary', 'default'],              overrides: {
                 admin: {
                   condition: (_, { enableLink }) => enableLink,
                 },

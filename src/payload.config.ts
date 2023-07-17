@@ -17,7 +17,7 @@ import BeforeDashboard from './components/BeforeDashboard'
 import Categories from './collections/Categories'
 import { Media } from './collections/Media'
 import Orders from './collections/Orders'
-import  Stock from './collections/StockItems'
+import Stock from './collections/StockItems'
 
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -91,7 +91,7 @@ export default buildConfig({
     Products,
     Pages,
     Posts,
-StockItems,
+    StockItems,
     Categories,
     Media,
     ReusableContent,

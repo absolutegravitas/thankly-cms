@@ -27,7 +27,8 @@ export const Menus: GlobalConfig = {
               type: 'array',
               fields: [
                 link({
-                  appearances: false,
+                  // appearances: false,
+                  appearances: ['primary', 'secondary', 'default'],
                 }),
               ],
             },
@@ -49,7 +50,8 @@ export const Menus: GlobalConfig = {
                   type: 'array',
                   fields: [
                     link({
-                      appearances: false,
+                      // appearances: false,
+                      appearances: ['primary', 'secondary', 'default'],
                     }),
                   ],
                 },
