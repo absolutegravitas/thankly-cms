@@ -5,6 +5,7 @@ import link from '../../fields/link'
 
 export const Pricing: Block = {
   slug: 'pricing',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/pricing.png',
   fields: [
     blockFields({
       name: 'pricingFields',

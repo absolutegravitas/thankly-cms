@@ -5,6 +5,7 @@ import richText from '../../fields/richText'
 
 export const Slider: Block = {
   slug: 'slider',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Slider.png',
   fields: [
     blockFields({
       name: 'sliderFields',

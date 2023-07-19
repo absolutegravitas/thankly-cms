@@ -7,6 +7,7 @@ import { StickyHighlights } from '../StickyHighlights'
 
 export const Steps: Block = {
   slug: 'steps',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Steps.png',
   labels: {
     singular: 'Steps Block',
     plural: 'Steps Blocks',

@@ -6,6 +6,7 @@ import richText from '../../fields/richText'
 
 export const StickyHighlights: Block = {
   slug: 'stickyHighlights',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Sticky%20Highlights%20Fields.png',
   labels: {
     singular: 'Sticky Highlights Block',
     plural: 'Sticky Highlights Blocks',

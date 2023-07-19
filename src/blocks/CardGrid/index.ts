@@ -7,6 +7,7 @@ import richText from '../../fields/richText'
 
 export const CardGrid: Block = {
   slug: 'cardGrid',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Card%20Grid.png',
   fields: [
     blockFields({
       name: 'cardGridFields',
@@ -14,7 +15,7 @@ export const CardGrid: Block = {
         richText(),
         linkGroup({
           // appearances: false,
-          appearances: ['primary', 'secondary','default'],
+          appearances: ['primary', 'secondary', 'default'],
 
           overrides: {
             admin: {
@@ -42,7 +43,7 @@ export const CardGrid: Block = {
             link({
               disableLabel: true,
               // appearances: false,
-          appearances: ['primary', 'secondary','default'],
+              appearances: ['primary', 'secondary', 'default'],
 
               overrides: {
                 admin: {

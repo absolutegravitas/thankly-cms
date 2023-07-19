@@ -6,6 +6,7 @@ import richText from '../../fields/richText'
 
 export const HoverHighlights: Block = {
   slug: 'hoverHighlights',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Hover%20Highlights.png',
   labels: {
     singular: 'Hover Highlights Block',
     plural: 'Hover Highlights Blocks',

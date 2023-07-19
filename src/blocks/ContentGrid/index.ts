@@ -6,6 +6,7 @@ import label from '../../fields/richText/label'
 
 export const ContentGrid: Block = {
   slug: 'contentGrid',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Content%20Grid.png',
   fields: [
     blockFields({
       name: 'contentGridFields',

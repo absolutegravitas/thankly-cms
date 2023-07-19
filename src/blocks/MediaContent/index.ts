@@ -6,6 +6,7 @@ import richText from '../../fields/richText'
 
 export const MediaContent: Block = {
   slug: 'mediaContent',
+  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/mediaContent.png',
   fields: [
     blockFields({
       name: 'mediaContentFields',

@@ -4,9 +4,11 @@ import { blockFields } from '../../fields/blockFields'
 
 export const Banner: Block = {
   slug: 'banner',
+  // imageURL:'',
   fields: [
     blockFields({
       name: 'bannerFields',
+      
       fields: [
         {
           type: 'row',
