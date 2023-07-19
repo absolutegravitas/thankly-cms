@@ -6,6 +6,7 @@ import largeBody from './largeBody'
 import video from './video'
 
 const elements: RichTextElement[] = [
+  'h1',
   'h2',
   'h3',
   'h4',

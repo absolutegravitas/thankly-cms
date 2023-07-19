@@ -118,6 +118,7 @@ const StockItems: CollectionConfig = {
           name: 'type', // required
           type: 'select', // required
           hasMany: false,
+          required: true,
           admin: {
             isClearable: true,
             // isSortable: true, // use mouse to drag and drop different values, and sort them according to your choice
@@ -141,17 +142,22 @@ const StockItems: CollectionConfig = {
           name: 'totalQty',
           type: 'number',
           required: true,
+          defaultValue: 0,
         },
-        {
-          name: 'usedQty',
-          type: 'number',
-          required: true,
-        },
+        // {
+        //   name: 'usedQty',
+        //   type: 'number',
+        //   required: false,
+        //   defaultValue: 0,
+        //   admin:{
+        //     readOnly:true,
+        //   },
+        // },
         {
           name: 'sku',
           label: 'SKU',
           type: 'text',
-          required: true,
+          required: false,
           // admin: {
           //   width: '50%',
           // },
@@ -159,7 +165,7 @@ const StockItems: CollectionConfig = {
 
       ],
     },
-   
+
 
 
     {

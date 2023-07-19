@@ -83,7 +83,7 @@ export const invoiceCreatedOrUpdated: StripeWebhookHandler<{
 
           return {
             product: product?.id || null,
-            title: product?.title || null,
+            title: product?.name || null,
             priceJSON: JSON.stringify(item.price),
             stripeProductID,
             quantity: item.quantity,

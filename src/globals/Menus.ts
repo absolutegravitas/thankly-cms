@@ -43,8 +43,10 @@ export const Menus: GlobalConfig = {
               name: 'columns',
               type: 'array',
               minRows: 1,
-              maxRows: 3,
+              maxRows: 4,
               fields: [
+            { name: "columnName", label: "Column Name", type: "text", required: true, },
+
                 {
                   name: 'navItems',
                   type: 'array',

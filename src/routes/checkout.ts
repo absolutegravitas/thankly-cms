@@ -31,7 +31,7 @@ export const checkout: PayloadHandler = async (req, res): Promise<void> => {
     if (!stripeCustomerID) {
       const customer = await stripe.customers.create({
         email: fullUser?.email,
-        name: fullUser?.name,
+        name: fullUser?.firstName + " " + fullUser?.lastName,
       })
       stripeCustomerID = customer.id
     }

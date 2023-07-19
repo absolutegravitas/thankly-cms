@@ -12,6 +12,7 @@ export interface Config {
     products: Product;
     pages: Page;
     posts: Post;
+    stockItems: StockItem;
     categories: Category;
     media: Media;
     'reusable-content': ReusableContent;
@@ -51,21 +52,32 @@ export interface Order {
 }
 export interface User {
   id: string;
-  firstName: string;
-  lastName: string;
-  twitter?: string;
-  photo?: string | Media;
-  roles: ('admin' | 'public')[];
-  updatedAt: string;
   createdAt: string;
   email: string;
-  resetPasswordToken?: string;
-  resetPasswordExpiration?: string;
-  salt?: string;
+  firstName: string;
   hash?: string;
-  loginAttempts?: number;
+  lastName: string;
   lockUntil?: string;
+  loginAttempts?: number;
   password?: string;
+  photo?: string | Media;
+  purchases?: string[] | Product[]
+  resetPasswordExpiration?: string;
+  resetPasswordToken?: string;
+  // roles: ('admin' | 'public')[];
+  roles?: Array<'admin' | 'customer'>
+  skipSync?: boolean
+  stripeCustomerID?: string
+  salt?: string;
+  // twitter?: string;
+  updatedAt: string;
+  cart: {
+    items: Array<{
+      product?: string | Product
+      quantity?: number
+      id?: string
+    }>
+  }
 }
 export interface Media {
   id: string;
@@ -81,9 +93,29 @@ export interface Media {
   height?: number;
 }
 export interface Product {
+  _status?: 'draft' | 'published';
+  categories?: string[] | Category[]
+  createdAt: string;
+  description: string;
   id: string;
-  title: string;
+  name: string;
+  priceJSON?: string
   publishedDate?: string;
+  quantity: number;
+  skipSync?: boolean;
+  sku: string;
+  slug?: string;
+  stockItems: string[] | StockItem[];
+  stripeProductID?: string
+
+  updatedAt: string;
+
+  images?: {
+    title?: string;
+    image: string | Media;
+    alt?: string;
+    id?: string;
+  }[];
   layout: (
     | {
       ctaFields: {
@@ -91,6 +123,7 @@ export interface Product {
           [k: string]: unknown;
         }[];
         feature: 'none' | 'cpa';
+        layout: 'none' | 'cpa';
         links?: {
           link: {
             type?: 'reference' | 'custom';
@@ -106,6 +139,7 @@ export interface Product {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -179,116 +213,42 @@ export interface Product {
       blockType: 'archive';
     }
   )[];
-  stripeProductID?: string;
-  priceJSON?: string;
-  categories?: string[] | Category[];
-  slug?: string;
-  skipSync?: boolean;
+
   meta?: {
     title?: string;
     description?: string;
     image?: string | Media;
   };
-  updatedAt: string;
-  createdAt: string;
-  _status?: 'draft' | 'published';
+
 }
 export interface Page {
   id: string;
   title: string;
   fullTitle?: string;
-  hero: {
-    type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream';
-    livestream?: {
-      id?: string;
-      date: string;
-      hideBreadcrumbs?: boolean;
-      richText?: {
-        [k: string]: unknown;
-      }[];
-      guests?: {
-        name?: string;
-        link?: string;
-        image?: string | Media;
-        id?: string;
-      }[];
-    };
-    richText?: {
-      [k: string]: unknown;
-    }[];
-    sidebarContent?: {
-      [k: string]: unknown;
-    }[];
-    links?: {
-      link: {
-        type?: 'reference' | 'custom';
-        newTab?: boolean;
-        reference:
-        | {
-          value: string | Page;
-          relationTo: 'pages';
-        }
-        | {
-          value: string | Post;
-          relationTo: 'posts';
-        };
-        url: string;
-        label: string;
-        appearance?: 'default' | 'primary' | 'secondary';
-      };
-      id?: string;
-    }[];
-    actions?: {
-      link: {
-        type?: 'reference' | 'custom';
-        newTab?: boolean;
-        reference:
-        | {
-          value: string | Page;
-          relationTo: 'pages';
-        }
-        | {
-          value: string | Post;
-          relationTo: 'posts';
-        };
-        url: string;
-        label: string;
-      };
-      id?: string;
-    }[];
-    buttons?: {
-      link: {
-        type?: 'reference' | 'custom';
-        newTab?: boolean;
-        reference:
-        | {
-          value: string | Page;
-          relationTo: 'pages';
-        }
-        | {
-          value: string | Post;
-          relationTo: 'posts';
-        };
-        url: string;
-        label: string;
-        appearance?: 'primary' | 'secondary';
-      };
-      id?: string;
-    }[];
-    media: string | Media;
-    adjectives?: {
-      adjective: string;
-      id?: string;
-    }[];
-    form?: string | Form;
-  };
   layout: (
     | {
-      ctaFields: {
-        richText: {
+      bannerFields: {
+        type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream';
+        livestream?: {
+          id?: string;
+          date: string;
+          hideBreadcrumbs?: boolean;
+          richText?: {
+            [k: string]: unknown;
+          }[];
+          guests?: {
+            name?: string;
+            link?: string;
+            image?: string | Media;
+            id?: string;
+          }[];
+        };
+        richText?: {
           [k: string]: unknown;
         }[];
-        feature: 'none' | 'cpa';
+        sidebarContent?: {
+          [k: string]: unknown;
+        }[];
         links?: {
           link: {
             type?: 'reference' | 'custom';
@@ -304,6 +264,94 @@ export interface Page {
             };
             url: string;
             label: string;
+            appearance?: 'default' | 'primary' | 'secondary';
+          };
+          id?: string;
+        }[];
+        actions?: {
+          link: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+            | {
+              value: string | Page;
+              relationTo: 'pages';
+            }
+            | {
+              value: string | Post;
+              relationTo: 'posts';
+            };
+            url: string;
+            label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
+          };
+          id?: string;
+        }[];
+        buttons?: {
+          link: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+            | {
+              value: string | Page;
+              relationTo: 'pages';
+            }
+            | {
+              value: string | Post;
+              relationTo: 'posts';
+            };
+            url: string;
+            label: string;
+            appearance?: 'primary' | 'secondary';
+          };
+          id?: string;
+        }[];
+        media: string | Media;
+        adjectives?: {
+          adjective: string;
+          id?: string;
+        }[];
+        form?: string | Form;
+      };
+      id?: string;
+      blockName?: string;
+      blockType: 'hero';
+    }
+    | {
+      bannerFields: {
+        type?: 'default' | 'success' | 'warning' | 'error';
+        addCheckmark?: boolean;
+        content: {
+          [k: string]: unknown;
+        }[];
+      };
+      id?: string;
+      blockName?: string;
+      blockType: 'banner';
+    }
+    | {
+      ctaFields: {
+        richText: {
+          [k: string]: unknown;
+        }[];
+        feature: 'none' | 'cpa';
+        layout: 'none' | 'cpa';
+        links?: {
+          link: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+            | {
+              value: string | Page;
+              relationTo: 'pages';
+            }
+            | {
+              value: string | Post;
+              relationTo: 'posts';
+            };
+            url: string;
+            label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -332,6 +380,7 @@ export interface Page {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -352,6 +401,7 @@ export interface Page {
               relationTo: 'posts';
             };
             url: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -400,18 +450,6 @@ export interface Page {
       blockType: 'contentGrid';
     }
     | {
-      formFields: {
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        form: string | Form;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'form';
-    }
-    | {
       hoverHighlightsFields: {
         richText: {
           [k: string]: unknown;
@@ -435,6 +473,7 @@ export interface Page {
               relationTo: 'posts';
             };
             url: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -460,6 +499,7 @@ export interface Page {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -502,6 +542,7 @@ export interface Page {
           };
           url: string;
           label: string;
+          appearance?: 'primary' | 'secondary' | 'default';
         };
         media: string | Media;
       };
@@ -531,6 +572,7 @@ export interface Page {
               relationTo: 'posts';
             };
             url: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           features?: {
             icon?: 'check' | 'x';
@@ -625,6 +667,7 @@ export interface Page {
                       relationTo: 'posts';
                     };
                     url: string;
+                    appearance?: 'primary' | 'secondary' | 'default';
                   };
                   id?: string;
                 }[];
@@ -654,6 +697,7 @@ export interface Page {
                     };
                     url: string;
                     label: string;
+                    appearance?: 'primary' | 'secondary' | 'default';
                   };
                   type?: 'code' | 'media';
                   code: string;
@@ -694,6 +738,7 @@ export interface Page {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           type?: 'code' | 'media';
           code: string;
@@ -834,6 +879,7 @@ export interface ReusableContent {
           [k: string]: unknown;
         }[];
         feature: 'none' | 'cpa';
+        layout: 'none' | 'cpa';
         links?: {
           link: {
             type?: 'reference' | 'custom';
@@ -849,6 +895,7 @@ export interface ReusableContent {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -877,6 +924,7 @@ export interface ReusableContent {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -897,6 +945,7 @@ export interface ReusableContent {
               relationTo: 'posts';
             };
             url: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -980,6 +1029,7 @@ export interface ReusableContent {
               relationTo: 'posts';
             };
             url: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -1005,6 +1055,7 @@ export interface ReusableContent {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           id?: string;
         }[];
@@ -1047,6 +1098,7 @@ export interface ReusableContent {
           };
           url: string;
           label: string;
+          appearance?: 'primary' | 'secondary' | 'default';
         };
         media: string | Media;
       };
@@ -1076,6 +1128,7 @@ export interface ReusableContent {
               relationTo: 'posts';
             };
             url: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           features?: {
             icon?: 'check' | 'x';
@@ -1162,6 +1215,7 @@ export interface ReusableContent {
                       relationTo: 'posts';
                     };
                     url: string;
+                    appearance?: 'primary' | 'secondary' | 'default';
                   };
                   id?: string;
                 }[];
@@ -1191,6 +1245,7 @@ export interface ReusableContent {
                     };
                     url: string;
                     label: string;
+                    appearance?: 'primary' | 'secondary' | 'default';
                   };
                   type?: 'code' | 'media';
                   code: string;
@@ -1231,6 +1286,7 @@ export interface ReusableContent {
             };
             url: string;
             label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
           };
           type?: 'code' | 'media';
           code: string;
@@ -1381,6 +1437,20 @@ export interface Category {
   updatedAt: string;
   createdAt: string;
 }
+export interface StockItem {
+  id: string;
+  slug?: string;
+  name: string;
+  brand: string;
+  type?: 'card' | 'gift' | 'box';
+  totalQty: number;
+  usedQty: number;
+  sku: string;
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
 export interface FormSubmission {
   id: string;
   form: string | Form;
@@ -1413,7 +1483,6 @@ export interface Redirect {
 }
 export interface Menu {
   id: string;
-  topBar?: string;
   header: {
     navItems?: {
       link: {
@@ -1430,6 +1499,7 @@ export interface Menu {
         };
         url: string;
         label: string;
+        appearance?: 'primary' | 'secondary' | 'default';
       };
       id?: string;
     }[];
@@ -1451,11 +1521,16 @@ export interface Menu {
           };
           url: string;
           label: string;
+          appearance?: 'primary' | 'secondary' | 'default';
         };
         id?: string;
       }[];
       id?: string;
     }[];
+  };
+  topBar: {
+    text?: string;
+    icon?: string;
   };
   updatedAt?: string;
   createdAt?: string;
@@ -1466,6 +1541,8 @@ export interface Brand {
     name: string;
     tagline: string;
     domain: string;
+    copyright: string;
+    cookieNotice: string;
   };
   styleLight: {
     logo?: string | Media;

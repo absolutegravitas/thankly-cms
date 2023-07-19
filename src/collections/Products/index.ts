@@ -96,17 +96,17 @@ export const ProductFields: CollectionConfig['fields'] = [
     blocks: [CallToAction, Content, MediaBlock, Archive],
   },
  
-  {
-    name: 'stockItems',
-    type: 'relationship',
-    label: 'Component Stock Items',
-    relationTo: 'stockItems',
-    required: true,
-    hasMany: true,
-    admin: {
-      position: 'sidebar',
-    },
-  },
+  // {
+  //   name: 'stockItems',
+  //   type: 'relationship',
+  //   label: 'Component Stock Items',
+  //   relationTo: 'stockItems',
+  //   required: true,
+  //   hasMany: true,
+  //   admin: {
+  //     position: 'sidebar',
+  //   },
+  // },
   {
     name: 'categories',
     type: 'relationship',
@@ -132,8 +132,8 @@ export const ProductFields: CollectionConfig['fields'] = [
 const Products: CollectionConfig = {
   slug: 'products',
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'stripeProductID', '_status'],
+    useAsTitle: 'name',
+    defaultColumns: ['name', 'stripeProductID', '_status'],
     group: 'Shop'
 
   },
