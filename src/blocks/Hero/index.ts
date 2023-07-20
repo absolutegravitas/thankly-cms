@@ -30,10 +30,10 @@ export const Hero: Block = {
               label: 'Content and Media',
               value: 'contentMedia',
             },
-            {
-              label: 'Form',
-              value: 'form',
-            },
+            // {
+            //   label: 'Form',
+            //   value: 'form',
+            // },
             {
               label: 'Home',
               value: 'home',
@@ -117,14 +117,14 @@ export const Hero: Block = {
             condition: (_, { type }) => type === 'home',
           },
         },
-        {
-          name: 'form',
-          type: 'relationship',
-          relationTo: 'forms',
-          admin: {
-            condition: (_, { type }) => type === 'form',
-          },
-        },
+        // {
+        //   name: 'form',
+        //   type: 'relationship',
+        //   relationTo: 'forms',
+        //   admin: {
+        //     condition: (_, { type }) => type === 'form',
+        //   },
+        // },
       ],
     }),
   ],

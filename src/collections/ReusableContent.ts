@@ -8,7 +8,7 @@ import { CallToAction } from '../blocks/CallToAction'
 import { CardGrid } from '../blocks/CardGrid'
 import { Content } from '../blocks/Content'
 import { ContentGrid } from '../blocks/ContentGrid'
-import { Form } from '../blocks/Form'
+// import { Form } from '../blocks/Form'
 import { HoverHighlights } from '../blocks/HoverHighlights'
 import { LinkGrid } from '../blocks/LinkGrid'
 import { MediaBlock } from '../blocks/Media'
@@ -54,7 +54,7 @@ export const ReusableContent: CollectionConfig = {
         CardGrid,
         Content,
         ContentGrid,
-        Form,
+        // Form,
         HoverHighlights,
         LinkGrid,
         MediaBlock,

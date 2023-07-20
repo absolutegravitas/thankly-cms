@@ -25,10 +25,10 @@ export const hero: Field = {
           label: 'Content and Media',
           value: 'contentMedia',
         },
-        {
-          label: 'Form',
-          value: 'form',
-        },
+        // {
+        //   label: 'Form',
+        //   value: 'form',
+        // },
         {
           label: 'Home',
           value: 'home',

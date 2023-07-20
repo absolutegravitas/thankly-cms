@@ -7,8 +7,7 @@ import { slugField } from '../fields/slug'
 import { populateArchiveBlock } from '../hooks/populateArchiveBlock'
 import { populatePublishedDate } from '../hooks/populatePublishedDate'
 
-export const StockItemsFields: CollectionConfig['fields'] = [
-  slugField(),
+export const SuppliersFields: CollectionConfig['fields'] = [
   {
     name: 'title',
     type: 'text',
@@ -21,6 +20,7 @@ export const StockItemsFields: CollectionConfig['fields'] = [
       position: 'sidebar',
     },
   },
+  
   {
     name: 'categories',
     type: 'relationship',
@@ -30,32 +30,24 @@ export const StockItemsFields: CollectionConfig['fields'] = [
       position: 'sidebar',
     },
   },
-  {
-    name: 'supplier',
-    type: 'relationship',
-    relationTo: 'suppliers',
-    hasMany: false,
-    // admin: {
-    //   position: 'sidebar',
-    // },
-  },
-  {
-    name: 'skipSync',
-    label: 'Skip Sync',
-    type: 'checkbox',
-    admin: {
-      position: 'sidebar',
-      readOnly: true,
-      hidden: true,
-    },
-  },
+  slugField(),
+  // {
+  //   name: 'skipSync',
+  //   label: 'Skip Sync',
+  //   type: 'checkbox',
+  //   admin: {
+  //     position: 'sidebar',
+  //     readOnly: true,
+  //     hidden: true,
+  //   },
+  // },
 ]
 
-const StockItems: CollectionConfig = {
-  slug: 'stockItems',
+const Suppliers: CollectionConfig = {
+  slug: 'Suppliers',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name','type','brand', '_status'],
+    defaultColumns: ['name', 'website', '_status'],
     group: 'Shop'
 
   },
@@ -88,67 +80,44 @@ const StockItems: CollectionConfig = {
             width: '50%',
           },
         },
+
         {
-          name: 'description',
-          type: 'textarea',
+          name: 'website',
+          type: 'text',
           required: true,
           admin: {
             width: '50%',
           },
         },
-        
-       
+
         {
-          name: 'type', // required
+          name: 'relationship', // required
           type: 'select', // required
           hasMany: false,
           required: true,
           admin: {
             width: '50%',
-
             isClearable: true,
             // isSortable: true, // use mouse to drag and drop different values, and sort them according to your choice
           },
           options: [
             {
-              label: 'Card',
-              value: 'card',
+              label: 'Positive',
+              value: 'positive',
             },
             {
-              label: 'Gift',
-              value: 'gift',
+              label: 'Neutral',
+              value: 'neutral',
             },
             {
-              label: 'Box',
-              value: 'box',
+              label: 'Negative',
+              value: 'negative',
             },
-            {
-              label: 'Ribbon',
-              value: 'ribbon',
-            
-            },
+
           ],
         },
-        {
-          name: 'categories',
-          type: 'relationship',
-          relationTo: 'categories',
-          hasMany: true,
-          admin: {
-            width: '50%',
-            // position: 'sidebar',
-          },
-        },
-        // {
-        //   name: 'supplier',
-        //   type: 'relationship',
-        //   relationTo: 'suppliers',
-        //   hasMany: false,
-        //   admin: {
-        //     width: '50%',
-        //     // position: 'sidebar',
-        //   },
-        // },
+
+
         // {
         //   name: 'brand',
         //   type: 'relationship',
@@ -159,38 +128,6 @@ const StockItems: CollectionConfig = {
         //     // position: 'sidebar',
         //   },
         // },
-        {
-          name: 'totalQty',
-          type: 'number',
-          required: true,
-          min: 1,
-          defaultValue: 0,
-        },
-        {
-          name: 'unitCost',
-          type: 'number',
-          min: 0,
-          required: true,
-          defaultValue: 0,
-        },
-        // {
-        //   name: 'usedQty',
-        //   type: 'number',
-        //   required: false,
-        //   defaultValue: 0,
-        //   admin:{
-        //     readOnly:true,
-        //   },
-        // },
-        {
-          name: 'sku',
-          label: 'SKU',
-          type: 'text',
-          required: false,
-          // admin: {
-          //   width: '50%',
-          // },
-        },
 
       ],
     },
@@ -198,7 +135,7 @@ const StockItems: CollectionConfig = {
 
 
     {
-      name: 'image',
+      name: 'logo',
       type: 'upload',
       relationTo: 'media',
       required: true,
@@ -208,4 +145,4 @@ const StockItems: CollectionConfig = {
   ],
 }
 
-export default StockItems
+export default Suppliers

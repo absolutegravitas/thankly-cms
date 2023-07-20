@@ -13,12 +13,13 @@ export interface Config {
     pages: Page;
     posts: Post;
     stockItems: StockItem;
+    Suppliers: Supplier;
     categories: Category;
     media: Media;
     'reusable-content': ReusableContent;
     users: User;
-    forms: Form;
-    'form-submissions': FormSubmission;
+    // forms: Form;
+    // 'form-submissions': FormSubmission;
     redirects: Redirect;
   };
   globals: {
@@ -52,32 +53,21 @@ export interface Order {
 }
 export interface User {
   id: string;
+  firstName: string;
+  lastName: string;
+  twitter?: string;
+  photo?: string | Media;
+  roles: ('admin' | 'public')[];
+  updatedAt: string;
   createdAt: string;
   email: string;
-  firstName: string;
-  hash?: string;
-  lastName: string;
-  lockUntil?: string;
-  loginAttempts?: number;
-  password?: string;
-  photo?: string | Media;
-  purchases?: string[] | Product[]
-  resetPasswordExpiration?: string;
   resetPasswordToken?: string;
-  // roles: ('admin' | 'public')[];
-  roles?: Array<'admin' | 'customer'>
-  skipSync?: boolean
-  stripeCustomerID?: string
+  resetPasswordExpiration?: string;
   salt?: string;
-  // twitter?: string;
-  updatedAt: string;
-  cart: {
-    items: Array<{
-      product?: string | Product
-      quantity?: number
-      id?: string
-    }>
-  }
+  hash?: string;
+  loginAttempts?: number;
+  lockUntil?: string;
+  password?: string;
 }
 export interface Media {
   id: string;
@@ -93,23 +83,13 @@ export interface Media {
   height?: number;
 }
 export interface Product {
-  _status?: 'draft' | 'published';
-  categories?: string[] | Category[]
-  createdAt: string;
-  description: string;
   id: string;
+  slug?: string;
   name: string;
-  priceJSON?: string
+  description: string;
   publishedDate?: string;
   quantity: number;
-  skipSync?: boolean;
   sku: string;
-  slug?: string;
-  stockItems: string[] | StockItem[];
-  stripeProductID?: string
-
-  updatedAt: string;
-
   images?: {
     title?: string;
     image: string | Media;
@@ -118,108 +98,111 @@ export interface Product {
   }[];
   layout: (
     | {
-      ctaFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        feature: 'none' | 'cpa';
-        layout: 'none' | 'cpa';
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
+        ctaFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          feature: 'none' | 'cpa';
+          layout: 'none' | 'cpa';
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
             };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cta';
-    }
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
     | {
-      contentFields: {
-        useLeadingHeader?: boolean;
-        leadingHeader: {
-          [k: string]: unknown;
-        }[];
-        layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-        columnOne: {
-          [k: string]: unknown;
-        }[];
-        columnTwo: {
-          [k: string]: unknown;
-        }[];
-        columnThree: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'content';
-    }
+        contentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+          columnOne: {
+            [k: string]: unknown;
+          }[];
+          columnTwo: {
+            [k: string]: unknown;
+          }[];
+          columnThree: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
     | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
+        mediaBlockFields: {
+          position?: 'default' | 'wide';
+          media: string | Media;
+          caption?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        introContent: {
           [k: string]: unknown;
         }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-    | {
-      introContent: {
-        [k: string]: unknown;
-      }[];
-      populateBy?: 'collection' | 'selection';
-      relationTo?: 'products';
-      categories?: string[] | Category[];
-      limit?: number;
-      selectedDocs?:
-      | {
-        value: string;
-        relationTo: 'products';
-      }[]
-      | {
-        value: Product;
-        relationTo: 'products';
-      }[];
-      populatedDocs?:
-      | {
-        value: string;
-        relationTo: 'products';
-      }[]
-      | {
-        value: Product;
-        relationTo: 'products';
-      }[];
-      populatedDocsTotal?: number;
-      id?: string;
-      blockName?: string;
-      blockType: 'archive';
-    }
+        populateBy?: 'collection' | 'selection';
+        relationTo?: 'products';
+        categories?: string[] | Category[];
+        limit?: number;
+        selectedDocs?:
+          | {
+              value: string;
+              relationTo: 'products';
+            }[]
+          | {
+              value: Product;
+              relationTo: 'products';
+            }[];
+        populatedDocs?:
+          | {
+              value: string;
+              relationTo: 'products';
+            }[]
+          | {
+              value: Product;
+              relationTo: 'products';
+            }[];
+        populatedDocsTotal?: number;
+        id?: string;
+        blockName?: string;
+        blockType: 'archive';
+      }
   )[];
-
+  categories?: string[] | Category[];
+  skipSync?: boolean;
   meta?: {
     title?: string;
     description?: string;
     image?: string | Media;
   };
-
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
 }
 export interface Page {
   id: string;
@@ -227,499 +210,303 @@ export interface Page {
   fullTitle?: string;
   layout: (
     | {
-      bannerFields: {
-        type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream';
-        livestream?: {
-          id?: string;
-          date: string;
-          hideBreadcrumbs?: boolean;
+        bannerFields: {
+          type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream';
+          livestream?: {
+            id?: string;
+            date: string;
+            hideBreadcrumbs?: boolean;
+            richText?: {
+              [k: string]: unknown;
+            }[];
+            guests?: {
+              name?: string;
+              link?: string;
+              image?: string | Media;
+              id?: string;
+            }[];
+          };
           richText?: {
             [k: string]: unknown;
           }[];
-          guests?: {
-            name?: string;
-            link?: string;
-            image?: string | Media;
+          sidebarContent?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
             id?: string;
           }[];
+          actions?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+          buttons?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+          media: string | Media;
+          adjectives?: {
+            adjective: string;
+            id?: string;
+          }[];
+          // form?: string | Form;
         };
-        richText?: {
-          [k: string]: unknown;
-        }[];
-        sidebarContent?: {
-          [k: string]: unknown;
-        }[];
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'default' | 'primary' | 'secondary';
-          };
-          id?: string;
-        }[];
-        actions?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-        buttons?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary';
-          };
-          id?: string;
-        }[];
-        media: string | Media;
-        adjectives?: {
-          adjective: string;
-          id?: string;
-        }[];
-        form?: string | Form;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'hero';
-    }
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
     | {
-      bannerFields: {
-        type?: 'default' | 'success' | 'warning' | 'error';
-        addCheckmark?: boolean;
-        content: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'banner';
-    }
-    | {
-      ctaFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        feature: 'none' | 'cpa';
-        layout: 'none' | 'cpa';
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cta';
-    }
-    | {
-      cardGridFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-        cards?: {
-          title: string;
-          description?: string;
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cardGrid';
-    }
-    | {
-      contentFields: {
-        useLeadingHeader?: boolean;
-        leadingHeader: {
-          [k: string]: unknown;
-        }[];
-        layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-        columnOne: {
-          [k: string]: unknown;
-        }[];
-        columnTwo: {
-          [k: string]: unknown;
-        }[];
-        columnThree: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'content';
-    }
-    | {
-      contentGridFields: {
-        forceDarkBackground?: boolean;
-        useLeadingHeader?: boolean;
-        leadingHeader: {
-          [k: string]: unknown;
-        }[];
-        cells?: {
+        bannerFields: {
+          type?: 'default' | 'success' | 'warning' | 'error';
+          addCheckmark?: boolean;
           content: {
             [k: string]: unknown;
           }[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'contentGrid';
-    }
-    | {
-      hoverHighlightsFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        addRowNumbers?: boolean;
-        highlights?: {
-          title: string;
-          description: string;
-          media: string | Media;
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'hoverHighlights';
-    }
-    | {
-      linkGridFields?: {
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'linkGrid';
-    }
-    | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-    | {
-      mediaContentFields: {
-        alignment?: 'contentMedia' | 'mediaContent';
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        enableLink?: boolean;
-        link?: {
-          type?: 'reference' | 'custom';
-          newTab?: boolean;
-          reference:
-          | {
-            value: string | Page;
-            relationTo: 'pages';
-          }
-          | {
-            value: string | Post;
-            relationTo: 'posts';
-          };
-          url: string;
-          label: string;
-          appearance?: 'primary' | 'secondary' | 'default';
         };
-        media: string | Media;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaContent';
-    }
+        id?: string;
+        blockName?: string;
+        blockType: 'banner';
+      }
     | {
-      pricingFields?: {
-        plans?: {
-          name: string;
-          hasPrice?: boolean;
-          price: string;
-          title: string;
-          description?: string;
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
+        ctaFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          feature: 'none' | 'cpa';
+          layout: 'none' | 'cpa';
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
             };
-            url: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          features?: {
-            icon?: 'check' | 'x';
-            feature?: string;
             id?: string;
           }[];
-          id?: string;
-        }[];
-        disclaimer?: string;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'pricing';
-    }
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
     | {
-      reusableContentBlockFields: {
-        reusableContent: string | ReusableContent;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'reusableContentBlock';
-    }
-    | {
-      sliderFields: {
-        useLeadingHeader?: boolean;
-        leadingHeader: {
-          [k: string]: unknown;
-        }[];
-        sliderType: 'quoteSlider' | 'imageSlider';
-        imageSlides: {
-          image: string | Media;
-          id?: string;
-        }[];
-        quoteSlides: {
+        cardGridFields: {
           richText: {
             [k: string]: unknown;
           }[];
-          quoteDate: string;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'slider';
-    }
-    | {
-      stepsFields: {
-        steps: {
-          layout?: (
-            | {
-              contentFields: {
-                useLeadingHeader?: boolean;
-                leadingHeader: {
-                  [k: string]: unknown;
-                }[];
-                layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-                columnOne: {
-                  [k: string]: unknown;
-                }[];
-                columnTwo: {
-                  [k: string]: unknown;
-                }[];
-                columnThree: {
-                  [k: string]: unknown;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'content';
-            }
-            | {
-              hoverHighlightsFields: {
-                richText: {
-                  [k: string]: unknown;
-                }[];
-                addRowNumbers?: boolean;
-                highlights?: {
-                  title: string;
-                  description: string;
-                  media: string | Media;
-                  enableLink?: boolean;
-                  link?: {
-                    type?: 'reference' | 'custom';
-                    newTab?: boolean;
-                    reference:
-                    | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                    | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    };
-                    url: string;
-                    appearance?: 'primary' | 'secondary' | 'default';
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
                   };
-                  id?: string;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'hoverHighlights';
-            }
-            | {
-              stickyHighlightsFields?: {
-                highlights?: {
-                  richText: {
-                    [k: string]: unknown;
-                  }[];
-                  enableLink?: boolean;
-                  link?: {
-                    type?: 'reference' | 'custom';
-                    newTab?: boolean;
-                    reference:
-                    | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                    | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    };
-                    url: string;
-                    label: string;
-                    appearance?: 'primary' | 'secondary' | 'default';
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+          cards?: {
+            title: string;
+            description?: string;
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
                   };
-                  type?: 'code' | 'media';
-                  code: string;
-                  media: string | Media;
-                  id?: string;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'stickyHighlights';
-            }
-          )[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'steps';
-    }
+              url: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cardGrid';
+      }
     | {
-      stickyHighlightsFields?: {
-        highlights?: {
+        contentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+          columnOne: {
+            [k: string]: unknown;
+          }[];
+          columnTwo: {
+            [k: string]: unknown;
+          }[];
+          columnThree: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        contentGridFields: {
+          forceDarkBackground?: boolean;
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          cells?: {
+            content: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'contentGrid';
+      }
+    | {
+        hoverHighlightsFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          addRowNumbers?: boolean;
+          highlights?: {
+            title: string;
+            description: string;
+            media: string | Media;
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hoverHighlights';
+      }
+    | {
+        linkGridFields?: {
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'linkGrid';
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide';
+          media: string | Media;
+          caption?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent';
+          container?: boolean;
           richText: {
             [k: string]: unknown;
           }[];
@@ -728,28 +515,224 @@ export interface Page {
             type?: 'reference' | 'custom';
             newTab?: boolean;
             reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
+              | {
+                  value: string | Page;
+                  relationTo: 'pages';
+                }
+              | {
+                  value: string | Post;
+                  relationTo: 'posts';
+                };
             url: string;
             label: string;
             appearance?: 'primary' | 'secondary' | 'default';
           };
-          type?: 'code' | 'media';
-          code: string;
           media: string | Media;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'stickyHighlights';
-    }
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        pricingFields?: {
+          plans?: {
+            name: string;
+            hasPrice?: boolean;
+            price: string;
+            title: string;
+            description?: string;
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            features?: {
+              icon?: 'check' | 'x';
+              feature?: string;
+              id?: string;
+            }[];
+            id?: string;
+          }[];
+          disclaimer?: string;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'pricing';
+      }
+    | {
+        reusableContentBlockFields: {
+          reusableContent: string | ReusableContent;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'reusableContentBlock';
+      }
+    | {
+        sliderFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          sliderType: 'quoteSlider' | 'imageSlider';
+          imageSlides: {
+            image: string | Media;
+            id?: string;
+          }[];
+          quoteSlides: {
+            richText: {
+              [k: string]: unknown;
+            }[];
+            quoteDate: string;
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'slider';
+      }
+    | {
+        stepsFields: {
+          steps: {
+            layout?: (
+              | {
+                  contentFields: {
+                    useLeadingHeader?: boolean;
+                    leadingHeader: {
+                      [k: string]: unknown;
+                    }[];
+                    layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+                    columnOne: {
+                      [k: string]: unknown;
+                    }[];
+                    columnTwo: {
+                      [k: string]: unknown;
+                    }[];
+                    columnThree: {
+                      [k: string]: unknown;
+                    }[];
+                  };
+                  id?: string;
+                  blockName?: string;
+                  blockType: 'content';
+                }
+              | {
+                  hoverHighlightsFields: {
+                    richText: {
+                      [k: string]: unknown;
+                    }[];
+                    addRowNumbers?: boolean;
+                    highlights?: {
+                      title: string;
+                      description: string;
+                      media: string | Media;
+                      enableLink?: boolean;
+                      link?: {
+                        type?: 'reference' | 'custom';
+                        newTab?: boolean;
+                        reference:
+                          | {
+                              value: string | Page;
+                              relationTo: 'pages';
+                            }
+                          | {
+                              value: string | Post;
+                              relationTo: 'posts';
+                            };
+                        url: string;
+                        appearance?: 'primary' | 'secondary' | 'default';
+                      };
+                      id?: string;
+                    }[];
+                  };
+                  id?: string;
+                  blockName?: string;
+                  blockType: 'hoverHighlights';
+                }
+              | {
+                  stickyHighlightsFields?: {
+                    highlights?: {
+                      richText: {
+                        [k: string]: unknown;
+                      }[];
+                      enableLink?: boolean;
+                      link?: {
+                        type?: 'reference' | 'custom';
+                        newTab?: boolean;
+                        reference:
+                          | {
+                              value: string | Page;
+                              relationTo: 'pages';
+                            }
+                          | {
+                              value: string | Post;
+                              relationTo: 'posts';
+                            };
+                        url: string;
+                        label: string;
+                        appearance?: 'primary' | 'secondary' | 'default';
+                      };
+                      type?: 'code' | 'media';
+                      code: string;
+                      media: string | Media;
+                      id?: string;
+                    }[];
+                  };
+                  id?: string;
+                  blockName?: string;
+                  blockType: 'stickyHighlights';
+                }
+            )[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'steps';
+      }
+    | {
+        stickyHighlightsFields?: {
+          highlights?: {
+            richText: {
+              [k: string]: unknown;
+            }[];
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            type?: 'code' | 'media';
+            code: string;
+            media: string | Media;
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'stickyHighlights';
+      }
   )[];
   slug?: string;
   parent?: string | Page;
@@ -777,55 +760,55 @@ export interface Post {
   }[];
   content: (
     | {
-      bannerFields: {
-        type?: 'default' | 'success' | 'warning' | 'error';
-        addCheckmark?: boolean;
-        content: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'banner';
-    }
+        bannerFields: {
+          type?: 'default' | 'success' | 'warning' | 'error';
+          addCheckmark?: boolean;
+          content: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'banner';
+      }
     | {
-      blogContentFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'blogContent';
-    }
+        blogContentFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'blogContent';
+      }
     | {
-      blogMarkdownFields: {
-        markdown: string;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'blogMarkdown';
-    }
+        blogMarkdownFields: {
+          markdown: string;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'blogMarkdown';
+      }
     | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
+        mediaBlockFields: {
+          position?: 'default' | 'wide';
+          media: string | Media;
+          caption?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
     | {
-      reusableContentBlockFields: {
-        reusableContent: string | ReusableContent;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'reusableContentBlock';
-    }
+        reusableContentBlockFields: {
+          reusableContent: string | ReusableContent;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'reusableContentBlock';
+      }
   )[];
   slug?: string;
   author: string | User;
@@ -844,430 +827,242 @@ export interface ReusableContent {
   title: string;
   layout: (
     | {
-      bannerFields: {
-        type?: 'default' | 'success' | 'warning' | 'error';
-        addCheckmark?: boolean;
-        content: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'banner';
-    }
-    | {
-      blogContentFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'blogContent';
-    }
-    | {
-      blogMarkdownFields: {
-        markdown: string;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'blogMarkdown';
-    }
-    | {
-      ctaFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        feature: 'none' | 'cpa';
-        layout: 'none' | 'cpa';
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cta';
-    }
-    | {
-      cardGridFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-        cards?: {
-          title: string;
-          description?: string;
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'cardGrid';
-    }
-    | {
-      contentFields: {
-        useLeadingHeader?: boolean;
-        leadingHeader: {
-          [k: string]: unknown;
-        }[];
-        layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-        columnOne: {
-          [k: string]: unknown;
-        }[];
-        columnTwo: {
-          [k: string]: unknown;
-        }[];
-        columnThree: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'content';
-    }
-    | {
-      contentGridFields: {
-        forceDarkBackground?: boolean;
-        useLeadingHeader?: boolean;
-        leadingHeader: {
-          [k: string]: unknown;
-        }[];
-        cells?: {
+        bannerFields: {
+          type?: 'default' | 'success' | 'warning' | 'error';
+          addCheckmark?: boolean;
           content: {
             [k: string]: unknown;
           }[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'contentGrid';
-    }
-    | {
-      formFields: {
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        form: string | Form;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'form';
-    }
-    | {
-      hoverHighlightsFields: {
-        richText: {
-          [k: string]: unknown;
-        }[];
-        addRowNumbers?: boolean;
-        highlights?: {
-          title: string;
-          description: string;
-          media: string | Media;
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'hoverHighlights';
-    }
-    | {
-      linkGridFields?: {
-        links?: {
-          link: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'linkGrid';
-    }
-    | {
-      mediaBlockFields: {
-        position?: 'default' | 'wide';
-        media: string | Media;
-        caption?: {
-          [k: string]: unknown;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaBlock';
-    }
-    | {
-      mediaContentFields: {
-        alignment?: 'contentMedia' | 'mediaContent';
-        container?: boolean;
-        richText: {
-          [k: string]: unknown;
-        }[];
-        enableLink?: boolean;
-        link?: {
-          type?: 'reference' | 'custom';
-          newTab?: boolean;
-          reference:
-          | {
-            value: string | Page;
-            relationTo: 'pages';
-          }
-          | {
-            value: string | Post;
-            relationTo: 'posts';
-          };
-          url: string;
-          label: string;
-          appearance?: 'primary' | 'secondary' | 'default';
         };
-        media: string | Media;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'mediaContent';
-    }
+        id?: string;
+        blockName?: string;
+        blockType: 'banner';
+      }
     | {
-      pricingFields?: {
-        plans?: {
-          name: string;
-          hasPrice?: boolean;
-          price: string;
-          title: string;
-          description?: string;
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
+        blogContentFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'blogContent';
+      }
+    | {
+        blogMarkdownFields: {
+          markdown: string;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'blogMarkdown';
+      }
+    | {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          feature: 'none' | 'cpa';
+          layout: 'none' | 'cpa';
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
             };
-            url: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          features?: {
-            icon?: 'check' | 'x';
-            feature?: string;
             id?: string;
           }[];
-          id?: string;
-        }[];
-        disclaimer?: string;
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'pricing';
-    }
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
     | {
-      sliderFields: {
-        useLeadingHeader?: boolean;
-        leadingHeader: {
-          [k: string]: unknown;
-        }[];
-        sliderType: 'quoteSlider' | 'imageSlider';
-        imageSlides: {
-          image: string | Media;
-          id?: string;
-        }[];
-        quoteSlides: {
+        cardGridFields: {
           richText: {
             [k: string]: unknown;
           }[];
-          quoteDate: string;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'slider';
-    }
-    | {
-      stepsFields: {
-        steps: {
-          layout?: (
-            | {
-              contentFields: {
-                useLeadingHeader?: boolean;
-                leadingHeader: {
-                  [k: string]: unknown;
-                }[];
-                layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
-                columnOne: {
-                  [k: string]: unknown;
-                }[];
-                columnTwo: {
-                  [k: string]: unknown;
-                }[];
-                columnThree: {
-                  [k: string]: unknown;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'content';
-            }
-            | {
-              hoverHighlightsFields: {
-                richText: {
-                  [k: string]: unknown;
-                }[];
-                addRowNumbers?: boolean;
-                highlights?: {
-                  title: string;
-                  description: string;
-                  media: string | Media;
-                  enableLink?: boolean;
-                  link?: {
-                    type?: 'reference' | 'custom';
-                    newTab?: boolean;
-                    reference:
-                    | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                    | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    };
-                    url: string;
-                    appearance?: 'primary' | 'secondary' | 'default';
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
                   };
-                  id?: string;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'hoverHighlights';
-            }
-            | {
-              stickyHighlightsFields?: {
-                highlights?: {
-                  richText: {
-                    [k: string]: unknown;
-                  }[];
-                  enableLink?: boolean;
-                  link?: {
-                    type?: 'reference' | 'custom';
-                    newTab?: boolean;
-                    reference:
-                    | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                    | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    };
-                    url: string;
-                    label: string;
-                    appearance?: 'primary' | 'secondary' | 'default';
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+          cards?: {
+            title: string;
+            description?: string;
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
                   };
-                  type?: 'code' | 'media';
-                  code: string;
-                  media: string | Media;
-                  id?: string;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'stickyHighlights';
-            }
-          )[];
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'steps';
-    }
+              url: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cardGrid';
+      }
     | {
-      stickyHighlightsFields?: {
-        highlights?: {
+        contentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+          columnOne: {
+            [k: string]: unknown;
+          }[];
+          columnTwo: {
+            [k: string]: unknown;
+          }[];
+          columnThree: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        contentGridFields: {
+          forceDarkBackground?: boolean;
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          cells?: {
+            content: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'contentGrid';
+      }
+    // | {
+    //     formFields: {
+    //       container?: boolean;
+    //       richText: {
+    //         [k: string]: unknown;
+    //       }[];
+    //       form: string | Form;
+    //     };
+    //     id?: string;
+    //     blockName?: string;
+    //     blockType: 'form';
+    //   }
+    | {
+        hoverHighlightsFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          addRowNumbers?: boolean;
+          highlights?: {
+            title: string;
+            description: string;
+            media: string | Media;
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hoverHighlights';
+      }
+    | {
+        linkGridFields?: {
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'linkGrid';
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide';
+          media: string | Media;
+          caption?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent';
+          container?: boolean;
           richText: {
             [k: string]: unknown;
           }[];
@@ -1276,154 +1071,342 @@ export interface ReusableContent {
             type?: 'reference' | 'custom';
             newTab?: boolean;
             reference:
-            | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-            | {
-              value: string | Post;
-              relationTo: 'posts';
-            };
+              | {
+                  value: string | Page;
+                  relationTo: 'pages';
+                }
+              | {
+                  value: string | Post;
+                  relationTo: 'posts';
+                };
             url: string;
             label: string;
             appearance?: 'primary' | 'secondary' | 'default';
           };
-          type?: 'code' | 'media';
-          code: string;
           media: string | Media;
-          id?: string;
-        }[];
-      };
-      id?: string;
-      blockName?: string;
-      blockType: 'stickyHighlights';
-    }
-  )[];
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Form {
-  id: string;
-  title: string;
-  fields?: (
-    | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: string;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'text';
-    }
-    | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: string;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'textarea';
-    }
-    | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: string;
-      options?: {
-        label: string;
-        value: string;
+        };
         id?: string;
-      }[];
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'select';
-    }
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'email';
-    }
+        pricingFields?: {
+          plans?: {
+            name: string;
+            hasPrice?: boolean;
+            price: string;
+            title: string;
+            description?: string;
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            features?: {
+              icon?: 'check' | 'x';
+              feature?: string;
+              id?: string;
+            }[];
+            id?: string;
+          }[];
+          disclaimer?: string;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'pricing';
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'state';
-    }
+        sliderFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          sliderType: 'quoteSlider' | 'imageSlider';
+          imageSlides: {
+            image: string | Media;
+            id?: string;
+          }[];
+          quoteSlides: {
+            richText: {
+              [k: string]: unknown;
+            }[];
+            quoteDate: string;
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'slider';
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'country';
-    }
+        stepsFields: {
+          steps: {
+            layout?: (
+              | {
+                  contentFields: {
+                    useLeadingHeader?: boolean;
+                    leadingHeader: {
+                      [k: string]: unknown;
+                    }[];
+                    layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+                    columnOne: {
+                      [k: string]: unknown;
+                    }[];
+                    columnTwo: {
+                      [k: string]: unknown;
+                    }[];
+                    columnThree: {
+                      [k: string]: unknown;
+                    }[];
+                  };
+                  id?: string;
+                  blockName?: string;
+                  blockType: 'content';
+                }
+              | {
+                  hoverHighlightsFields: {
+                    richText: {
+                      [k: string]: unknown;
+                    }[];
+                    addRowNumbers?: boolean;
+                    highlights?: {
+                      title: string;
+                      description: string;
+                      media: string | Media;
+                      enableLink?: boolean;
+                      link?: {
+                        type?: 'reference' | 'custom';
+                        newTab?: boolean;
+                        reference:
+                          | {
+                              value: string | Page;
+                              relationTo: 'pages';
+                            }
+                          | {
+                              value: string | Post;
+                              relationTo: 'posts';
+                            };
+                        url: string;
+                        appearance?: 'primary' | 'secondary' | 'default';
+                      };
+                      id?: string;
+                    }[];
+                  };
+                  id?: string;
+                  blockName?: string;
+                  blockType: 'hoverHighlights';
+                }
+              | {
+                  stickyHighlightsFields?: {
+                    highlights?: {
+                      richText: {
+                        [k: string]: unknown;
+                      }[];
+                      enableLink?: boolean;
+                      link?: {
+                        type?: 'reference' | 'custom';
+                        newTab?: boolean;
+                        reference:
+                          | {
+                              value: string | Page;
+                              relationTo: 'pages';
+                            }
+                          | {
+                              value: string | Post;
+                              relationTo: 'posts';
+                            };
+                        url: string;
+                        label: string;
+                        appearance?: 'primary' | 'secondary' | 'default';
+                      };
+                      type?: 'code' | 'media';
+                      code: string;
+                      media: string | Media;
+                      id?: string;
+                    }[];
+                  };
+                  id?: string;
+                  blockName?: string;
+                  blockType: 'stickyHighlights';
+                }
+            )[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'steps';
+      }
     | {
-      name: string;
-      label?: string;
-      width?: number;
-      defaultValue?: number;
-      required?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'number';
-    }
-    | {
-      name: string;
-      label?: string;
-      width?: number;
-      required?: boolean;
-      defaultValue?: boolean;
-      id?: string;
-      blockName?: string;
-      blockType: 'checkbox';
-    }
-    | {
-      message?: {
-        [k: string]: unknown;
-      }[];
-      id?: string;
-      blockName?: string;
-      blockType: 'message';
-    }
+        stickyHighlightsFields?: {
+          highlights?: {
+            richText: {
+              [k: string]: unknown;
+            }[];
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Post;
+                    relationTo: 'posts';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            type?: 'code' | 'media';
+            code: string;
+            media: string | Media;
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'stickyHighlights';
+      }
   )[];
-  submitButtonLabel?: string;
-  confirmationType?: 'message' | 'redirect';
-  confirmationMessage: {
-    [k: string]: unknown;
-  }[];
-  redirect?: {
-    url: string;
-  };
-  emails?: {
-    emailTo?: string;
-    cc?: string;
-    bcc?: string;
-    replyTo?: string;
-    emailFrom?: string;
-    subject: string;
-    message?: {
-      [k: string]: unknown;
-    }[];
-    id?: string;
-  }[];
-  leader: {
-    [k: string]: unknown;
-  }[];
-  hubSpotFormID?: string;
   updatedAt: string;
   createdAt: string;
 }
+// export interface Form {
+//   id: string;
+//   title: string;
+//   fields?: (
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         defaultValue?: string;
+//         required?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'text';
+//       }
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         defaultValue?: string;
+//         required?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'textarea';
+//       }
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         defaultValue?: string;
+//         options?: {
+//           label: string;
+//           value: string;
+//           id?: string;
+//         }[];
+//         required?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'select';
+//       }
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         required?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'email';
+//       }
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         required?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'state';
+//       }
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         required?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'country';
+//       }
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         defaultValue?: number;
+//         required?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'number';
+//       }
+//     | {
+//         name: string;
+//         label?: string;
+//         width?: number;
+//         required?: boolean;
+//         defaultValue?: boolean;
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'checkbox';
+//       }
+//     | {
+//         message?: {
+//           [k: string]: unknown;
+//         }[];
+//         id?: string;
+//         blockName?: string;
+//         blockType: 'message';
+//       }
+//   )[];
+//   submitButtonLabel?: string;
+//   confirmationType?: 'message' | 'redirect';
+//   confirmationMessage: {
+//     [k: string]: unknown;
+//   }[];
+//   redirect?: {
+//     url: string;
+//   };
+//   emails?: {
+//     emailTo?: string;
+//     cc?: string;
+//     bcc?: string;
+//     replyTo?: string;
+//     emailFrom?: string;
+//     subject: string;
+//     message?: {
+//       [k: string]: unknown;
+//     }[];
+//     id?: string;
+//   }[];
+//   leader: {
+//     [k: string]: unknown;
+//   }[];
+//   hubSpotFormID?: string;
+//   updatedAt: string;
+//   createdAt: string;
+// }
 export interface Category {
   id: string;
   title?: string;
@@ -1441,41 +1424,53 @@ export interface StockItem {
   id: string;
   slug?: string;
   name: string;
-  brand: string;
-  type?: 'card' | 'gift' | 'box';
+  description: string;
+  type: 'card' | 'gift' | 'box' | 'ribbon';
+  categories?: string[] | Category[];
   totalQty: number;
-  usedQty: number;
-  sku: string;
+  unitCost: number;
+  sku?: string;
   image: string | Media;
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
 }
-export interface FormSubmission {
+export interface Supplier {
   id: string;
-  form: string | Form;
-  submissionData?: {
-    field: string;
-    value: string;
-    id?: string;
-  }[];
+  slug?: string;
+  name: string;
+  website: string;
+  relationship: 'positive' | 'neutral' | 'negative';
+  logo: string | Media;
   updatedAt: string;
   createdAt: string;
+  _status?: 'draft' | 'published';
 }
+// export interface FormSubmission {
+//   id: string;
+//   form: string | Form;
+//   submissionData?: {
+//     field: string;
+//     value: string;
+//     id?: string;
+//   }[];
+//   updatedAt: string;
+//   createdAt: string;
+// }
 export interface Redirect {
   id: string;
   from: string;
   to: {
     type?: 'reference' | 'custom';
     reference:
-    | {
-      value: string | Page;
-      relationTo: 'pages';
-    }
-    | {
-      value: string | Post;
-      relationTo: 'posts';
-    };
+      | {
+          value: string | Page;
+          relationTo: 'pages';
+        }
+      | {
+          value: string | Post;
+          relationTo: 'posts';
+        };
     url: string;
   };
   updatedAt: string;
@@ -1489,14 +1484,14 @@ export interface Menu {
         type?: 'reference' | 'custom';
         newTab?: boolean;
         reference:
-        | {
-          value: string | Page;
-          relationTo: 'pages';
-        }
-        | {
-          value: string | Post;
-          relationTo: 'posts';
-        };
+          | {
+              value: string | Page;
+              relationTo: 'pages';
+            }
+          | {
+              value: string | Post;
+              relationTo: 'posts';
+            };
         url: string;
         label: string;
         appearance?: 'primary' | 'secondary' | 'default';
@@ -1506,19 +1501,20 @@ export interface Menu {
   };
   footer: {
     columns?: {
+      columnName: string;
       navItems?: {
         link: {
           type?: 'reference' | 'custom';
           newTab?: boolean;
           reference:
-          | {
-            value: string | Page;
-            relationTo: 'pages';
-          }
-          | {
-            value: string | Post;
-            relationTo: 'posts';
-          };
+            | {
+                value: string | Page;
+                relationTo: 'pages';
+              }
+            | {
+                value: string | Post;
+                relationTo: 'posts';
+              };
           url: string;
           label: string;
           appearance?: 'primary' | 'secondary' | 'default';
