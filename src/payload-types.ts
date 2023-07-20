@@ -13,13 +13,12 @@ export interface Config {
     pages: Page;
     posts: Post;
     stockItems: StockItem;
-    Suppliers: Supplier;
+    suppliers: Supplier;
     categories: Category;
+    'product-brands': ProductBrand;
     media: Media;
     'reusable-content': ReusableContent;
     users: User;
-    // forms: Form;
-    // 'form-submissions': FormSubmission;
     redirects: Redirect;
   };
   globals: {
@@ -55,19 +54,30 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
-  twitter?: string;
   photo?: string | Media;
   roles: ('admin' | 'public')[];
   updatedAt: string;
   createdAt: string;
   email: string;
+  purchases?: string[] | Order[]
+  skipSync?: boolean
+
   resetPasswordToken?: string;
   resetPasswordExpiration?: string;
   salt?: string;
+  stripeCustomerID?: string
+
   hash?: string;
   loginAttempts?: number;
   lockUntil?: string;
   password?: string;
+  cart: {
+    items: Array<{
+      product?: string | Product
+      quantity?: number
+      id?: string
+    }>
+  }
 }
 export interface Media {
   id: string;
@@ -87,6 +97,13 @@ export interface Product {
   slug?: string;
   name: string;
   description: string;
+  priceJSON?: string
+  stripeProductID?: string
+  categories?: string[] | Category[];
+  skipSync?: boolean;
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
   publishedDate?: string;
   quantity: number;
   sku: string;
@@ -193,16 +210,13 @@ export interface Product {
         blockType: 'archive';
       }
   )[];
-  categories?: string[] | Category[];
-  skipSync?: boolean;
+  
   meta?: {
     title?: string;
     description?: string;
     image?: string | Media;
   };
-  updatedAt: string;
-  createdAt: string;
-  _status?: 'draft' | 'published';
+ 
 }
 export interface Page {
   id: string;
@@ -211,7 +225,7 @@ export interface Page {
   layout: (
     | {
         bannerFields: {
-          type: 'default' | 'contentMedia' | 'form' | 'home' | 'livestream';
+          type: 'default' | 'contentMedia' | 'home' | 'livestream';
           livestream?: {
             id?: string;
             date: string;
@@ -294,7 +308,6 @@ export interface Page {
             adjective: string;
             id?: string;
           }[];
-          // form?: string | Form;
         };
         id?: string;
         blockName?: string;
@@ -976,18 +989,6 @@ export interface ReusableContent {
         blockName?: string;
         blockType: 'contentGrid';
       }
-    // | {
-    //     formFields: {
-    //       container?: boolean;
-    //       richText: {
-    //         [k: string]: unknown;
-    //       }[];
-    //       form: string | Form;
-    //     };
-    //     id?: string;
-    //     blockName?: string;
-    //     blockType: 'form';
-    //   }
     | {
         hoverHighlightsFields: {
           richText: {
@@ -1285,128 +1286,6 @@ export interface ReusableContent {
   updatedAt: string;
   createdAt: string;
 }
-// export interface Form {
-//   id: string;
-//   title: string;
-//   fields?: (
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         defaultValue?: string;
-//         required?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'text';
-//       }
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         defaultValue?: string;
-//         required?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'textarea';
-//       }
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         defaultValue?: string;
-//         options?: {
-//           label: string;
-//           value: string;
-//           id?: string;
-//         }[];
-//         required?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'select';
-//       }
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         required?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'email';
-//       }
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         required?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'state';
-//       }
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         required?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'country';
-//       }
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         defaultValue?: number;
-//         required?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'number';
-//       }
-//     | {
-//         name: string;
-//         label?: string;
-//         width?: number;
-//         required?: boolean;
-//         defaultValue?: boolean;
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'checkbox';
-//       }
-//     | {
-//         message?: {
-//           [k: string]: unknown;
-//         }[];
-//         id?: string;
-//         blockName?: string;
-//         blockType: 'message';
-//       }
-//   )[];
-//   submitButtonLabel?: string;
-//   confirmationType?: 'message' | 'redirect';
-//   confirmationMessage: {
-//     [k: string]: unknown;
-//   }[];
-//   redirect?: {
-//     url: string;
-//   };
-//   emails?: {
-//     emailTo?: string;
-//     cc?: string;
-//     bcc?: string;
-//     replyTo?: string;
-//     emailFrom?: string;
-//     subject: string;
-//     message?: {
-//       [k: string]: unknown;
-//     }[];
-//     id?: string;
-//   }[];
-//   leader: {
-//     [k: string]: unknown;
-//   }[];
-//   hubSpotFormID?: string;
-//   updatedAt: string;
-//   createdAt: string;
-// }
 export interface Category {
   id: string;
   title?: string;
@@ -1422,41 +1301,36 @@ export interface Category {
 }
 export interface StockItem {
   id: string;
-  slug?: string;
-  name: string;
+  title: string;
   description: string;
   type: 'card' | 'gift' | 'box' | 'ribbon';
   categories?: string[] | Category[];
+  brand?: string | ProductBrand;
+  supplier?: string | Supplier;
+  sku?: string;
   totalQty: number;
   unitCost: number;
-  sku?: string;
   image: string | Media;
   updatedAt: string;
   createdAt: string;
-  _status?: 'draft' | 'published';
+}
+export interface ProductBrand {
+  id: string;
+  title: string;
+  website: string;
+  logo: string | Media;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface Supplier {
   id: string;
-  slug?: string;
-  name: string;
+  title: string;
   website: string;
   relationship: 'positive' | 'neutral' | 'negative';
   logo: string | Media;
   updatedAt: string;
   createdAt: string;
-  _status?: 'draft' | 'published';
 }
-// export interface FormSubmission {
-//   id: string;
-//   form: string | Form;
-//   submissionData?: {
-//     field: string;
-//     value: string;
-//     id?: string;
-//   }[];
-//   updatedAt: string;
-//   createdAt: string;
-// }
 export interface Redirect {
   id: string;
   from: string;

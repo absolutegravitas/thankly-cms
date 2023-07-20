@@ -70,18 +70,18 @@ export const UserFields: CollectionConfig['fields'] = [
         type: 'array',
         fields: [
           {
-            name: 'product',
+            name: 'orders',
             type: 'relationship',
-            relationTo: 'products',
+            relationTo: 'orders',
           },
-          {
-            name: 'quantity',
-            type: 'number',
-            min: 1,
-            admin: {
-              step: 1,
-            },
-          },
+          // {
+          //   name: 'quantity',
+          //   type: 'number',
+          //   min: 1,
+          //   admin: {
+          //     step: 1,
+          //   },
+          // },
         ],
       },
       // If you wanted to maintain a 'created on'
