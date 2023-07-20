@@ -1,86 +1,32 @@
 import type { CollectionConfig } from 'payload/types'
-
-import { admins } from '../access/admins'
-import { Content } from '../blocks/Content'
-import { MediaBlock } from '../blocks/Media'
-import { slugField } from '../fields/slug'
-import { populateArchiveBlock } from '../hooks/populateArchiveBlock'
-import { populatePublishedDate } from '../hooks/populatePublishedDate'
-
-export const SuppliersFields: CollectionConfig['fields'] = [
-  {
-    name: 'title',
-    type: 'text',
-    required: true,
-  },
-  {
-    name: 'publishedDate',
-    type: 'date',
-    admin: {
-      position: 'sidebar',
-    },
-  },
-  
-  {
-    name: 'categories',
-    type: 'relationship',
-    relationTo: 'categories',
-    hasMany: true,
-    admin: {
-      position: 'sidebar',
-    },
-  },
-  slugField(),
-  // {
-  //   name: 'skipSync',
-  //   label: 'Skip Sync',
-  //   type: 'checkbox',
-  //   admin: {
-  //     position: 'sidebar',
-  //     readOnly: true,
-  //     hidden: true,
-  //   },
-  // },
-]
+import { isAdmin } from '../access/isAdmin'
 
 const Suppliers: CollectionConfig = {
-  slug: 'Suppliers',
+  slug: 'suppliers',
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ['name', 'website', '_status'],
+    useAsTitle: 'title',
     group: 'Shop'
 
   },
-  hooks: {
-    beforeChange: [populatePublishedDate,],
-    afterRead: [populateArchiveBlock],
-    afterDelete: [],
-  },
-  versions: {
-    drafts: true,
-  },
   access: {
     read: () => true,
-    create: admins,
-    update: admins,
-    delete: admins,
+    create: isAdmin,
+    readVersions: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
-
   fields: [
-    slugField(),
-
     {
       type: 'row', // required
       fields: [
         {
-          name: 'name',
+          name: 'title',
           type: 'text',
           required: true,
           admin: {
             width: '50%',
           },
         },
-
         {
           name: 'website',
           type: 'text',
@@ -89,7 +35,6 @@ const Suppliers: CollectionConfig = {
             width: '50%',
           },
         },
-
         {
           name: 'relationship', // required
           type: 'select', // required
@@ -116,31 +61,14 @@ const Suppliers: CollectionConfig = {
 
           ],
         },
-
-
-        // {
-        //   name: 'brand',
-        //   type: 'relationship',
-        //   relationTo: 'brands',
-        //   hasMany: true,
-        //   admin: {
-        //     width: '50%',
-        //     // position: 'sidebar',
-        //   },
-        // },
-
-      ],
+      ]
     },
-
-
-
     {
       name: 'logo',
       type: 'upload',
       relationTo: 'media',
       required: true,
     },
-
 
   ],
 }

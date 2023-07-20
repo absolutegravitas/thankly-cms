@@ -97,7 +97,6 @@ export default buildConfig({
     Users,
   ],
   csrf: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
-
   cors: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.co', 'https://www.thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
 
   endpoints: [

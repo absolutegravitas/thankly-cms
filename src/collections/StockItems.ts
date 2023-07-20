@@ -1,87 +1,26 @@
 import type { CollectionConfig } from 'payload/types'
-
-import { admins } from '../access/admins'
-import { Content } from '../blocks/Content'
-import { MediaBlock } from '../blocks/Media'
-import { slugField } from '../fields/slug'
-import { populateArchiveBlock } from '../hooks/populateArchiveBlock'
-import { populatePublishedDate } from '../hooks/populatePublishedDate'
-
-export const StockItemsFields: CollectionConfig['fields'] = [
-  slugField(),
-  {
-    name: 'title',
-    type: 'text',
-    required: true,
-  },
-  {
-    name: 'publishedDate',
-    type: 'date',
-    admin: {
-      position: 'sidebar',
-    },
-  },
-  {
-    name: 'categories',
-    type: 'relationship',
-    relationTo: 'categories',
-    hasMany: true,
-    admin: {
-      position: 'sidebar',
-    },
-  },
-  {
-    name: 'supplier',
-    type: 'relationship',
-    relationTo: 'suppliers',
-    hasMany: false,
-    // admin: {
-    //   position: 'sidebar',
-    // },
-  },
-  {
-    name: 'skipSync',
-    label: 'Skip Sync',
-    type: 'checkbox',
-    admin: {
-      position: 'sidebar',
-      readOnly: true,
-      hidden: true,
-    },
-  },
-]
+import { isAdmin } from '../access/isAdmin'
 
 const StockItems: CollectionConfig = {
   slug: 'stockItems',
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ['name','type','brand', '_status'],
+    useAsTitle: 'title',
     group: 'Shop'
 
   },
-  hooks: {
-    beforeChange: [populatePublishedDate,],
-    afterRead: [populateArchiveBlock],
-    afterDelete: [],
-  },
-  versions: {
-    drafts: true,
-  },
   access: {
     read: () => true,
-    create: admins,
-    update: admins,
-    delete: admins,
+    create: isAdmin,
+    readVersions: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
-
   fields: [
-    slugField(),
-
     {
       type: 'row', // required
       fields: [
         {
-          name: 'name',
+          name: 'title',
           type: 'text',
           required: true,
           admin: {
@@ -96,8 +35,6 @@ const StockItems: CollectionConfig = {
             width: '50%',
           },
         },
-        
-       
         {
           name: 'type', // required
           type: 'select', // required
@@ -125,7 +62,7 @@ const StockItems: CollectionConfig = {
             {
               label: 'Ribbon',
               value: 'ribbon',
-            
+
             },
           ],
         },
@@ -136,29 +73,35 @@ const StockItems: CollectionConfig = {
           hasMany: true,
           admin: {
             width: '50%',
-            // position: 'sidebar',
           },
         },
-        // {
-        //   name: 'supplier',
-        //   type: 'relationship',
-        //   relationTo: 'suppliers',
-        //   hasMany: false,
-        //   admin: {
-        //     width: '50%',
-        //     // position: 'sidebar',
-        //   },
-        // },
-        // {
-        //   name: 'brand',
-        //   type: 'relationship',
-        //   relationTo: 'brands',
-        //   hasMany: true,
-        //   admin: {
-        //     width: '50%',
-        //     // position: 'sidebar',
-        //   },
-        // },
+        {
+          name: 'brand',
+          type: 'relationship',
+          relationTo: 'product-brands',
+          hasMany: false,
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'supplier',
+          type: 'relationship',
+          relationTo: 'suppliers',
+          hasMany: false,
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'sku',
+          label: 'SKU',
+          type: 'text',
+          required: false,
+          admin: {
+            width: '50%',
+          },
+        },
         {
           name: 'totalQty',
           type: 'number',
@@ -173,37 +116,14 @@ const StockItems: CollectionConfig = {
           required: true,
           defaultValue: 0,
         },
-        // {
-        //   name: 'usedQty',
-        //   type: 'number',
-        //   required: false,
-        //   defaultValue: 0,
-        //   admin:{
-        //     readOnly:true,
-        //   },
-        // },
-        {
-          name: 'sku',
-          label: 'SKU',
-          type: 'text',
-          required: false,
-          // admin: {
-          //   width: '50%',
-          // },
-        },
-
-      ],
+      ]
     },
-
-
-
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
       required: true,
     },
-
 
   ],
 }
