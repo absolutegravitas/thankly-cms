@@ -62,16 +62,6 @@ export const Pages: CollectionConfig = {
       required: true,
     },
     fullTitle,
-    // {
-    //   type: 'tabs',
-    //   tabs: [
-    //     // {
-    //     //   label: 'Hero',
-    //     //   fields: [hero],
-    //     // },
-    //     {
-    //       label: 'Layout',
-    //       fields: [
     {
       name: 'layout',
       type: 'blocks',
@@ -83,7 +73,6 @@ export const Pages: CollectionConfig = {
         CardGrid,
         Content,
         ContentGrid,
-        // Form,
         HoverHighlights,
         LinkGrid,
         MediaBlock,
@@ -93,10 +82,6 @@ export const Pages: CollectionConfig = {
         Slider,
         Steps,
         StickyHighlights,
-        //     ],
-        //   },
-        // ],
-        // },
       ],
     },
     slugField(),

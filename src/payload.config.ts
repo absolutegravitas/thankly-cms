@@ -9,8 +9,6 @@ import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
 import stripePlugin from '@payloadcms/plugin-stripe'
 import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
 
-
-
 // import richText from './fields/richText'
 import { Brand } from './globals/Brand'
 import { buildConfig } from 'payload/config'
@@ -20,17 +18,16 @@ import { Media } from './collections/Media'
 import { Menus } from './globals/Menus'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+
 import { priceUpdated } from './stripe/webhooks/priceUpdated'
 import { productUpdated } from './stripe/webhooks/productUpdated'
 import { ReusableContent } from './collections/ReusableContent'
-// import { Users } from './collections/Users'
 import Users from './collections/Users'
 
 import BeforeDashboard from './components/BeforeDashboard'
 import Categories from './collections/Categories'
-import Orders from './collections/Orders'
 import ProductBrands from './collections/ProductBrands'
-import Products from './collections/Products'
+import { Products } from './collections/Products'
 import StockItems from './collections/StockItems'
 import Suppliers from './collections/Suppliers'
 
@@ -38,9 +35,7 @@ dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 })
 
-const generateTitle: GenerateTitle = () => {
-  return 'My Store'
-}
+const generateTitle: GenerateTitle = () => { return 'Thankly' }
 
 const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js')
 
@@ -86,16 +81,15 @@ export default buildConfig({
   },
 
   collections: [
-    Orders,
-    Products,
+    Categories,
+    Media,
     Pages,
     Posts,
+    ProductBrands,
+    Products,
+    ReusableContent,
     StockItems,
     Suppliers,
-    Categories,
-    ProductBrands,
-    Media,
-    ReusableContent,
     Users,
   ],
   csrf: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
@@ -112,7 +106,6 @@ export default buildConfig({
   graphQL: {
     disablePlaygroundInProduction: true,
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
-
   },
 
   plugins: [
@@ -179,13 +172,11 @@ export default buildConfig({
     // }),
 
     nestedDocs({
-      collections: ['pages', 'categories'],
+      collections: ['pages', 'categories', 'products'],
       generateLabel: (_, doc) => doc.title as string,
       generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
-    redirects({
-      collections: ['pages', 'posts'],
-    }),
+    redirects({ collections: ['pages', 'posts', 'products'], }),
     seo({
       collections: ['pages', 'posts', 'products'],
       uploadsCollection: 'media',
@@ -206,12 +197,10 @@ export default buildConfig({
     }),
     cloudStorage({
       enabled: true,
-
       collections: {
         media: {
           disableLocalStorage: true,
           adapter: adapter, // see docs for the adapter you want to use
-
           generateFileURL: ({ filename, prefix }) => {
             console.log(filename, prefix)
             return ['https://d1qkl36l6oj3o3.cloudfront.net', prefix, filename].filter(Boolean).join('/')
@@ -220,11 +209,6 @@ export default buildConfig({
       },
     }),
   ],
-  rateLimit: {
-    trustProxy: true,
-    max: 4000,
-  },
-  typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
-  },
+  rateLimit: { trustProxy: true, max: 4000, },
+  typescript: { outputFile: path.resolve(__dirname, 'payload-types.ts'), },
 })

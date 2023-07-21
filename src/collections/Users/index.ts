@@ -11,99 +11,62 @@ import { CustomerSelect } from './ui/CustomerSelect'
 
 export const UserFields: CollectionConfig['fields'] = [
   {
-    name: 'name',
-    type: 'text',
-  },
-  {
-    name: 'roles',
-    type: 'select',
-    hasMany: true,
-    defaultValue: ['customer'],
-    options: [
-      {
-        label: 'admin',
-        value: 'admin',
-      },
-      {
-        label: 'customer',
-        value: 'customer',
-      },
-    ],
-    hooks: {
-      beforeChange: [ensureFirstUserIsAdmin],
-    },
-    access: {
-      read: admins,
-      create: admins,
-      update: admins,
-    },
-  },
-  {
-    name: 'purchases',
-    label: 'Purchases',
-    type: 'relationship',
-    relationTo: 'products',
-    hasMany: true,
-  },
-  {
-    name: 'stripeCustomerID',
-    label: 'Stripe Customer',
-    type: 'text',
-    access: {
-      read: ({ req: { user } }) => checkRole(['admin'], user),
-    },
-    admin: {
-      position: 'sidebar',
-      components: {
-        Field: CustomerSelect,
+    type: 'row', // required
+    fields: [{
+      name: 'name',
+      type: 'text',
+      required: true,
+      admin: {
+        width: '50%',
       },
     },
-  },
-  {
-    label: 'Cart',
-    name: 'cart',
-    type: 'group',
-    fields: [
-      {
-        name: 'items',
-        label: 'Items',
-        type: 'array',
-        fields: [
-          {
-            name: 'orders',
-            type: 'relationship',
-            relationTo: 'orders',
-          },
-          // {
-          //   name: 'quantity',
-          //   type: 'number',
-          //   min: 1,
-          //   admin: {
-          //     step: 1,
-          //   },
-          // },
-        ],
+    {
+      name: 'roles',
+      type: 'select',
+      hasMany: true,
+      defaultValue: ['customer'],
+      admin: {
+        width: '50%',
       },
-      // If you wanted to maintain a 'created on'
-      // or 'last modified' date for the cart
-      // you could do so here:
-      // {
-      //   name: 'createdOn',
-      //   label: 'Created On',
-      //   type: 'date',
-      //   admin: {
-      //     readOnly: true
-      //   }
-      // },
-      // {
-      //   name: 'lastModified',
-      //   label: 'Last Modified',
-      //   type: 'date',
-      //   admin: {
-      //     readOnly: true
-      //   }
-      // },
-    ],
+      options: [
+        {
+          label: 'admin',
+          value: 'admin',
+        },
+        {
+          label: 'customer',
+          value: 'customer',
+        }, {
+          label: 'user',
+          value: 'user',
+        },
+      ],
+      hooks: {
+        beforeChange: [ensureFirstUserIsAdmin],
+      },
+      access: {
+        read: admins,
+        create: admins,
+        update: admins,
+      },
+    },
+    {
+      name: 'stripeCustomerID',
+      label: 'Stripe Customer',
+      type: 'text',
+      access: {
+        read: ({ req: { user } }) => checkRole(['admin'], user),
+      },
+      admin: {
+        // psosition: 'sidebar',
+        width: '50%',
+        components: {
+          Field: CustomerSelect,
+        },
+      },
+    },
+
+    ]
   },
   {
     name: 'skipSync',
@@ -124,10 +87,10 @@ const Users: CollectionConfig = {
     defaultColumns: ['name', 'email'],
   },
   access: {
-    read: adminsAndUser,
-    create: anyone,
-    update: adminsAndUser,
-    delete: admins,
+    read: adminsAndUser, // admin and user can read their profile
+    create: anyone, // anyone can signup
+    update: adminsAndUser, // admin and user can update their profile
+    delete: admins, // only admins can delete
     admin: ({ req: { user } }) => checkRole(['admin'], user),
   },
   hooks: {

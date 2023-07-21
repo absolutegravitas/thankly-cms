@@ -19,7 +19,6 @@ export const Brand: GlobalConfig = {
     {
       type: "tabs", // required
       tabs: [
-        // required
         {
           name: "basicInfo",
           label: "Basic", // required
@@ -31,7 +30,6 @@ export const Brand: GlobalConfig = {
             { name: "domain", label: "Domain", type: "text", required: true, },
             { name: "copyright", label: "Copyright Notice", type: "text", required: true, },
             { name: "cookieNotice", label: "Cookie Notice", type: "text", required: true, },
-
           ],
         },
         {
