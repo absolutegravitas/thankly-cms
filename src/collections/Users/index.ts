@@ -11,60 +11,56 @@ import { CustomerSelect } from './ui/CustomerSelect'
 
 export const UserFields: CollectionConfig['fields'] = [
   {
-    type: 'row', // required
-    fields: [{
-      name: 'name',
-      type: 'text',
-      required: true,
-      admin: {
-        width: '50%',
-      },
-    },
-    {
-      name: 'roles',
-      type: 'select',
-      hasMany: true,
-      defaultValue: ['customer'],
-      admin: {
-        width: '50%',
-      },
-      options: [
-        {
-          label: 'admin',
-          value: 'admin',
+    type: 'row',
+    fields: [
+      { name: 'name', type: 'text', required: true, admin: { width: '50%', }, },
+      { name: 'business', label: 'Business / Organisation', type: 'text', required: true, admin: { width: '50%', }, },
+
+      {
+        name: 'roles',
+        type: 'select',
+        hasMany: true,
+        defaultValue: ['customer'],
+        admin: {
+          width: '50%',
         },
-        {
-          label: 'customer',
-          value: 'customer',
-        }, {
-          label: 'user',
-          value: 'user',
+        options: [
+          {
+            label: 'admin',
+            value: 'admin',
+          },
+          {
+            label: 'customer',
+            value: 'customer',
+          }, {
+            label: 'user',
+            value: 'user',
+          },
+        ],
+        hooks: {
+          beforeChange: [ensureFirstUserIsAdmin],
         },
-      ],
-      hooks: {
-        beforeChange: [ensureFirstUserIsAdmin],
-      },
-      access: {
-        read: admins,
-        create: admins,
-        update: admins,
-      },
-    },
-    {
-      name: 'stripeCustomerID',
-      label: 'Stripe Customer',
-      type: 'text',
-      access: {
-        read: ({ req: { user } }) => checkRole(['admin'], user),
-      },
-      admin: {
-        // psosition: 'sidebar',
-        width: '50%',
-        components: {
-          Field: CustomerSelect,
+        access: {
+          read: admins,
+          create: admins,
+          update: admins,
         },
       },
-    },
+      {
+        name: 'stripeCustomerID',
+        label: 'Stripe Customer',
+        type: 'text',
+        access: {
+          read: ({ req: { user } }) => checkRole(['admin'], user),
+        },
+        admin: {
+          // psosition: 'sidebar',
+          width: '50%',
+          components: {
+            Field: CustomerSelect,
+          },
+        },
+      },
 
     ]
   },

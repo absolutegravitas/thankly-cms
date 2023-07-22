@@ -30,7 +30,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
     name: 'link',
     type: 'group',
     admin: {
-      hideGutter: true,
+      hideGutter: false,
       ...(overrides?.admin || {}),
     },
     fields: [

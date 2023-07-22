@@ -39,6 +39,7 @@ export interface Product {
   sku: string;
   priceJSON?: string
   stripeProductID?: string
+  type: 'card' | 'bundle'
   parent?: string | Page;
   breadcrumbs?: {
     doc?: string | Page;
@@ -1244,6 +1245,8 @@ export interface ReusableContent {
 export interface User {
   id: string;
   name: string;
+  business: string;
+
   roles?: ('admin' | 'customer' | 'user')[];
   stripeCustomerID?: string;
   skipSync?: boolean;
@@ -1267,25 +1270,85 @@ export interface User {
     }>
   }
 }
+// export interface Voucher {
+//   code: string
+//   totalValue: number
+//   remainingValue: number
+// }
 
+export interface Discount {
+  code: string
+  value: number
+  activeDate: Date
+  expiryDate: Date
+}
+
+export interface Recipient {
+  name: string,
+  business?: string,
+  address: {
+    fulladdress: string,
+    type?: 'po-box' | 'parcel-locker' | 'business' | 'residential'
+    addressLine1: string,
+    addressLine2?: string,
+    suburb: string,
+    state: string,
+    postcode: string,
+    // country: string | 'Australia'
+  }
+}
+
+export interface Event {
+  date: Date
+  type: 'delivery' | 'updates' | 'error'
+  message:String
+}
 export interface Order {
+  // basic fields
   id: string
-  orderedBy: {
+  termsAccepted: Boolean
+  stripeInvoiceID?: string
+  stripePaymentIntentID?: string
+
+  // pending -- order created (temp cart)
+  // Processing — Payment received (paid) and stock has been reduced; order is awaiting fulfillment. All product orders require processing, except those that only contain products which are both Virtual and Downloadable.
+  // Completed — Order fulfilled and complete – requires no further action.
+  // On hold — Awaiting payment – stock is reduced, but you need to confirm payment.
+  // Cancelled — Cancelled by an admin or the customer – stock is increased, no further action required.
+  status: 'pending' | 'canceled' | 'onhold' | 'processing' | 'completed'
+  channel: 'manual' | 'web' | 'fb' | 'insta' // records the initiating channel for the order
+  notes: string // store order notes / messages to thankly
+  events: JSON // store events user or api generated
+
+  // invoice totals
+  subtotalAmount: number // total of all order items
+  shippingAmount: number // add value of shipping costs
+  discountAmount: number // less value of discount applied on whole order
+  // voucherAmount: number // less value of voucher(s) applied
+  // TODO: implement tax rates based on originating country or let Stripe Tax do it
+  // taxAmount: number // plus taxes on order (GST 10%)
+  invoiceAmount: number // equals
+
+  // vouchers: Array<{ voucher: Voucher }>
+  discount: Discount
+
+  // order line items
+  items: Array<{
+    product: Product
+    stripePriceID: String // price used for this order
+    message: { text: String; style: 'normal' | 'cursive' | 'block' }
+    status: 'cancelled' | 'processing' | 'shipped' | 'delivered'
+    recipient: Recipient
+  }>
+
+  // customer that ordered
+  customer: {
     user?: string | User
     name?: string
     email?: string
     stripeCustomerID?: string
   }
-  items: Array<{
-    product?: string | Product
-    title?: string
-    priceJSON?: string
-    stripeProductID?: string
-    quantity?: number
-    id?: string
-  }>
-  stripeInvoiceID?: string
-  stripePaymentIntentID?: string
+
   createdAt: string
   updatedAt: string
 }

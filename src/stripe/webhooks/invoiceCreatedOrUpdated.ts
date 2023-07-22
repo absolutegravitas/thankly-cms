@@ -107,7 +107,7 @@ export const invoiceCreatedOrUpdated: StripeWebhookHandler<{
       const orderData: any = {
         stripeInvoiceID,
         stripePaymentIntentID,
-        orderedBy: {
+        customer: {
           user: user?.id || null,
           name: invoiceCustomerName,
           email: invoiceCustomerEmail,

@@ -59,23 +59,37 @@ export const Products: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
+    slugField(),
     { name: 'title', type: 'text', required: true, },
     fullTitle,
-    slugField(),
-    { name: 'price', type: 'number', required: true, },
-    { name: 'stripeProductID', type: 'text', required: true, },
     { name: 'description', type: 'textarea', required: true, },
     {
-      type: "tabs", // required
+      type: "row",
+      fields: [
+        { name: 'price', type: 'number', required: true, admin: { width: '50%', }, },
+        { name: 'stripeProductID', type: 'text', required: true, admin: { width: '50%', }, },
+        {
+          name: 'type',
+          type: 'select',
+          hasMany: false, required: true, admin: { width: '50%', isClearable: true, },
+          options: [
+            { label: 'Card', value: 'card', },
+            { label: 'Bundle', value: 'Bundle', },
+          ],
+        },
+      ]
+    },
+    {
+      type: "tabs",
       tabs: [
         {
           name: "images",
-          label: "Images", // required
+          label: "Images", 
           interfaceName: "images", // optional (`name` must be present)
           fields: [
             {
-              name: "images", // required
-              type: "array", // required
+              name: "images", 
+              type: "array", 
               label: "Product Images",
               minRows: 1,
               maxRows: 4,
@@ -90,17 +104,17 @@ export const Products: CollectionConfig = {
         },
         {
           name: "components",
-          label: "Components", // required
+          label: "Components", 
           interfaceName: "components", // optional (`name` must be present)
           fields: [
             {
-              type: 'row', // required
+              type: 'row', 
               fields: [
                 { name: 'quantity', type: 'number', required: true, },
                 { name: 'sku', label: 'SKU', type: 'text', required: true, },
                 {
-                  name: "stock", // required
-                  type: "array", // required
+                  name: "stock", 
+                  type: "array", 
                   label: "Stock",
                   minRows: 1,
                   // maxRows: 4,
@@ -122,7 +136,7 @@ export const Products: CollectionConfig = {
         },
         {
           name: "layout",
-          label: "Page Layout", // required
+          label: "Page Layout", 
           interfaceName: "layout", // optional (`name` must be present)
           fields: [
             {

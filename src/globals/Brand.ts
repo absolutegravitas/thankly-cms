@@ -7,9 +7,9 @@ export const Brand: GlobalConfig = {
   typescript: {
     interface: 'Brand',
   },
-  graphQL: {
-    name: 'Brand',
-  },
+  // graphQL: {
+  //   name: 'Brand',
+  // },
   access: {
     read: () => true,
     update: isAdmin,
@@ -17,11 +17,11 @@ export const Brand: GlobalConfig = {
   },
   fields: [
     {
-      type: "tabs", // required
+      type: "tabs", 
       tabs: [
         {
           name: "basicInfo",
-          label: "Basic", // required
+          label: "Basic", 
           interfaceName: "basicInfo", // optional (`name` must be present)
           description: "Basic business information here.",
           fields: [
@@ -34,7 +34,7 @@ export const Brand: GlobalConfig = {
         },
         {
           name: "styleLight",
-          label: "Global Style (Light)", // required
+          label: "Global Style (Light)", 
           interfaceName: "styleLight", // optional (`name` must be present)
           description: 'Inherited by all posts, pages, products etc. unless customised on a given post / page',
           fields: [
@@ -46,7 +46,7 @@ export const Brand: GlobalConfig = {
         },
         {
           name: "styleDark",
-          label: "Global Style (Dark Mode)", // required
+          label: "Global Style (Dark Mode)", 
           interfaceName: "styleDark", // optional (`name` must be present)
           description: 'Inherited by all posts, pages, products etc. unless customised on a given post / page',
 
@@ -59,7 +59,7 @@ export const Brand: GlobalConfig = {
         },
         {
           name: "keyPages",
-          label: "Key Pages", // required
+          label: "Key Pages", 
           interfaceName: "keyPages", // optional (`name` must be present)
           fields: [
             {

@@ -16,7 +16,7 @@ export const Menus: GlobalConfig = {
       tabs: [
         {
           name: "header",
-          label: "Header", // required
+          label: "Header", 
           interfaceName: "header", // optional (`name` must be present)
           description: "Menu shown in header on all pages.",
 
@@ -36,7 +36,7 @@ export const Menus: GlobalConfig = {
         },
         {
           name: "footer",
-          label: "Footer", // required
+          label: "Footer", 
           interfaceName: "footer", // optional (`name` must be present)
           fields: [
             {
@@ -63,7 +63,7 @@ export const Menus: GlobalConfig = {
         },
         {
           name: "topBar",
-          label: "Top Bar", // required
+          label: "Top Bar", 
           interfaceName: "topBar", // optional (`name` must be present)
           fields: [
             { name: "text", label: "Text", type: "text", required: false, },

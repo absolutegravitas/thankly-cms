@@ -17,7 +17,7 @@ const ProductBrands: CollectionConfig = {
   },
   fields: [
     {
-      type: 'row', // required
+      type: 'row', 
       fields: [
         {
           name: 'title',

@@ -8,7 +8,7 @@ const livestreamFields: Field = {
   label: false,
   type: 'group',
   admin: {
-    hideGutter: true,
+    hideGutter: false,
     condition: (_, { type }) => type === 'livestream',
     style: {
       margin: 0,
