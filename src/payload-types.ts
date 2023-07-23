@@ -1245,7 +1245,7 @@ export interface ReusableContent {
 export interface User {
   id: string;
   name: string;
-  business: string;
+  business?: string;
 
   roles?: ('admin' | 'customer' | 'user')[];
   stripeCustomerID?: string;
