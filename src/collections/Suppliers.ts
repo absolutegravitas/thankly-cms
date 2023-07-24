@@ -17,7 +17,7 @@ const Suppliers: CollectionConfig = {
   },
   fields: [
     {
-      type: 'row', 
+      type: 'row',
       fields: [
         {
           name: 'title',
@@ -36,8 +36,8 @@ const Suppliers: CollectionConfig = {
           },
         },
         {
-          name: 'relationship', 
-          type: 'select', 
+          name: 'relationship',
+          type: 'select',
           hasMany: false,
           required: true,
           admin: {
@@ -63,6 +63,8 @@ const Suppliers: CollectionConfig = {
         },
       ]
     },
+    { name: 'comments', type: 'textarea', required: false, },
+
     {
       name: 'logo',
       type: 'upload',

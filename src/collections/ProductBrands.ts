@@ -17,7 +17,7 @@ const ProductBrands: CollectionConfig = {
   },
   fields: [
     {
-      type: 'row', 
+      type: 'row',
       fields: [
         {
           name: 'title',
@@ -36,6 +36,7 @@ const ProductBrands: CollectionConfig = {
           },
         },]
     },
+    { name: 'comments', type: 'textarea', required: false, },
     {
       name: 'logo',
       type: 'upload',

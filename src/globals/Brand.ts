@@ -7,9 +7,9 @@ export const Brand: GlobalConfig = {
   typescript: {
     interface: 'Brand',
   },
-  // graphQL: {
-  //   name: 'Brand',
-  // },
+  graphQL: {
+    name: 'Brand',
+  },
   access: {
     read: () => true,
     update: isAdmin,

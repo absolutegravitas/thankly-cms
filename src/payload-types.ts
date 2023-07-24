@@ -1301,7 +1301,7 @@ export interface Recipient {
 export interface Event {
   date: Date
   type: 'delivery' | 'updates' | 'error'
-  message:String
+  message: String
 }
 export interface Order {
   // basic fields
@@ -1372,12 +1372,16 @@ export interface StockItem {
   title: string;
   description: string;
   type: 'card' | 'gift' | 'box' | 'ribbon';
+  value: 'high' | 'medium' | 'low' | 'discontinued';
+
   categories?: string[] | Category[];
   brand?: string | ProductBrand;
   supplier?: string | Supplier;
   sku?: string;
   totalQty: number;
-  unitCost: number;
+  retailUnitCost: number;
+  wholesaleUnitCost: number;
+  comments: string;
   image: string | Media;
   updatedAt: string;
   createdAt: string;
@@ -1389,6 +1393,8 @@ export interface ProductBrand {
   logo: string | Media;
   updatedAt: string;
   createdAt: string;
+  comments: string;
+
 }
 export interface Supplier {
   id: string;
@@ -1398,6 +1404,8 @@ export interface Supplier {
   logo: string | Media;
   updatedAt: string;
   createdAt: string;
+  comments: string;
+
 }
 export interface Redirect {
   id: string;

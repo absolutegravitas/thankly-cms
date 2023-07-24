@@ -194,7 +194,7 @@ export default buildConfig({
   cors: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.co', 'https://www.thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
   endpoints: [{ path: '/checkout', method: 'post', handler: checkout, },],
   globals: [Brand, Menus],
-  graphQL: { disablePlaygroundInProduction: true, schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'), },
+  graphQL: { disablePlaygroundInProduction: false, schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'), },
   rateLimit: { trustProxy: true, max: 4000, },
   typescript: { outputFile: path.resolve(__dirname, 'payload-types.ts'), },
-})
+})  
