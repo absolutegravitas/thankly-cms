@@ -112,7 +112,7 @@ export const Orders: CollectionConfig = {
                   ]
                 },
                 {
-                  name: 'recipient',
+                  name: 'receiver',
                   type: 'group', fields: [
                     { name: 'name', type: 'text', required: false },
                     { name: 'business', type: 'text', required: false },

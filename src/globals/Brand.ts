@@ -29,7 +29,7 @@ export const Brand: GlobalConfig = {
             { name: "tagline", label: "Tagline", type: "text", required: true, },
             { name: "domain", label: "Domain", type: "text", required: true, },
             { name: "copyright", label: "Copyright Notice", type: "text", required: true, },
-            { name: "cookieNotice", label: "Cookie Notice", type: "text", required: true, },
+            // { name: "cookieNotice", label: "Cookie Notice", type: "text", required: true, },
           ],
         },
         {

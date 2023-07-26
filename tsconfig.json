@@ -6,7 +6,10 @@
       ],
       "stripe": [
         "./node_modules/stripe"
-      ]
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
     },
     "target": "es5",
     "lib": [

@@ -1,7 +1,7 @@
 import type { Access } from 'payload/config'
 import type { FieldAccess } from 'payload/types'
 
-import type { User } from '../payload-types'
+import type { User } from '../types/_global'
 
 export const isAdminOrSelf: Access = ({ req: { user } }) => {
   // Need to be logged in

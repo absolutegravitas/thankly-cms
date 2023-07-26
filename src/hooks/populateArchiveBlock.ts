@@ -1,6 +1,7 @@
 import type { AfterReadHook } from 'payload/dist/globals/config/types'
 
-import type { Page, Product } from '../payload-types'
+import type { Page } from '../types/page'
+import type { Product } from '../types/product'
 
 export const populateArchiveBlock: AfterReadHook = async ({ doc, req: { payload } }) => {
   // pre-populate the archive block if `populateBy` is `collection`
@@ -9,7 +10,7 @@ export const populateArchiveBlock: AfterReadHook = async ({ doc, req: { payload 
   const layoutWithArchive = await Promise.all(
     doc.layout.map(async block => {
       if (block.blockType === 'archive') {
-        const archiveBlock:any = block as Extract<Page['layout'][0], { blockType: 'archive' }> & {
+        const archiveBlock: any = block as Extract<Page['layout'][0], { blockType: 'archive' }> & {
           populatedDocs: Array<{
             relationTo: 'products' | 'pages'
             value: string
@@ -23,15 +24,15 @@ export const populateArchiveBlock: AfterReadHook = async ({ doc, req: { payload 
             where: {
               ...(archiveBlock?.categories?.length > 0
                 ? {
-                    categories: {
-                      in: archiveBlock.categories
-                        .map(cat => {
-                          if (typeof cat === 'string') return cat
-                          return cat.id
-                        })
-                        .join(','),
-                    },
-                  }
+                  categories: {
+                    in: archiveBlock.categories
+                      .map(cat => {
+                        if (typeof cat === 'string') return cat
+                        return cat.id
+                      })
+                      .join(','),
+                  },
+                }
                 : {}),
             },
             sort: '-publishedDate',

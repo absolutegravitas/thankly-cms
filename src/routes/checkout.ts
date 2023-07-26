@@ -1,7 +1,7 @@
 import type { PayloadHandler } from 'payload/config'
 import Stripe from 'stripe'
 
-import type { User } from '../payload-types'
+import type { User } from '../types/_global'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15',
