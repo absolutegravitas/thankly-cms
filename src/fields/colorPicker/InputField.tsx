@@ -23,25 +23,15 @@ import './styles.scss';
 
 // keep a list of default colors to choose from
 const defaultColors = [
-  '#E7ECEF',
-  '#cdc6ba',
-  '#9a8a7b',
-  '#715549',
-  '#352d27',
-  '#595959',
-  '#0D1317',
-  '#255dad',
-  '#880D1E',
-  '#0E544B',
-  '#749b4e',
+  '#E7ECEF', // dusty gray - background
+  '#0D1317', // rich black // '#292929' // jet  black
 
-  '#fa9f42',
-  '#112e6e',
-  '#89938c',
-  '#8a8952',
-  '#b96626',
+  '#ddd1b9', // baby poo brown
+  '#985934', // raw umber brown
 
-
+  '#0E544B', // brunswick green
+  '#749b4e', // asparagus
+  '#557755', // fern green - accent
 ];
 const baseClass = 'custom-color-picker';
 
