@@ -21,6 +21,7 @@ export const Menus: GlobalConfig = {
           description: "Menu shown in header on all pages.",
 
           fields: [
+            { name: "name", label: "Name (used for header menu)", type: "text", required: true, },
 
             {
               name: 'navItems',
@@ -42,7 +43,7 @@ export const Menus: GlobalConfig = {
             { name: 'logo', label: "Logo", type: 'upload', relationTo: 'media', required: false, },
             { name: "name", label: "Name", type: "text", required: true, },
             { name: "tagline", label: "Tagline", type: "text", required: true, },
-            { name: "copyright", label: "Copyright Notice", type: "text", required: true, },
+            { name: "copyright", label: "Copyright Notice (will be prepended with (c) 20xx year)", type: "text", required: true, },
 
             {
               name: 'columns',
@@ -50,7 +51,7 @@ export const Menus: GlobalConfig = {
               minRows: 1,
               maxRows: 4,
               fields: [
-                { name: "columnName", label: "Column Name", type: "text", required: true, },
+                { name: "name", label: "Column Name", type: "text", required: true, },
 
                 {
                   name: 'navItems',
