@@ -27,6 +27,7 @@ import Suppliers from './collections/Suppliers'
 import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
 import Users from './collections/Users'
 import Discounts from './collections/Discounts'
+import Reviews from './collections/Reviews'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env'), })
 const generateTitle: GenerateTitle = () => { return 'Thankly' }
@@ -52,7 +53,8 @@ export default buildConfig({
     StockItems,
     Suppliers,
     ProductBrands,
-
+    Reviews,
+    
     // website
     Pages,
     Posts,

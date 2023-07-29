@@ -42,6 +42,8 @@ export const Menus: GlobalConfig = {
             { name: 'logo', label: "Logo", type: 'upload', relationTo: 'media', required: false, },
             { name: "name", label: "Name", type: "text", required: true, },
             { name: "tagline", label: "Tagline", type: "text", required: true, },
+            { name: "copyright", label: "Copyright Notice", type: "text", required: true, },
+
             {
               name: 'columns',
               type: 'array',
