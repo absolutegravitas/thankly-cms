@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import path from 'path'
-import { Brand } from './globals/Brand'
 import { buildConfig } from 'payload/config'
 import { checkout } from './routes/checkout'
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
@@ -16,7 +15,6 @@ import { productUpdated } from './stripe/webhooks/productUpdated'
 import { ReusableContent } from './collections/ReusableContent'
 import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
 import BeforeDashboard from './components/BeforeDashboard'
-import Categories from './collections/Categories'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import ProductBrands from './collections/ProductBrands'
 import redirects from '@payloadcms/plugin-redirects'
@@ -49,18 +47,17 @@ export default buildConfig({
     Orders,
     Products,
     Discounts,
-    Categories,
     StockItems,
     Suppliers,
     ProductBrands,
     Reviews,
-    
+
     // website
     Pages,
     Posts,
 
     // other (content blocks etc.)
-    Media,    
+    Media,
     ReusableContent,
     Users,
   ],
@@ -103,67 +100,6 @@ export default buildConfig({
       },
     }),
 
-    // formBuilder({
-    //   formOverrides: {
-    //     fields: [
-    //       richText({
-    //         name: 'leader',
-    //         label: 'Leader Text',
-    //         admin: {
-    //           elements: [],
-    //         },
-    //       }),
-    //       {
-    //         name: 'hubSpotFormID',
-    //         type: 'text',
-    //         admin: {
-    //           position: 'sidebar',
-    //         },
-    //       },
-    //     ],
-    //   },
-    //   formSubmissionOverrides: {
-    //     hooks: {
-    //       afterChange: [
-    //         ({ doc, req }) => {
-    //           const sendSubmissionToHubSpot = async (): Promise<void> => {
-    //             const { form, submissionData } = doc
-    //             const portalID = process.env.PRIVATE_HUBSPOT_PORTAL_KEY
-    //             const data = {
-    //               fields: submissionData.map(key => ({
-    //                 name: key.field,
-    //                 value: key.value,
-    //               })),
-    //               context: {
-    //                 hutk: req.body?.hubspotCookie,
-    //                 pageUri: req.body?.pageUri,
-    //                 pageName: req.body?.pageName,
-    //               },
-    //             }
-    //             try {
-    //               await fetch(
-    //                 `https://api.hsforms.com/submissions/v3/integration/submit/${portalID}/${form.hubSpotFormID}`,
-    //                 {
-    //                   method: 'POST',
-    //                   headers: {
-    //                     'Content-Type': 'application/json',
-    //                   },
-    //                   body: JSON.stringify(data),
-    //                 },
-    //               )
-    //             } catch (err: unknown) {
-    //               req.payload.logger.error({
-    //                 msg: 'Fetch to HubSpot form submissions failed',
-    //                 err,
-    //               })
-    //             }
-    //           }
-    //           sendSubmissionToHubSpot()
-    //         },
-    //       ],
-    //     },
-    //   },
-    // }),
   ],
 
   admin: {
@@ -195,7 +131,7 @@ export default buildConfig({
   csrf: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
   cors: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.co', 'https://www.thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
   endpoints: [{ path: '/checkout', method: 'post', handler: checkout, },],
-  globals: [Brand, Menus],
+  globals: [Menus],
   graphQL: { disablePlaygroundInProduction: false, schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'), },
   rateLimit: { trustProxy: true, max: 4000, },
   typescript: { outputFile: path.resolve(__dirname, 'payload-types.ts'), },
