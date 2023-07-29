@@ -169,43 +169,4 @@ export const Products: CollectionConfig = {
   ]
 }
 
-
-
-
-
-//   // {
-//   //   name: 'stockItems',
-//   //   type: 'relationship',
-//   //   label: 'Component Stock Items',
-//   //   relationTo: 'stockItems',
-//   //   required: true,
-//   //   hasMany: true,
-//   //   admin: {
-//   //     position: 'sidebar',
-//   //   },
-//   // },
-//   {
-//     name: 'categories',
-//     type: 'relationship',
-//     relationTo: 'categories',
-//     hasMany: true,
-//     admin: {
-//       position: 'sidebar',
-//     },
-//   },
-//   {
-//     name: 'skipSync',
-//     label: 'Skip Sync',
-//     type: 'checkbox',
-//     admin: {
-//       position: 'sidebar',
-//       readOnly: true,
-//       hidden: true,
-//     },
-//   },
-
-// ]
-
-
-
 export default Products
