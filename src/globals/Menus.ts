@@ -16,7 +16,7 @@ export const Menus: GlobalConfig = {
       tabs: [
         {
           name: "header",
-          label: "Header", 
+          label: "Header",
           interfaceName: "header", // optional (`name` must be present)
           description: "Menu shown in header on all pages.",
 
@@ -36,16 +36,19 @@ export const Menus: GlobalConfig = {
         },
         {
           name: "footer",
-          label: "Footer", 
+          label: "Footer",
           interfaceName: "footer", // optional (`name` must be present)
           fields: [
+            { name: 'logo', label: "Logo", type: 'upload', relationTo: 'media', required: false, },
+            { name: "name", label: "Name", type: "text", required: true, },
+            { name: "tagline", label: "Tagline", type: "text", required: true, },
             {
               name: 'columns',
               type: 'array',
               minRows: 1,
               maxRows: 4,
               fields: [
-            { name: "columnName", label: "Column Name", type: "text", required: true, },
+                { name: "columnName", label: "Column Name", type: "text", required: true, },
 
                 {
                   name: 'navItems',
@@ -61,16 +64,16 @@ export const Menus: GlobalConfig = {
             },
           ],
         },
-        {
-          name: "topBar",
-          label: "Top Bar", 
-          interfaceName: "topBar", // optional (`name` must be present)
-          fields: [
-            { name: "text", label: "Text", type: "text", required: false, },
-            { name: "icon", label: "Text", type: "text", required: false, },
+        // {
+        //   name: "topBar",
+        //   label: "Top Bar", 
+        //   interfaceName: "topBar", // optional (`name` must be present)
+        //   fields: [
+        //     { name: "text", label: "Text", type: "text", required: false, },
+        //     { name: "icon", label: "Text", type: "text", required: false, },
 
-          ],
-        },
+        //   ],
+        // },
       ],
     },
 
