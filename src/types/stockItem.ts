@@ -1,5 +1,4 @@
 import { ProductBrand } from "./productBrand";
-import { Category } from "./category";
 import { Media } from "./media";
 import { Supplier } from "./supplier";
 
@@ -8,7 +7,6 @@ export interface StockItem {
     title: string;
 
     brand?: string | ProductBrand;
-    categories?: string[] | Category[];
     comments: string;
     description: string;
     image: string | Media;

@@ -1,7 +1,6 @@
 import { Meta } from './meta';
 import { Media } from './media';
 import { Page } from './page';
-import { Category } from './category';
 import { BannerBlock, CallToActionBlock, CardGridBlock, ContentBlock, ContentGridBlock, HeroBlock, HoverHighlightBlock, LinkGridBlocks, MediaBlock, MediaContentBlock, PricingBlock, ReusableContent, SliderBlock, StepsBlock, StickyHighlightsBlock } from "./_layout";
 
 export interface Product {
@@ -47,7 +46,6 @@ export interface Product {
         | { stepsFields: StepsBlock; id?: string; blockName?: string; blockType: 'steps'; }
         | { stickyHighlightsFields?: StickyHighlightsBlock; id?: string; blockName?: string; blockType: 'stickyHighlights'; }
     )[];
-    categories?: string[] | Category[];
     skipSync?: boolean;
 
     updatedAt: string;

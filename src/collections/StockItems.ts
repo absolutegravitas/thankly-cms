@@ -46,7 +46,6 @@ const StockItems: CollectionConfig = {
             { label: 'Discontinued', value: 'discontinued', },
           ],
         },
-        { name: 'categories', type: 'relationship', relationTo: 'categories', hasMany: true, admin: { width: '50%', }, },
         { name: 'brand', type: 'relationship', relationTo: 'product-brands', hasMany: false, admin: { width: '50%', }, },
         { name: 'supplier', type: 'relationship', relationTo: 'suppliers', hasMany: false, admin: { width: '50%', }, },
         { name: 'sku', label: 'SKU', type: 'text', required: false, admin: { width: '50%', }, },
