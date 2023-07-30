@@ -9,7 +9,7 @@ const Menus: GlobalConfig = {
     read: () => true,
     update: isAdmin,
   },
-
+  // graphQL: { name: 'Menus' },
   fields: [
     {
       type: "tabs",
