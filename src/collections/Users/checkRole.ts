@@ -1,4 +1,4 @@
-import type { User } from '../../types/_global'
+import type { User } from '@types'
 
 export const checkRole = (allRoles: User['roles'] = [], user?: User): boolean => {
   if (user) {

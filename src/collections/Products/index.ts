@@ -58,8 +58,8 @@ export const Products: CollectionConfig = {
   },
   fields: [
     slugField(),
-    { name: 'title', type: 'text', required: true, },
     fullTitle,
+    { name: 'title', type: 'text', required: true, },
     { name: 'description', type: 'textarea', required: true, },
     {
       type: "row",

@@ -1,6 +1,6 @@
 import type { Access, FieldAccess } from 'payload/types'
 
-import type { User } from '../types/_global'
+import type { User } from '@types'
 
 export const isAdmin: Access<
   any, // eslint-disable-line @typescript-eslint/no-explicit-any

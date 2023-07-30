@@ -1,6 +1,6 @@
 import type { FieldAccess } from 'payload/types'
 
-import type { Product } from '../../../types/product'
+import type { Product } from '@types'
 import { checkRole } from '../../Users/checkRole'
 
 // we need to prevent access to documents behind a paywall

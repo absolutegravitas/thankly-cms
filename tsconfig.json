@@ -7,8 +7,26 @@
       "stripe": [
         "./node_modules/stripe"
       ],
-      "@types/*": [
-        "./src/types/*"
+      "@collections/*": [
+        "./src/collections/*"
+      ],
+      "@blocks/*": [
+        "./src/blocks/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@fields/*": [
+        "./src/fields/*"
+      ],
+      "@globals/*": [
+        "./src/globals/*"
+      ],
+      "@utilities/*": [
+        "./src/utilities/*"
+      ],
+      "@types": [
+        "./src/types.ts"
       ],
     },
     "target": "es5",
