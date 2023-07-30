@@ -21,7 +21,7 @@ import BeforeDashboard from './components/BeforeDashboard'
 import Menus from './globals/Menus'
 
 import {
-  Media, Orders, Pages, Posts, Products, ReusableContent, ProductBrands, StockItems, Suppliers, Users, Discounts
+  Media, Reviews, Orders, Pages, Posts, Products, ReusableContent, ProductBrands, StockItems, Suppliers, Users, Discounts
 } from './collections'
 
 
@@ -48,7 +48,7 @@ export default buildConfig({
     StockItems,
     Suppliers,
     ProductBrands,
-
+    Reviews,
     // website
     Pages,
     Posts,

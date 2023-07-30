@@ -18,7 +18,7 @@ export const CallToActionBlock: Block = {
       fields: [
         richText(),
         {
-          name: 'style',
+          name: 'layout',
           type: 'select',
           defaultValue: 'simple',
           required: false,
@@ -28,7 +28,11 @@ export const CallToActionBlock: Block = {
           ],
         },
         colorField('backgroundColor', 'Background Color'),
-        { name: 'image', type: 'upload', relationTo: 'media', required: false, },
+        {
+          name: 'image', type: 'upload', relationTo: 'media', required: false, admin: {
+            condition: (_, siblingData) => siblingData.layout === 'dark',
+          },
+        },
         linkGroup({ appearances: ['primary', 'secondary', 'default'], }),
       ],
     }),

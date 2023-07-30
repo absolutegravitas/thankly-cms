@@ -14,7 +14,7 @@ import { LinkGridBlock } from '../blocks/LinkGrid'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
 import { ReusableContentBlock } from '../blocks/ReusableContent'
-// import { ReviewsBlock } from '../blocks/Reviews'
+import { FeaturedReviewsBlock } from '../blocks/FeaturedReview'
 
 import { SliderBlock } from '../blocks/Slider'
 import { StepsBlock } from '../blocks/Steps'
@@ -57,7 +57,7 @@ const Pages: CollectionConfig = {
     fullTitle,
     slugField(),
 
-    {name: 'title',type: 'text',required: true,},
+    { name: 'title', type: 'text', required: true, },
     {
       name: 'layout',
       type: 'blocks',
@@ -68,11 +68,11 @@ const Pages: CollectionConfig = {
         CardGridBlock, // a grid of cards that can be clicked through
         ContentBlock, // a basic content block for chunks of text
         ContentGridBlock, // show content e.g. Q&A in a grid instead of taking whole width
-        // ReviewsBlock, // shows selected reviews
+        FeaturedReviewsBlock, // shows selected reviews
         SliderBlock, // a slider either of images or text 
         StepsBlock, // shows series of steps to do something
         // FormsBlock, // shows created form
-        
+
         LinkGridBlock,
         MediaBlock,
         MediaContentBlock,

@@ -65,17 +65,18 @@ export const SliderBlock: Block = {
           fields: [
             richText({
               name: 'richText',
+              label: 'Quote',
               required: true,
               admin: {
                 elements: [],
                 leaves: ['underline'],
               },
             }),
-            {
-              type: 'date',
-              name: 'quoteDate',
-              required: true,
-            },
+            // {
+            //   type: 'date',
+            //   name: 'quoteDate',
+            //   required: true,
+            // },
           ],
         },
       ],

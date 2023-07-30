@@ -372,11 +372,10 @@ export interface Discount {
 
 
 export interface CallToActionBlock {
-    ctaBackgroundColor?: 'white' | 'black';
-
+    layout: string
+    backgroundColor:any // dunno what type the color will come in as
+    image:Media
     richText: { [k: string]: unknown; }[];
-    feature: 'none' | 'cpa';
-    layout: 'none' | 'cpa';
     links?: {
         link: {
             type?: 'reference' | 'custom';
