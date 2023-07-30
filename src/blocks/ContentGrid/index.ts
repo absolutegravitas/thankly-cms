@@ -31,6 +31,26 @@ export const ContentGridBlock: Block = {
           },
         }),
         {
+          name: 'layout',
+          type: 'select',
+          defaultValue: 'grid',
+          options: [
+            {
+              label: 'Grid (default 3 col)',
+              value: 'grid',
+            },
+            {
+              label: 'Accordion 1 col (collapsible)',
+              value: 'accordion1',
+            },
+            {
+              label: 'Accordion 2 col (collapsible)',
+              value: 'accordion2',
+            },
+
+          ],
+        },
+        {
           name: 'cells',
           type: 'array',
           fields: [

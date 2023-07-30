@@ -20,7 +20,9 @@ import { LinkGridBlock } from '../../blocks/LinkGrid'
 import { MediaBlock } from '../../blocks/Media'
 import { MediaContentBlock } from '../../blocks/MediaContent'
 import { ReusableContentBlock } from '../../blocks/ReusableContent'
-// import { ReviewsBlock } from '../../blocks/Reviews'
+import { FeaturedReviewsBlock } from '../../blocks/FeaturedReview'
+import { FeaturedPartnersBlock } from '../../blocks/FeaturedPartner'
+import { ProductOverviewBlock } from '../../blocks/ProductOverview'
 
 import { SliderBlock } from '../../blocks/Slider'
 import { StepsBlock } from '../../blocks/Steps'
@@ -85,6 +87,7 @@ export const Products: CollectionConfig = {
           name: "images",
           label: "Images",
           interfaceName: "images", // optional (`name` must be present)
+          description:'First image will be used as the main image on UI',
           fields: [
             {
               name: "images",
@@ -94,7 +97,7 @@ export const Products: CollectionConfig = {
               maxRows: 4,
               labels: { singular: "Image", plural: "Images", },
               fields: [
-                { name: "title", type: "text", },
+                // { name: "title", type: "text", },
                 { name: "image", type: "upload", relationTo: "media", required: true, },
                 { name: "alt", type: "text", },
               ],
@@ -103,8 +106,9 @@ export const Products: CollectionConfig = {
         },
         {
           name: "components",
-          label: "Components",
+          label: "Product Builder",
           interfaceName: "components", // optional (`name` must be present)
+          description:'Build the product sell by referencing one or more cards & gifts.',
           fields: [
             {
               type: 'row',
@@ -149,15 +153,15 @@ export const Products: CollectionConfig = {
                 CardGridBlock, // a grid of cards that can be clicked through
                 ContentBlock, // a basic content block for chunks of text
                 ContentGridBlock, // show content e.g. Q&A in a grid instead of taking whole width
-                // ReviewsBlock, // shows selected reviews
+                FeaturedReviewsBlock, // shows selected reviews
                 SliderBlock, // a slider either of images or text 
                 StepsBlock, // shows series of steps to do something
-                // FormsBlock, // shows created form
-
-                LinkGridBlock,
-                MediaBlock,
-                MediaContentBlock,
-                StickyHighlightsBlock,
+                FeaturedPartnersBlock, // series of logos of "as seen on" or "working with"
+                ProductOverviewBlock, // a block that pulls in other info and shows the product, buy button, price etc.
+                LinkGridBlock, // a listing of links e.g. for FAQ or grouped Legalese, each link spawns new page
+                MediaBlock, // just a image placement with a caption, mostly useful for blogs
+                MediaContentBlock, // image with some content positioned left & right e.g. feature
+                StickyHighlightsBlock, // big feature with parallax effect
 
                 ReusableContentBlock, // re-use an already created block, ie. one of the above types
               ],

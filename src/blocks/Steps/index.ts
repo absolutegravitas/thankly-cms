@@ -17,6 +17,11 @@ export const StepsBlock: Block = {
       name: 'stepsFields',
       fields: [
         {
+          name: 'useLeadingHeader',
+          label: 'Use Leading Header',
+          type: 'checkbox',
+        },
+        {
           name: 'steps',
           type: 'array',
           required: true,
@@ -24,7 +29,7 @@ export const StepsBlock: Block = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [ ContentBlock, StickyHighlightsBlock],
+              blocks: [ ContentBlock],
             },
           ],
         },

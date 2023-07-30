@@ -27,6 +27,7 @@ export const MediaContentBlock: Block = {
                   label: 'Media + Content',
                   value: 'mediaContent',
                 },
+                
               ],
               admin: {
                 description: 'Choose how to align the content for this block.',

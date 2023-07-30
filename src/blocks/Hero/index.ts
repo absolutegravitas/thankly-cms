@@ -8,10 +8,10 @@ import largeBody from '../../fields/richText/largeBody'
 
 export const HeroBlock: Block = {
   slug: 'hero',
-  imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Hero.png',
+  imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/Hero.png',
   fields: [
     blockFields({
-      name: 'bannerFields',
+      name: 'heroFields',
       fields: [
         {
           type: 'select',
@@ -20,22 +20,13 @@ export const HeroBlock: Block = {
           required: true,
           defaultValue: 'default',
           options: [
-            {
-              label: 'Default',
-              value: 'default',
-            },
-            {
-              label: 'Content and Media',
-              value: 'contentMedia',
-            },
-            {
-              label: 'Home',
-              value: 'home',
-            },
-            {
-              label: 'Livestream',
-              value: 'livestream',
-            },
+            // centered with background image: https://tailwindui.com/components/ecommerce/page-examples/storefront-pages#component-04740945117f4ec46b10f866630a6347
+            { label: 'Default', value: 'default', },
+            // split with image on right https://tailwindui.com/components/marketing/sections/heroes#component-54294e7b86ddf5371565dbdfd133d79c
+            { label: 'Content and Media', value: 'contentMedia', },
+            // offset action buttons
+            { label: 'Home', value: 'home', },
+            { label: 'Livestream', value: 'livestream', }, // video background
           ],
         },
         livestreamFields,
@@ -95,22 +86,23 @@ export const HeroBlock: Block = {
             condition: (_, { type } = {}) => ['contentMedia', 'home'].includes(type),
           },
         },
-        {
-          name: 'adjectives',
-          type: 'array',
-          minRows: 3,
-          maxRows: 6,
-          fields: [
-            {
-              name: 'adjective',
-              type: 'text',
-              required: true,
-            },
-          ],
-          admin: {
-            condition: (_, { type }) => type === 'home',
-          },
-        },
+        // {
+        // places big ass scrolling words -- not needed
+        //   name: 'adjectives',
+        //   type: 'array',
+        //   minRows: 3,
+        //   maxRows: 6,
+        //   fields: [
+        //     {
+        //       name: 'adjective',
+        //       type: 'text',
+        //       required: true,
+        //     },
+        //   ],
+        //   admin: {
+        //     condition: (_, { type }) => type === 'home',
+        //   },
+        // },
       ],
     }),
   ],

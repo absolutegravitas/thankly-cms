@@ -15,6 +15,8 @@ import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
 import { ReusableContentBlock } from '../blocks/ReusableContent'
 import { FeaturedReviewsBlock } from '../blocks/FeaturedReview'
+import { FeaturedPartnersBlock } from '../blocks/FeaturedPartner'
+import { FeaturedProductsBlock } from '../blocks/FeaturedProduct'
 
 import { SliderBlock } from '../blocks/Slider'
 import { StepsBlock } from '../blocks/Steps'
@@ -71,12 +73,15 @@ const Pages: CollectionConfig = {
         FeaturedReviewsBlock, // shows selected reviews
         SliderBlock, // a slider either of images or text 
         StepsBlock, // shows series of steps to do something
+        FeaturedPartnersBlock, // series of logos of "as seen on" or "working with"
+        FeaturedProductsBlock, // shows a block of featured products
+
         // FormsBlock, // shows created form
 
-        LinkGridBlock,
-        MediaBlock,
-        MediaContentBlock,
-        StickyHighlightsBlock,
+        LinkGridBlock, // a listing of links e.g. for FAQ or grouped Legalese, each link spawns new page
+        MediaBlock, // just a image placement with a caption, mostly useful for blogs
+        MediaContentBlock, // image with some content positioned left & right e.g. feature
+        StickyHighlightsBlock, // big feature with parallax effect
 
         ReusableContentBlock, // re-use an already created block, ie. one of the above types
       ],

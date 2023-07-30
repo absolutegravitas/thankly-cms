@@ -5,19 +5,17 @@ import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
 import colorField from '../../fields/colorPicker/config'
 
-export const FeaturedReviewsBlock: Block = {
-  slug: 'featuredReviews',
+export const ProductOverviewBlock: Block = {
+  slug: 'productOverview',
   imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/Call%20To%20Action.png',
   labels: { singular: 'Featured Review', plural: 'Featured Reviews', },
   fields: [
     blockFields({
-      name: 'reviewFields',
+      name: 'productOverviewFields',
       fields: [
-        {
-          name: 'useLeadingHeader',
-          label: 'Use Leading Header',
-          type: 'checkbox',
-        },
+     
+
+        // 
         richText({
           name: 'leadingHeader',
           label: 'Leading Header',
