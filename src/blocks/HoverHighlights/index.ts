@@ -4,7 +4,7 @@ import { blockFields } from '../../fields/blockFields'
 import link from '../../fields/link'
 import richText from '../../fields/richText'
 
-export const HoverHighlights: Block = {
+export const HoverHighlightsBlock: Block = {
   slug: 'hoverHighlights',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Hover%20Highlights.png',
   labels: {

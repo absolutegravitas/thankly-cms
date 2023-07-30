@@ -5,7 +5,7 @@ import link from '../../fields/link'
 import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
 
-export const CardGrid: Block = {
+export const CardGridBlock: Block = {
   slug: 'cardGrid',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Card%20Grid.png',
   fields: [

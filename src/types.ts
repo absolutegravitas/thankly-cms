@@ -29,36 +29,6 @@ export interface User {
     updatedAt: string;
 }
 
-export interface Brand {
-    id: string;
-    basicInfo: {
-        name: string;
-        tagline: string;
-        domain: string;
-        copyright: string;
-
-        homePage?: string | Page;
-        blogPage?: string | Page;
-        shopPage?: string | Page;
-        // cookieNotice: string;
-    };
-    styleLight: {
-        logo?: string | Media;
-        colorText: string;
-        colorAccent: string;
-        colorBackground: string;
-    };
-    styleDark: {
-        logo?: string | Media;
-        colorText: string;
-        colorAccent: string;
-        colorBackground: string;
-    };
-
-    updatedAt?: string;
-    createdAt?: string;
-}
-
 export interface Redirect {
     id: string;
     from: string;
@@ -66,7 +36,9 @@ export interface Redirect {
         type?: 'reference' | 'custom';
         reference:
         | { value: string | Page; relationTo: 'pages'; }
-        | { value: string | Post; relationTo: 'posts'; };
+        | { value: string | Post; relationTo: 'posts'; }
+        | { value: string | Post; relationTo: 'products'; };
+
         url: string;
     };
 
@@ -76,6 +48,7 @@ export interface Redirect {
 
 export interface Menu {
     id: string;
+    name: string;
     header: {
         navItems?: {
             link: {
@@ -83,7 +56,9 @@ export interface Menu {
                 newTab?: boolean;
                 reference:
                 | { value: string | Page; relationTo: 'pages'; }
-                | { value: string | Post; relationTo: 'posts'; };
+                | { value: string | Post; relationTo: 'posts'; }
+                | { value: string | Product; relationTo: 'product'; };
+
                 url: string;
                 label: string;
                 appearance?: 'primary' | 'secondary' | 'default';
@@ -91,52 +66,38 @@ export interface Menu {
             id?: string;
         }[];
     };
-    footer: Footer;
+    footer: {
+        logo?: Media;
+        name: string;
+        tagline?: string;
+        copyright: string;
+
+        columns?: {
+            name: string;
+            navItems?: {
+                link: {
+                    type?: 'reference' | 'custom';
+                    newTab?: boolean;
+                    reference:
+                    | { value: string | Page; relationTo: 'pages'; }
+                    | { value: string | Post; relationTo: 'posts'; }
+                    | { value: string | Product; relationTo: 'product'; };
+
+                    url: string;
+                    label: string;
+                    appearance?: 'primary' | 'secondary' | 'default';
+                };
+                id?: string;
+            }[];
+            id?: string;
+        }[];
+    };
     updatedAt?: string;
     createdAt?: string;
 }
 
 
-export interface Footer {
-    columns?: {
-        columnName: string;
-        navItems?: {
-            link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                | { value: string | Page; relationTo: 'pages'; }
-                | { value: string | Post; relationTo: 'posts'; };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-        }[];
-        id?: string;
-    }[];
-}
 
-// export interface Heading {
-//     text: string
-//     level: number
-//     id: string
-// }
-
-export interface Receiver {
-    name: string,
-    business?: string,
-    address: {
-        fulladdress: string,
-        type?: 'po-box' | 'parcel-locker' | 'business' | 'residential'
-        addressLine1: string,
-        addressLine2?: string,
-        suburb: string,
-        state: string,
-        postcode: string,
-        // country: string | 'Australia'
-    }
-}
 
 export interface Post {
     id: string;
@@ -144,25 +105,12 @@ export interface Post {
     image: string | Media;
     excerpt: { [k: string]: unknown; }[];
     content: (
-        | {
-            blogContentFields: { richText: { [k: string]: unknown; }[]; };
-            id?: string;
-            blockName?: string;
-            blockType: 'blogContent';
-        }
-        | {
-            blogMarkdownFields: { markdown: string; };
-            id?: string;
-            blockName?: string;
-            blockType: 'blogMarkdown';
-        }
+        | { blogContentFields: { richText: { [k: string]: unknown; }[]; }; id?: string; blockName?: string; blockType: 'blogContent'; }
+        | { blogMarkdownFields: { markdown: string; }; id?: string; blockName?: string; blockType: 'blogMarkdown'; }
         | { mediaBlockFields: MediaBlock; id?: string; blockName?: string; blockType: 'mediaBlock'; }
-        | {
-            reusableContentBlockFields: ReusableContent; id?: string; blockName?: string; blockType: 'reusableContentBlock';
-        }
     )[];
     slug?: string;
-    author: string | User;
+    author?: string | User;
     publishedOn: string;
     meta?: Meta
     updatedAt: string;
@@ -182,7 +130,6 @@ export interface Page {
         | { cardGridFields?: CardGridBlock; id?: string; blockName?: string; blockType: 'cardGrid'; }
         | { contentFields?: ContentBlock; id?: string; blockName?: string; blockType: 'content'; }
         // | { contentGridFields?: ContentGridBlock; id?: string; blockName?: string; blockType: 'contentGrid'; }
-        | { hoverHighlightsFields?: HoverHighlightBlock; id?: string; blockName?: string; blockType: 'hoverHighlights'; }
         | { linkGridFields?: LinkGridBlocks; id?: string; blockName?: string; blockType: 'linkGrid'; }
         | { mediaBlockFields?: MediaBlock; id?: string; blockName?: string; blockType: 'mediaBlock'; }
         | { mediaContentFields?: MediaContentBlock; id?: string; blockName?: string; blockType: 'mediaContent'; }
@@ -240,7 +187,6 @@ export interface Product {
         | { cardGridFields: CardGridBlock; id?: string; blockName?: string; blockType: 'cardGrid'; }
         | { contentFields: ContentBlock; id?: string; blockName?: string; blockType: 'content'; }
         | { contentGridFields: ContentGridBlock; id?: string; blockName?: string; blockType: 'contentGrid'; }
-        | { hoverHighlightsFields: HoverHighlightBlock; id?: string; blockName?: string; blockType: 'hoverHighlights'; }
         | { linkGridFields?: LinkGridBlocks; id?: string; blockName?: string; blockType: 'linkGrid'; }
         | { mediaBlockFields: MediaBlock; id?: string; blockName?: string; blockType: 'mediaBlock'; }
         | { mediaContentFields: MediaContentBlock; id?: string; blockName?: string; blockType: 'mediaContent'; }
@@ -274,7 +220,7 @@ export interface Review {
     providerOrg?: string
     image?: string | Media;
     rating?: number
-    review: string
+    note: string
 }
 
 export interface StockItem {
@@ -328,7 +274,6 @@ export interface ReusableContent {
         | { cardGridFields: CardGridBlock; id?: string; blockName?: string; blockType: 'cardGrid'; }
         | { contentFields: ContentBlock; id?: string; blockName?: string; blockType: 'content'; }
         | { contentGridFields: ContentGridBlock; id?: string; blockName?: string; blockType: 'contentGrid'; }
-        | { hoverHighlightsFields: HoverHighlightBlock; id?: string; blockName?: string; blockType: 'hoverHighlights'; }
         | { linkGridFields?: LinkGridBlocks; id?: string; blockName?: string; blockType: 'linkGrid'; }
         | { mediaBlockFields: MediaBlock; id?: string; blockName?: string; blockType: 'mediaBlock'; }
         | { mediaContentFields: MediaContentBlock; id?: string; blockName?: string; blockType: 'mediaContent'; }
@@ -364,7 +309,20 @@ export interface Order {
         product: Product; // card or bundle
         stripePriceID: String; // price used for this order
         message: { text: String; style: 'normal' | 'cursive' | 'block' };
-        receiver: Receiver;
+        receiver: {
+            name: string,
+            business?: string,
+            address: {
+                fulladdress: string,
+                type?: 'po-box' | 'parcel-locker' | 'business' | 'residential'
+                addressLine1: string,
+                addressLine2?: string,
+                suburb: string,
+                state: string,
+                postcode: string,
+                // country: string | 'Australia'
+            }
+        };
     }[]
 
     // invoice totals
@@ -573,27 +531,6 @@ export interface ContentGridBlock {
     cells?: { content: { [k: string]: unknown; }[]; id?: string; }[];
 }
 
-export interface HoverHighlightBlock {
-    richText: { [k: string]: unknown; }[];
-    addRowNumbers?: boolean;
-    highlights?: {
-        title: string;
-        description: string;
-        media: string | Media;
-        enableLink?: boolean;
-        link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-            | { value: string | Page; relationTo: 'pages'; }
-            | { value: string | Post; relationTo: 'posts'; };
-            url: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-        };
-        id?: string;
-    }[];
-}
-
 export interface LinkGridBlocks {
     links?: {
         link: {
@@ -667,7 +604,6 @@ export interface StepsBlock {
     steps: {
         layout?: (
             | { contentFields: ContentBlock; id?: string; blockName?: string; blockType: 'content'; }
-            | { hoverHighlightsFields: HoverHighlightBlock; id?: string; blockName?: string; blockType: 'hoverHighlights'; }
             | { stickyHighlightsFields?: StickyHighlightsBlock; id?: string; blockName?: string; blockType: 'stickyHighlights'; }
         )[];
         id?: string;
@@ -696,27 +632,15 @@ export interface StickyHighlightsBlock {
 }
 
 export interface ReusableContent {
-
     id: string;
     title: string;
     layout: (
-        | {
-            blogContentFields: { richText: { [k: string]: unknown; }[]; };
-            id?: string;
-            blockName?: string;
-            blockType: 'blogContent';
-        }
-        | {
-            blogMarkdownFields: { markdown: string; };
-            id?: string;
-            blockName?: string;
-            blockType: 'blogMarkdown';
-        }
+        | { blogContentFields: { richText: { [k: string]: unknown; }[]; }; id?: string; blockName?: string; blockType: 'blogContent'; }
+        | { blogMarkdownFields: { markdown: string; }; id?: string; blockName?: string; blockType: 'blogMarkdown'; }
         | { ctaFields: CallToActionBlock; id?: string; blockName?: string; blockType: 'cta'; }
         | { cardGridFields: CardGridBlock; id?: string; blockName?: string; blockType: 'cardGrid'; }
         | { contentFields: ContentBlock; id?: string; blockName?: string; blockType: 'content'; }
         | { contentGridFields: ContentGridBlock; id?: string; blockName?: string; blockType: 'contentGrid'; }
-        | { hoverHighlightsFields: HoverHighlightBlock; id?: string; blockName?: string; blockType: 'hoverHighlights'; }
         | { linkGridFields?: LinkGridBlocks; id?: string; blockName?: string; blockType: 'linkGrid'; }
         | { mediaBlockFields: MediaBlock; id?: string; blockName?: string; blockType: 'mediaBlock'; }
         | { mediaContentFields: MediaContentBlock; id?: string; blockName?: string; blockType: 'mediaContent'; }
@@ -727,5 +651,4 @@ export interface ReusableContent {
     )[];
     updatedAt: string;
     createdAt: string;
-
 }

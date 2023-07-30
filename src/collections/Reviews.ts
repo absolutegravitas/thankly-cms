@@ -3,11 +3,7 @@ import { isAdmin } from '../access/isAdmin'
 
 const Reviews: CollectionConfig = {
   slug: 'reviews',
-  admin: {
-    useAsTitle: 'provider',
-    group: 'Shop'
-
-  },
+  admin: {useAsTitle: 'provider',group: 'Shop'},
   access: {
     read: () => true,
     create: isAdmin,
@@ -20,8 +16,7 @@ const Reviews: CollectionConfig = {
     { name: 'providerOrg', label:'Provider Org', type: 'text', required: false, admin: { width: '50%', }, },
     { name: 'image', label: "Image", type: 'upload', relationTo: 'media', required: false, },
     { name: 'rating', type: 'number', required: false, min:1, max:5, admin: { width: '50%', }, },
-    { name: 'review', type: 'textarea', required: false, admin: { width: '50%', }, },
-
+    { name: 'note', type: 'textarea', required: false, admin: { width: '50%', }, },
   ],
 }
 

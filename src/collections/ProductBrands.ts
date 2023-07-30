@@ -19,30 +19,12 @@ const ProductBrands: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          admin: {
-            width: '50%',
-          },
-        },
-        {
-          name: 'website',
-          type: 'text',
-          required: true,
-          admin: {
-            width: '50%',
-          },
-        },]
+        { name: 'title', type: 'text', required: true, admin: { width: '50%', }, },
+        { name: 'website', type: 'text', required: true, admin: { width: '50%', }, },
+      ]
     },
     { name: 'comments', type: 'textarea', required: false, },
-    {
-      name: 'logo',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-    },
+    { name: 'logo', type: 'upload', relationTo: 'media', required: true, },
 
   ],
 }

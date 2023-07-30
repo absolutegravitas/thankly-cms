@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload/types'
 
 import { isAdmin } from '../access/isAdmin'
 
-export const Media: CollectionConfig = {
+const Media: CollectionConfig = {
   slug: 'media',
   admin: {
     group:'Globals'
@@ -18,18 +18,12 @@ export const Media: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
+    {name: 'alt',type: 'text',required: true,},
     {
-      name: 'alt',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'darkModeFallback',
-      type: 'upload',
-      relationTo: 'media',
-      admin: {
+      name: 'darkModeFallback',type: 'upload',relationTo: 'media',admin: {
         description: 'Choose an upload to render if the visitor is using dark mode.',
       },
     },
   ],
 }
+export default Media

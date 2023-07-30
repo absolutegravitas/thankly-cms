@@ -3,7 +3,7 @@ import type { GlobalConfig } from 'payload/types'
 import { isAdmin } from '../access/isAdmin'
 import link from '../fields/link'
 
-export const Menus: GlobalConfig = {
+const Menus: GlobalConfig = {
   slug: 'menus',
   access: {
     read: () => true,
@@ -19,20 +19,9 @@ export const Menus: GlobalConfig = {
           label: "Header",
           interfaceName: "header", // optional (`name` must be present)
           description: "Menu shown in header on all pages.",
-
           fields: [
             { name: "name", label: "Name (used for header menu)", type: "text", required: true, },
-
-            {
-              name: 'navItems',
-              type: 'array',
-              fields: [
-                link({
-                  // appearances: false,
-                  appearances: ['primary', 'secondary', 'default'],
-                }),
-              ],
-            },
+            { name: 'navItems', type: 'array', fields: [link({ appearances: ['primary', 'secondary', 'default'], }),], },
           ],
         },
         {
@@ -52,35 +41,14 @@ export const Menus: GlobalConfig = {
               maxRows: 4,
               fields: [
                 { name: "name", label: "Column Name", type: "text", required: true, },
-
-                {
-                  name: 'navItems',
-                  type: 'array',
-                  fields: [
-                    link({
-                      // appearances: false,
-                      appearances: ['primary', 'secondary', 'default'],
-                    }),
-                  ],
-                },
+                { name: 'navItems', type: 'array', fields: [link({ appearances: ['primary', 'secondary', 'default'], }),], },
               ],
             },
           ],
         },
-        // {
-        //   name: "topBar",
-        //   label: "Top Bar", 
-        //   interfaceName: "topBar", // optional (`name` must be present)
-        //   fields: [
-        //     { name: "text", label: "Text", type: "text", required: false, },
-        //     { name: "icon", label: "Text", type: "text", required: false, },
-
-        //   ],
-        // },
       ],
     },
 
   ],
-
-
 }
+export default Menus

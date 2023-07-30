@@ -1,31 +1,29 @@
 import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload/config'
-import { checkout } from './routes/checkout'
+
+// plugins
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
-import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdated'
-import { Media } from './collections/Media'
-import { Menus } from './globals/Menus'
-import { Orders } from './collections/Orders'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import { priceUpdated } from './stripe/webhooks/priceUpdated'
-import { Products } from './collections/Products'
-import { productUpdated } from './stripe/webhooks/productUpdated'
-import { ReusableContent } from './collections/ReusableContent'
 import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
-import BeforeDashboard from './components/BeforeDashboard'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
-import ProductBrands from './collections/ProductBrands'
 import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
-import StockItems from './collections/StockItems'
-import stripePlugin from '@payloadcms/plugin-stripe'
-import Suppliers from './collections/Suppliers'
 import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
-import Users from './collections/Users'
-import Discounts from './collections/Discounts'
-import Reviews from './collections/Reviews'
+import stripePlugin from '@payloadcms/plugin-stripe'
+
+// webhooks
+import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdated'
+import { productUpdated } from './stripe/webhooks/productUpdated'
+import { priceUpdated } from './stripe/webhooks/priceUpdated'
+import { checkout } from './routes/checkout'
+import BeforeDashboard from './components/BeforeDashboard'
+
+import Menus from './globals/Menus'
+
+import {
+  Media, Orders, Pages, Posts, Products, ReusableContent, ProductBrands, StockItems, Suppliers, Users, Discounts
+} from './collections'
+
 
 dotenv.config({ path: path.resolve(__dirname, '../.env'), })
 const generateTitle: GenerateTitle = () => { return 'Thankly' }
@@ -50,7 +48,6 @@ export default buildConfig({
     StockItems,
     Suppliers,
     ProductBrands,
-    Reviews,
 
     // website
     Pages,
@@ -63,7 +60,7 @@ export default buildConfig({
   ],
   plugins: [
     nestedDocs({
-      collections: ['pages', 'products'],
+      collections: ['pages',],
       generateLabel: (_, doc) => doc.title as string,
       generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
@@ -72,7 +69,6 @@ export default buildConfig({
       collections: ['pages', 'posts', 'products'],
       uploadsCollection: 'media',
       generateTitle,
-
     }),
     stripePlugin({
       stripeSecretKey: String(process.env.STRIPE_SECRET_KEY),
@@ -99,7 +95,6 @@ export default buildConfig({
         },
       },
     }),
-
   ],
 
   admin: {

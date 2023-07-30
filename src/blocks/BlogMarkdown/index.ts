@@ -3,7 +3,7 @@ import type { Block } from 'payload/types'
 import { blockFields } from '../../fields/blockFields'
 import { BlogMarkdownField } from './Field'
 
-export const BlogMarkdown: Block = {
+export const BlogMarkdownBlock: Block = {
   slug: 'blogMarkdown',
   labels: {
     singular: 'Markdown',

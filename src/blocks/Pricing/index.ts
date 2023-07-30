@@ -3,7 +3,7 @@ import type { Block } from 'payload/types'
 import { blockFields } from '../../fields/blockFields'
 import link from '../../fields/link'
 
-export const Pricing: Block = {
+export const PricingBlock: Block = {
   slug: 'pricing',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/pricing.png',
   fields: [

@@ -4,7 +4,7 @@ import { blockFields } from '../../fields/blockFields'
 import link from '../../fields/link'
 import richText from '../../fields/richText'
 
-export const StickyHighlights: Block = {
+export const StickyHighlightsBlock: Block = {
   slug: 'stickyHighlights',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Sticky%20Highlights%20Fields.png',
   labels: {

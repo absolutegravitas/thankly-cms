@@ -4,7 +4,7 @@ import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
 import label from '../../fields/richText/label'
 
-export const ContentGrid: Block = {
+export const ContentGridBlock: Block = {
   slug: 'contentGrid',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Content%20Grid.png',
   fields: [

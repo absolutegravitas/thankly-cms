@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
     "paths": {
-      "payload/generated-types": [
-        "./src/payload-types.ts"
-      ],
       "stripe": [
         "./node_modules/stripe"
       ],
@@ -16,18 +13,15 @@
       "@components/*": [
         "./src/components/*"
       ],
-      "@fields/*": [
-        "./src/fields/*"
-      ],
+    
       "@globals/*": [
         "./src/globals/*"
       ],
-      "@utilities/*": [
-        "./src/utilities/*"
-      ],
+   
       "@types": [
         "./src/types.ts"
       ],
+    
     },
     "target": "es5",
     "lib": [
@@ -42,7 +36,8 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "jsx": "react",
+    "jsx": "react"
+    // "baseUrl": ".",
   },
   "include": [
     "src",

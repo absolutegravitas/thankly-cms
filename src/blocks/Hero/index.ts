@@ -1,14 +1,12 @@
 import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
-
-
 import linkGroup from '../../fields/linkGroup'
 import livestreamFields from '../../fields/livestreamFields'
 import label from '../../fields/richText/label'
 import largeBody from '../../fields/richText/largeBody'
 
-export const Hero: Block = {
+export const HeroBlock: Block = {
   slug: 'hero',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Hero.png',
   fields: [
@@ -30,10 +28,6 @@ export const Hero: Block = {
               label: 'Content and Media',
               value: 'contentMedia',
             },
-            // {
-            //   label: 'Form',
-            //   value: 'form',
-            // },
             {
               label: 'Home',
               value: 'home',
@@ -117,14 +111,6 @@ export const Hero: Block = {
             condition: (_, { type }) => type === 'home',
           },
         },
-        // {
-        //   name: 'form',
-        //   type: 'relationship',
-        //   relationTo: 'forms',
-        //   admin: {
-        //     condition: (_, { type }) => type === 'form',
-        //   },
-        // },
       ],
     }),
   ],

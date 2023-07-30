@@ -1,5 +1,4 @@
 import type { Field, GroupField } from 'payload/types'
-
 import deepMerge from '../utilities/deepMerge'
 
 interface Args {
@@ -14,13 +13,7 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
       name,
       label: false,
       type: 'group',
-      admin: {
-        hideGutter: false,
-        style: {
-          margin: 0,
-          padding: 0,
-        },
-      },
+      admin: { hideGutter: false, style: { margin: 0, padding: 0, }, },
       fields,
     },
     overrides,

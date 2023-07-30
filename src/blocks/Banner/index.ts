@@ -2,7 +2,7 @@ import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
 
-export const Banner: Block = {
+export const BannerBlock: Block = {
   slug: 'banner',
   // imageURL:'',
   fields: [

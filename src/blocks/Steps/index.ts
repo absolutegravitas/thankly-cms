@@ -1,11 +1,11 @@
 import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
-import { Content } from '../Content'
-import { HoverHighlights } from '../HoverHighlights'
-import { StickyHighlights } from '../StickyHighlights'
+import { ContentBlock } from '../Content'
+import { HoverHighlightsBlock } from '../HoverHighlights'
+import { StickyHighlightsBlock } from '../StickyHighlights'
 
-export const Steps: Block = {
+export const StepsBlock: Block = {
   slug: 'steps',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Steps.png',
   labels: {
@@ -24,7 +24,7 @@ export const Steps: Block = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [ Content, HoverHighlights, StickyHighlights],
+              blocks: [ ContentBlock, StickyHighlightsBlock],
             },
           ],
         },

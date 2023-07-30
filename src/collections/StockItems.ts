@@ -7,7 +7,6 @@ const StockItems: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'value', 'totalQty', 'sku'],
     group: 'Shop'
-
   },
   access: {
     read: () => true,
@@ -17,7 +16,6 @@ const StockItems: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
-
     {
       type: 'row', // can't use row for anything that needss to be shown on admin list view
       fields: [
@@ -53,12 +51,10 @@ const StockItems: CollectionConfig = {
         { name: 'retailUnitCost', type: 'number', min: 0, required: false, defaultValue: 0, },
         { name: 'wholesaleUnitCost', type: 'number', min: 0, required: false, defaultValue: 0, },
         { name: 'comments', type: 'textarea', required: false, },
-
       ]
     },
     { name: 'discontinued', type: 'checkbox', defaultValue: false },
     { name: 'image', type: 'upload', relationTo: 'media', required: false, },
-
   ],
 }
 

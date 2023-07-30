@@ -1,29 +1,30 @@
 import type { CollectionConfig } from 'payload/types'
 
 import { admins } from '../../access/admins'
-import { Banner } from '../../blocks/Banner'
 import { beforeProductChange } from './hooks/beforeChange'
-import { CallToAction } from '../../blocks/CallToAction'
-import { CardGrid } from '../../blocks/CardGrid'
-import { Content } from '../../blocks/Content'
-import { ContentGrid } from '../../blocks/ContentGrid'
 import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
-import { HoverHighlights } from '../../blocks/HoverHighlights'
-import { LinkGrid } from '../../blocks/LinkGrid'
-import { MediaBlock } from '../../blocks/Media'
-import { MediaContent } from '../../blocks/MediaContent'
-import { Pricing } from '../../blocks/Pricing'
-import { ReusableContent } from '../../blocks/ReusableContent'
-import { Slider } from '../../blocks/Slider'
 import { slugField } from '../../fields/slug'
-import { Steps } from '../../blocks/Steps'
-import { StickyHighlights } from '../../blocks/StickyHighlights'
-import { Hero } from '../../blocks/Hero'
 import { formatPreviewURL } from '../../utilities/formatPreviewURL'
 import { regeneratePage } from '../../utilities/regeneratePage'
 import { fullTitle } from '../../fields/fullTitle'
 import { isAdmin } from '../../access/isAdmin'
 import { publishedOnly } from '../../access/publishedOnly'
+
+
+import { CallToActionBlock } from '../../blocks/CallToAction'
+import { CardGridBlock } from '../../blocks/CardGrid'
+import { ContentBlock } from '../../blocks/Content'
+import { ContentGridBlock } from '../../blocks/ContentGrid'
+import { HeroBlock } from '../../blocks/Hero'
+import { LinkGridBlock } from '../../blocks/LinkGrid'
+import { MediaBlock } from '../../blocks/Media'
+import { MediaContentBlock } from '../../blocks/MediaContent'
+import { ReusableContentBlock } from '../../blocks/ReusableContent'
+// import { ReviewsBlock } from '../../blocks/Reviews'
+
+import { SliderBlock } from '../../blocks/Slider'
+import { StepsBlock } from '../../blocks/Steps'
+import { StickyHighlightsBlock } from '../../blocks/StickyHighlights'
 
 
 export const Products: CollectionConfig = {
@@ -82,12 +83,12 @@ export const Products: CollectionConfig = {
       tabs: [
         {
           name: "images",
-          label: "Images", 
+          label: "Images",
           interfaceName: "images", // optional (`name` must be present)
           fields: [
             {
-              name: "images", 
-              type: "array", 
+              name: "images",
+              type: "array",
               label: "Product Images",
               minRows: 1,
               maxRows: 4,
@@ -102,17 +103,17 @@ export const Products: CollectionConfig = {
         },
         {
           name: "components",
-          label: "Components", 
+          label: "Components",
           interfaceName: "components", // optional (`name` must be present)
           fields: [
             {
-              type: 'row', 
+              type: 'row',
               fields: [
                 { name: 'quantity', type: 'number', required: true, },
                 { name: 'sku', label: 'SKU', type: 'text', required: true, },
                 {
-                  name: "stock", 
-                  type: "array", 
+                  name: "stock",
+                  type: "array",
                   label: "Stock",
                   minRows: 1,
                   // maxRows: 4,
@@ -134,7 +135,7 @@ export const Products: CollectionConfig = {
         },
         {
           name: "layout",
-          label: "Page Layout", 
+          label: "Page Layout",
           interfaceName: "layout", // optional (`name` must be present)
           fields: [
             {
@@ -143,21 +144,22 @@ export const Products: CollectionConfig = {
               type: 'blocks',
               required: true,
               blocks: [
-                Hero,
-                Banner,
-                CallToAction,
-                CardGrid,
-                Content,
-                ContentGrid,
-                HoverHighlights,
-                LinkGrid,
+                HeroBlock, // a hero block with image, video etc. overlays
+                CallToActionBlock, // a call to action block with additional functions
+                CardGridBlock, // a grid of cards that can be clicked through
+                ContentBlock, // a basic content block for chunks of text
+                ContentGridBlock, // show content e.g. Q&A in a grid instead of taking whole width
+                // ReviewsBlock, // shows selected reviews
+                SliderBlock, // a slider either of images or text 
+                StepsBlock, // shows series of steps to do something
+                // FormsBlock, // shows created form
+
+                LinkGridBlock,
                 MediaBlock,
-                MediaContent,
-                Pricing,
-                ReusableContent,
-                Slider,
-                Steps,
-                StickyHighlights,
+                MediaContentBlock,
+                StickyHighlightsBlock,
+
+                ReusableContentBlock, // re-use an already created block, ie. one of the above types
               ],
             },
           ]

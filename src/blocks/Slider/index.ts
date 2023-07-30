@@ -3,7 +3,7 @@ import type { Block } from 'payload/types'
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
 
-export const Slider: Block = {
+export const SliderBlock: Block = {
   slug: 'slider',
   imageURL:'https://d1qkl36l6oj3o3.cloudfront.net/Slider.png',
   fields: [
