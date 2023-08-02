@@ -235,7 +235,7 @@ export interface Product {
             richText: {
               [k: string]: unknown;
             }[];
-            layout?: 'dark' | 'simple';
+            layout?: 'insetImage' | 'fullWidthImage';
             backgroundColor: string;
             image?: string | Media;
             links?: {
@@ -331,7 +331,7 @@ export interface Product {
             leadingHeader: {
               [k: string]: unknown;
             }[];
-            layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+            layout?: 'oneColumn' | 'twoColumns';
             columnOne: {
               [k: string]: unknown;
             }[];
@@ -435,7 +435,7 @@ export interface Product {
                   leadingHeader: {
                     [k: string]: unknown;
                   }[];
-                  layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+                  layout?: 'oneColumn' | 'twoColumns';
                   columnOne: {
                     [k: string]: unknown;
                   }[];
@@ -803,7 +803,7 @@ export interface Page {
           richText: {
             [k: string]: unknown;
           }[];
-          layout?: 'dark' | 'simple';
+          layout?: 'insetImage' | 'fullWidthImage';
           backgroundColor: string;
           image?: string | Media;
           links?: {
@@ -899,7 +899,7 @@ export interface Page {
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+          layout?: 'oneColumn' | 'twoColumns';
           columnOne: {
             [k: string]: unknown;
           }[];
@@ -1003,7 +1003,7 @@ export interface Page {
                 leadingHeader: {
                   [k: string]: unknown;
                 }[];
-                layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+                layout?: 'oneColumn' | 'twoColumns';
                 columnOne: {
                   [k: string]: unknown;
                 }[];
@@ -1388,7 +1388,7 @@ export interface ReusableContent {
           richText: {
             [k: string]: unknown;
           }[];
-          layout?: 'dark' | 'simple';
+          layout?: 'insetImage' | 'fullWidthImage';
           backgroundColor: string;
           image?: string | Media;
           links?: {
@@ -1484,7 +1484,7 @@ export interface ReusableContent {
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+          layout?: 'oneColumn' | 'twoColumns';
           columnOne: {
             [k: string]: unknown;
           }[];
@@ -1550,7 +1550,7 @@ export interface ReusableContent {
                 leadingHeader: {
                   [k: string]: unknown;
                 }[];
-                layout?: 'oneColumn' | 'twoColumns' | 'twoThirdsOneThird' | 'halfAndHalf' | 'threeColumns';
+                layout?: 'oneColumn' | 'twoColumns';
                 columnOne: {
                   [k: string]: unknown;
                 }[];

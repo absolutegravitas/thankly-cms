@@ -5,6 +5,7 @@ import richText from '../../fields/richText'
 
 export const ContentBlock: Block = {
   slug: 'content',
+  imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/contentBlock',
   fields: [
     blockFields({
       name: 'contentFields',
