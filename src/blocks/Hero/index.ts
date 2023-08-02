@@ -8,7 +8,7 @@ import largeBody from '../../fields/richText/largeBody'
 
 export const HeroBlock: Block = {
   slug: 'hero',
-  imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/Hero.png',
+  imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/heroBlock.png',
   fields: [
     blockFields({
       name: 'heroFields',
