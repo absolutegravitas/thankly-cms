@@ -34,18 +34,18 @@ export const ContentBlock: Block = {
               label: 'Two Columns',
               value: 'twoColumns',
             },
-            {
-              label: 'Two Thirds + One Third',
-              value: 'twoThirdsOneThird',
-            },
-            {
-              label: 'Half + Half',
-              value: 'halfAndHalf',
-            },
-            {
-              label: 'Three Columns',
-              value: 'threeColumns',
-            },
+            // {
+            //   label: 'Two Thirds + One Third',
+            //   value: 'twoThirdsOneThird',
+            // },
+            // {
+            //   label: 'Half + Half',
+            //   value: 'halfAndHalf',
+            // },
+            // {
+            //   label: 'Three Columns',
+            //   value: 'threeColumns',
+            // },
           ],
         },
         richText({
