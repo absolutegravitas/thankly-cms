@@ -38,9 +38,7 @@ export const CallToActionBlock: Block = {
           type: 'upload',
           relationTo: 'media',
           required: false,
-          admin: {
-            condition: (_, siblingData) => siblingData.layout === 'fullWidthImage',
-          },
+          
         },
         linkGroup({ appearances: ['primary', 'secondary', 'default'] }),
       ],
