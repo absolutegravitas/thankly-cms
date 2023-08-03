@@ -134,8 +134,8 @@ export interface Product {
     layout: (
       | {
           heroFields: {
-            type: 'default' | 'imageRight';
-            media: string | Media;
+            layout: 'default' | 'imageRight';
+            image: string | Media;
             content?: {
               [k: string]: unknown;
             }[];
@@ -304,11 +304,9 @@ export interface Product {
         }
       | {
           reviewFields: {
+            layout: 'default' | 'withSummary' | '3colGrid' | 'businessTestimonials';
             useLeadingHeader?: boolean;
             leadingHeader: {
-              [k: string]: unknown;
-            }[];
-            richText: {
               [k: string]: unknown;
             }[];
             items?: string[] | Review[];
@@ -639,8 +637,8 @@ export interface Page {
   layout: (
     | {
         heroFields: {
-          type: 'default' | 'imageRight';
-          media: string | Media;
+          layout: 'default' | 'imageRight';
+          image: string | Media;
           content?: {
             [k: string]: unknown;
           }[];
@@ -809,11 +807,9 @@ export interface Page {
       }
     | {
         reviewFields: {
+          layout: 'default' | 'withSummary' | '3colGrid' | 'businessTestimonials';
           useLeadingHeader?: boolean;
           leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          richText: {
             [k: string]: unknown;
           }[];
           items?: string[] | Review[];
@@ -1161,8 +1157,8 @@ export interface ReusableContent {
   layout: (
     | {
         heroFields: {
-          type: 'default' | 'imageRight';
-          media: string | Media;
+          layout: 'default' | 'imageRight';
+          image: string | Media;
           content?: {
             [k: string]: unknown;
           }[];

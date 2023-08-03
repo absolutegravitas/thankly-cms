@@ -5,15 +5,16 @@ import richText from '../../fields/richText'
 
 export const FeaturedPartnersBlock: Block = {
   slug: 'featuredPartners',
-  imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/Slider.png',
+  imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/featuredPartners.png',
   fields: [
     blockFields({
       name: 'featuredPartnersFields',
       fields: [
-
-        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox', },
+        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
         richText({
-          name: 'leadingHeader', label: 'Leading Header', admin: {
+          name: 'leadingHeader',
+          label: 'Leading Header',
+          admin: {
             condition: (_, siblingData) => siblingData.useLeadingHeader,
           },
         }),
@@ -23,9 +24,7 @@ export const FeaturedPartnersBlock: Block = {
           required: true,
           minRows: 3,
           maxRows: 6,
-          fields: [
-            { type: 'upload', name: 'image', relationTo: 'media', required: true, },
-          ],
+          fields: [{ type: 'upload', name: 'image', relationTo: 'media', required: true }],
         },
         richText({ name: 'trailingNote', label: 'Trailing Note', required: false }),
       ],

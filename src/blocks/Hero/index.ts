@@ -15,8 +15,8 @@ export const HeroBlock: Block = {
       fields: [
         {
           type: 'select',
-          name: 'type',
-          label: 'Type',
+          name: 'layout',
+          label: 'Layout',
           required: true,
           defaultValue: 'default',
           options: [
@@ -30,7 +30,7 @@ export const HeroBlock: Block = {
           ],
         },
         {
-          name: 'media',
+          name: 'image',
           type: 'upload',
           relationTo: 'media',
           required: true,
@@ -44,14 +44,7 @@ export const HeroBlock: Block = {
             // condition: (_, { type }) => type !== 'livestream',
           },
         },
-        linkGroup({
-          overrides: {
-            admin: {
-              condition: (_, { type } = {}) =>
-                ['contentMedia', 'default', 'livestream'].includes(type),
-            },
-          },
-        }),
+        linkGroup(),
       ],
     }),
   ],
