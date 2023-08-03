@@ -134,25 +134,9 @@ export interface Product {
     layout: (
       | {
           heroFields: {
-            type: 'default' | 'contentMedia' | 'home' | 'livestream';
-            livestream?: {
-              id?: string;
-              date: string;
-              hideBreadcrumbs?: boolean;
-              richText?: {
-                [k: string]: unknown;
-              }[];
-              guests?: {
-                name?: string;
-                link?: string;
-                image?: string | Media;
-                id?: string;
-              }[];
-            };
-            richText?: {
-              [k: string]: unknown;
-            }[];
-            sidebarContent?: {
+            type: 'default' | 'imageRight';
+            media: string | Media;
+            content?: {
               [k: string]: unknown;
             }[];
             links?: {
@@ -178,53 +162,6 @@ export interface Product {
               };
               id?: string;
             }[];
-            actions?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-            buttons?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary';
-              };
-              id?: string;
-            }[];
-            media: string | Media;
           };
           id?: string;
           blockName?: string;
@@ -702,25 +639,9 @@ export interface Page {
   layout: (
     | {
         heroFields: {
-          type: 'default' | 'contentMedia' | 'home' | 'livestream';
-          livestream?: {
-            id?: string;
-            date: string;
-            hideBreadcrumbs?: boolean;
-            richText?: {
-              [k: string]: unknown;
-            }[];
-            guests?: {
-              name?: string;
-              link?: string;
-              image?: string | Media;
-              id?: string;
-            }[];
-          };
-          richText?: {
-            [k: string]: unknown;
-          }[];
-          sidebarContent?: {
+          type: 'default' | 'imageRight';
+          media: string | Media;
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -746,53 +667,6 @@ export interface Page {
             };
             id?: string;
           }[];
-          actions?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-          buttons?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-          media: string | Media;
         };
         id?: string;
         blockName?: string;
@@ -1287,25 +1161,9 @@ export interface ReusableContent {
   layout: (
     | {
         heroFields: {
-          type: 'default' | 'contentMedia' | 'home' | 'livestream';
-          livestream?: {
-            id?: string;
-            date: string;
-            hideBreadcrumbs?: boolean;
-            richText?: {
-              [k: string]: unknown;
-            }[];
-            guests?: {
-              name?: string;
-              link?: string;
-              image?: string | Media;
-              id?: string;
-            }[];
-          };
-          richText?: {
-            [k: string]: unknown;
-          }[];
-          sidebarContent?: {
+          type: 'default' | 'imageRight';
+          media: string | Media;
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -1331,53 +1189,6 @@ export interface ReusableContent {
             };
             id?: string;
           }[];
-          actions?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-          buttons?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-          media: string | Media;
         };
         id?: string;
         blockName?: string;
