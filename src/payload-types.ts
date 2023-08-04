@@ -8,74 +8,23 @@
 
 export interface Config {
   collections: {
+    users: User;
+    media: Media;
+    pages: Page;
+    'reusable-content': ReusableContent;
+    faqs: Faq;
     orders: Order;
     products: Product;
+    reviews: Review;
     discounts: Discount;
     stockItems: StockItem;
     suppliers: Supplier;
     'product-brands': ProductBrand;
-    reviews: Review;
-    pages: Page;
-    posts: Post;
-    media: Media;
-    'reusable-content': ReusableContent;
-    users: User;
     redirects: Redirect;
   };
   globals: {
     menus: Menu;
   };
-}
-export interface Order {
-  id: string;
-  fullTitle?: string;
-  customer?: string | User;
-  termsAccepted?: boolean;
-  subtotalAmount: string;
-  shippingAmount: string;
-  discountAmount: string;
-  invoiceAmount: string;
-  orderID: string;
-  notes?: string;
-  status?: 'pending' | 'cancelled' | 'onhold' | 'processing' | 'completed';
-  channel?: 'manual' | 'web' | 'facebook' | 'instagram' | 'completed';
-  discount?: string[] | Discount[];
-  product?: {
-    status?: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
-    thankly?: {
-      product?: string[] | Product[];
-      stripePriceID?: string;
-    };
-    message?: {
-      styles?: 'normal' | 'cursive' | 'capitals';
-      text?: string;
-    };
-    receiver?: {
-      name?: string;
-      business?: string;
-      type?: 'Residential' | 'Business' | 'Parcel Locker' | 'PO Box';
-      fulladdress?: string;
-      addressLine1?: string;
-      addressLine2?: string;
-      suburb?: string;
-      state?: string;
-      postcode?: string;
-    };
-    id?: string;
-  }[];
-  stripeInvoiceID?: string;
-  stripePaymentIntentID?: string;
-  events?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
 }
 export interface User {
   id: string;
@@ -95,6 +44,753 @@ export interface User {
   lockUntil?: string;
   password?: string;
 }
+export interface Media {
+  id: string;
+  alt?: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
+}
+export interface Page {
+  id: string;
+  fullTitle?: string;
+  slug?: string;
+  title: string;
+  layout: (
+    | {
+        heroFields: {
+          layout: 'default' | 'imageRight';
+          image: string | Media;
+          content?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
+    | {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'insetImage' | 'fullWidthImage';
+          backgroundColor: string;
+          image?: string | Media;
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
+    | {
+        contentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
+          columnOne: {
+            [k: string]: unknown;
+          }[];
+          columnTwo: {
+            [k: string]: unknown;
+          }[];
+          columnThree: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        featuredContentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          layout?: 'centeredAccordion' | 'threeColGrid';
+          items?:
+            | (
+                | {
+                    value: string;
+                    relationTo: 'products';
+                  }
+                | {
+                    value: string;
+                    relationTo: 'reviews';
+                  }
+                | {
+                    value: string;
+                    relationTo: 'faqs';
+                  }
+              )[]
+            | (
+                | {
+                    value: Product;
+                    relationTo: 'products';
+                  }
+                | {
+                    value: Review;
+                    relationTo: 'reviews';
+                  }
+                | {
+                    value: Faq;
+                    relationTo: 'faqs';
+                  }
+              )[];
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+          trailingNote?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredContent';
+      }
+    | {
+        linkGridFields?: {
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'linkGrid';
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide';
+          media: string | Media;
+          caption?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent';
+          container?: boolean;
+          richText: {
+            [k: string]: unknown;
+          }[];
+          enableLink?: boolean;
+          link?: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+              | {
+                  value: string | Page;
+                  relationTo: 'pages';
+                }
+              | {
+                  value: string | Product;
+                  relationTo: 'products';
+                };
+            url: string;
+            label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
+          };
+          media: string | Media;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        reusableContentBlockFields: {
+          reusableContent: string | ReusableContent;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'reusableContentBlock';
+      }
+  )[];
+  parent?: string | Page;
+  breadcrumbs?: {
+    doc?: string | Page;
+    url?: string;
+    label?: string;
+    id?: string;
+  }[];
+  meta?: {
+    title?: string;
+    description?: string;
+    image?: string | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface Product {
+  id: string;
+  fullTitle?: string;
+  slug?: string;
+  title: string;
+  layout: (
+    | {
+        heroFields: {
+          layout: 'default' | 'imageRight';
+          image: string | Media;
+          content?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
+    | {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'insetImage' | 'fullWidthImage';
+          backgroundColor: string;
+          image?: string | Media;
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
+    | {
+        contentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
+          columnOne: {
+            [k: string]: unknown;
+          }[];
+          columnTwo: {
+            [k: string]: unknown;
+          }[];
+          columnThree: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        featuredContentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          layout?: 'centeredAccordion' | 'threeColGrid';
+          items?:
+            | (
+                | {
+                    value: string;
+                    relationTo: 'products';
+                  }
+                | {
+                    value: string;
+                    relationTo: 'reviews';
+                  }
+                | {
+                    value: string;
+                    relationTo: 'faqs';
+                  }
+              )[]
+            | (
+                | {
+                    value: Product;
+                    relationTo: 'products';
+                  }
+                | {
+                    value: Review;
+                    relationTo: 'reviews';
+                  }
+                | {
+                    value: Faq;
+                    relationTo: 'faqs';
+                  }
+              )[];
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+          trailingNote?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredContent';
+      }
+    | {
+        linkGridFields?: {
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'linkGrid';
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide';
+          media: string | Media;
+          caption?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent';
+          container?: boolean;
+          richText: {
+            [k: string]: unknown;
+          }[];
+          enableLink?: boolean;
+          link?: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+              | {
+                  value: string | Page;
+                  relationTo: 'pages';
+                }
+              | {
+                  value: string | Product;
+                  relationTo: 'products';
+                };
+            url: string;
+            label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
+          };
+          media: string | Media;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+    | {
+        reusableContentBlockFields: {
+          reusableContent: string | ReusableContent;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'reusableContentBlock';
+      }
+  )[];
+  parent?: string | Product;
+  breadcrumbs?: {
+    doc?: string | Product;
+    url?: string;
+    label?: string;
+    id?: string;
+  }[];
+  meta?: {
+    title?: string;
+    description?: string;
+    image?: string | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: 'draft' | 'published';
+}
+export interface Review {
+  id: string;
+  note?: string;
+  providerName?: string;
+  providerOrg?: string;
+  image?: string | Media;
+  rating?: number;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Faq {
+  id: string;
+  question: string;
+  answer: {
+    [k: string]: unknown;
+  }[];
+  tags: {
+    name: string;
+    id?: string;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+export interface ReusableContent {
+  id: string;
+  title: string;
+  layout: (
+    | {
+        heroFields: {
+          layout: 'default' | 'imageRight';
+          image: string | Media;
+          content?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
+    | {
+        ctaFields: {
+          richText: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'insetImage' | 'fullWidthImage';
+          backgroundColor: string;
+          image?: string | Media;
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'cta';
+      }
+    | {
+        contentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
+          columnOne: {
+            [k: string]: unknown;
+          }[];
+          columnTwo: {
+            [k: string]: unknown;
+          }[];
+          columnThree: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'content';
+      }
+    | {
+        featuredContentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          layout?: 'centeredAccordion' | 'threeColGrid';
+          items?:
+            | (
+                | {
+                    value: string;
+                    relationTo: 'products';
+                  }
+                | {
+                    value: string;
+                    relationTo: 'reviews';
+                  }
+                | {
+                    value: string;
+                    relationTo: 'faqs';
+                  }
+              )[]
+            | (
+                | {
+                    value: Product;
+                    relationTo: 'products';
+                  }
+                | {
+                    value: Review;
+                    relationTo: 'reviews';
+                  }
+                | {
+                    value: Faq;
+                    relationTo: 'faqs';
+                  }
+              )[];
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+          trailingNote?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredContent';
+      }
+    | {
+        linkGridFields?: {
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'linkGrid';
+      }
+    | {
+        mediaContentFields: {
+          alignment?: 'contentMedia' | 'mediaContent';
+          container?: boolean;
+          richText: {
+            [k: string]: unknown;
+          }[];
+          enableLink?: boolean;
+          link?: {
+            type?: 'reference' | 'custom';
+            newTab?: boolean;
+            reference:
+              | {
+                  value: string | Page;
+                  relationTo: 'pages';
+                }
+              | {
+                  value: string | Product;
+                  relationTo: 'products';
+                };
+            url: string;
+            label: string;
+            appearance?: 'primary' | 'secondary' | 'default';
+          };
+          media: string | Media;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaContent';
+      }
+  )[];
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Order {
+  id: string;
+  fullTitle?: string;
+  customer?: string | User;
+  status?: 'pending' | 'cancelled' | 'onhold' | 'processing' | 'completed';
+  termsAccepted?: boolean;
+  subtotalAmount: string;
+  shippingAmount: string;
+  discountAmount: string;
+  invoiceAmount: string;
+  orderID: string;
+  notes?: string;
+  stripeInvoiceID?: string;
+  stripePaymentIntentID?: string;
+  events?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  items: {
+    type?: 'product' | 'discount' | 'other';
+    thankly?: {
+      status?: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
+      product?: string[] | Product[];
+      stripePriceID?: string;
+      message?: {
+        styles?: 'normal' | 'cursive' | 'capitals';
+        text?: string;
+      };
+      receiver?: {
+        name?: string;
+        business?: string;
+        type?: 'Residential' | 'Business' | 'PO Box / Locker';
+        fulladdress?: string;
+        addressLine1?: string;
+        addressLine2?: string;
+        suburb?: string;
+        state?: string;
+        postcode?: string;
+      };
+    };
+    discount?: string | Discount;
+    id?: string;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
 export interface Discount {
   id: string;
   code?: string;
@@ -105,492 +801,6 @@ export interface Discount {
   type?: 'percent' | 'amount';
   updatedAt: string;
   createdAt: string;
-}
-export interface Product {
-  id: string;
-  slug?: string;
-  fullTitle?: string;
-  title: string;
-  description: string;
-  price: number;
-  stripeProductID: string;
-  type: 'card' | 'Bundle';
-  images: {
-    images?: {
-      image: string | Media;
-      alt?: string;
-      id?: string;
-    }[];
-  };
-  components: {
-    quantity: number;
-    sku: string;
-    stock?: {
-      stock?: string[] | StockItem[];
-      id?: string;
-    }[];
-  };
-  layout: {
-    layout: (
-      | {
-          heroFields: {
-            layout: 'default' | 'imageRight';
-            image: string | Media;
-            content?: {
-              [k: string]: unknown;
-            }[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'default' | 'primary' | 'secondary';
-              };
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'hero';
-        }
-      | {
-          ctaFields: {
-            richText: {
-              [k: string]: unknown;
-            }[];
-            layout?: 'insetImage' | 'fullWidthImage';
-            backgroundColor: string;
-            image?: string | Media;
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'cta';
-        }
-      | {
-          cardGridFields: {
-            richText: {
-              [k: string]: unknown;
-            }[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-            layout?: 'grid' | '2col_full' | '3col' | '2col_normal';
-            cards?: {
-              title: string;
-              description?: string;
-              enableLink?: boolean;
-              link?: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'cardGrid';
-        }
-      | {
-          contentFields: {
-            useLeadingHeader?: boolean;
-            leadingHeader: {
-              [k: string]: unknown;
-            }[];
-            layout?: 'oneColumn' | 'twoColumns';
-            columnOne: {
-              [k: string]: unknown;
-            }[];
-            columnTwo: {
-              [k: string]: unknown;
-            }[];
-            columnThree: {
-              [k: string]: unknown;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'content';
-        }
-      | {
-          contentGridFields: {
-            forceDarkBackground?: boolean;
-            useLeadingHeader?: boolean;
-            leadingHeader: {
-              [k: string]: unknown;
-            }[];
-            layout?: 'grid' | 'accordion1' | 'accordion2';
-            cells?: {
-              content: {
-                [k: string]: unknown;
-              }[];
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'contentGrid';
-        }
-      | {
-          reviewFields: {
-            layout: 'default' | 'withSummary' | '3colGrid' | 'businessTestimonials';
-            useLeadingHeader?: boolean;
-            leadingHeader: {
-              [k: string]: unknown;
-            }[];
-            items?: string[] | Review[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'featuredReviews';
-        }
-      | {
-          sliderFields: {
-            useLeadingHeader?: boolean;
-            leadingHeader: {
-              [k: string]: unknown;
-            }[];
-            sliderType: 'quoteSlider' | 'imageSlider';
-            imageSlides: {
-              image: string | Media;
-              id?: string;
-            }[];
-            quoteSlides: {
-              richText: {
-                [k: string]: unknown;
-              }[];
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'slider';
-        }
-      | {
-          stepsFields: {
-            useLeadingHeader?: boolean;
-            steps: {
-              layout?: {
-                contentFields: {
-                  useLeadingHeader?: boolean;
-                  leadingHeader: {
-                    [k: string]: unknown;
-                  }[];
-                  layout?: 'oneColumn' | 'twoColumns';
-                  columnOne: {
-                    [k: string]: unknown;
-                  }[];
-                  columnTwo: {
-                    [k: string]: unknown;
-                  }[];
-                  columnThree: {
-                    [k: string]: unknown;
-                  }[];
-                };
-                id?: string;
-                blockName?: string;
-                blockType: 'content';
-              }[];
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'steps';
-        }
-      | {
-          featuredPartnersFields: {
-            useLeadingHeader?: boolean;
-            leadingHeader: {
-              [k: string]: unknown;
-            }[];
-            imageSlides: {
-              image: string | Media;
-              id?: string;
-            }[];
-            trailingNote?: {
-              [k: string]: unknown;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'featuredPartners';
-        }
-      | {
-          productOverviewFields: {
-            leadingHeader: {
-              [k: string]: unknown;
-            }[];
-            richText: {
-              [k: string]: unknown;
-            }[];
-            items?: string[] | Review[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'productOverview';
-        }
-      | {
-          linkGridFields?: {
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'linkGrid';
-        }
-      | {
-          mediaBlockFields: {
-            position?: 'default' | 'wide';
-            media: string | Media;
-            caption?: {
-              [k: string]: unknown;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'mediaBlock';
-        }
-      | {
-          mediaContentFields: {
-            alignment?: 'contentMedia' | 'mediaContent';
-            container?: boolean;
-            richText: {
-              [k: string]: unknown;
-            }[];
-            enableLink?: boolean;
-            link?: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            media: string | Media;
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'mediaContent';
-        }
-      | {
-          stickyHighlightsFields?: {
-            highlights?: {
-              richText: {
-                [k: string]: unknown;
-              }[];
-              enableLink?: boolean;
-              link?: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Post;
-                      relationTo: 'posts';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              type?: 'code' | 'media';
-              code: string;
-              media: string | Media;
-              id?: string;
-            }[];
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'stickyHighlights';
-        }
-      | {
-          reusableContentBlockFields: {
-            reusableContent: string | ReusableContent;
-          };
-          id?: string;
-          blockName?: string;
-          blockType: 'reusableContentBlock';
-        }
-    )[];
-  };
-  meta?: {
-    title?: string;
-    description?: string;
-    image?: string | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: 'draft' | 'published';
-}
-export interface Media {
-  id: string;
-  alt: string;
-  darkModeFallback?: string | Media;
-  updatedAt: string;
-  createdAt: string;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
 }
 export interface StockItem {
   id: string;
@@ -629,873 +839,6 @@ export interface Supplier {
   updatedAt: string;
   createdAt: string;
 }
-export interface Page {
-  id: string;
-  fullTitle?: string;
-  slug?: string;
-  title: string;
-  layout: (
-    | {
-        heroFields: {
-          layout: 'default' | 'imageRight';
-          image: string | Media;
-          content?: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'default' | 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'hero';
-      }
-    | {
-        ctaFields: {
-          richText: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'insetImage' | 'fullWidthImage';
-          backgroundColor: string;
-          image?: string | Media;
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cta';
-      }
-    | {
-        cardGridFields: {
-          richText: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-          layout?: 'grid' | '2col_full' | '3col' | '2col_normal';
-          cards?: {
-            title: string;
-            description?: string;
-            enableLink?: boolean;
-            link?: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cardGrid';
-      }
-    | {
-        contentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'oneColumn' | 'twoColumns';
-          columnOne: {
-            [k: string]: unknown;
-          }[];
-          columnTwo: {
-            [k: string]: unknown;
-          }[];
-          columnThree: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'content';
-      }
-    | {
-        contentGridFields: {
-          forceDarkBackground?: boolean;
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'grid' | 'accordion1' | 'accordion2';
-          cells?: {
-            content: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'contentGrid';
-      }
-    | {
-        reviewFields: {
-          layout: 'default' | 'withSummary' | '3colGrid' | 'businessTestimonials';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          items?: string[] | Review[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'featuredReviews';
-      }
-    | {
-        sliderFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          sliderType: 'quoteSlider' | 'imageSlider';
-          imageSlides: {
-            image: string | Media;
-            id?: string;
-          }[];
-          quoteSlides: {
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'slider';
-      }
-    | {
-        stepsFields: {
-          useLeadingHeader?: boolean;
-          steps: {
-            layout?: {
-              contentFields: {
-                useLeadingHeader?: boolean;
-                leadingHeader: {
-                  [k: string]: unknown;
-                }[];
-                layout?: 'oneColumn' | 'twoColumns';
-                columnOne: {
-                  [k: string]: unknown;
-                }[];
-                columnTwo: {
-                  [k: string]: unknown;
-                }[];
-                columnThree: {
-                  [k: string]: unknown;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'content';
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'steps';
-      }
-    | {
-        featuredPartnersFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          imageSlides: {
-            image: string | Media;
-            id?: string;
-          }[];
-          trailingNote?: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'featuredPartners';
-      }
-    | {
-        featuredProductFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          richText: {
-            [k: string]: unknown;
-          }[];
-          layout: 'imageBg' | '3col' | 'imageOverlay' | 'imageSplit';
-          items?: string[] | Product[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'featuredProducts';
-      }
-    | {
-        linkGridFields?: {
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'linkGrid';
-      }
-    | {
-        mediaBlockFields: {
-          position?: 'default' | 'wide';
-          media: string | Media;
-          caption?: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaBlock';
-      }
-    | {
-        mediaContentFields: {
-          alignment?: 'contentMedia' | 'mediaContent';
-          container?: boolean;
-          richText: {
-            [k: string]: unknown;
-          }[];
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-              | {
-                  value: string | Page;
-                  relationTo: 'pages';
-                }
-              | {
-                  value: string | Post;
-                  relationTo: 'posts';
-                }
-              | {
-                  value: string | Product;
-                  relationTo: 'products';
-                };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          media: string | Media;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaContent';
-      }
-    | {
-        stickyHighlightsFields?: {
-          highlights?: {
-            richText: {
-              [k: string]: unknown;
-            }[];
-            enableLink?: boolean;
-            link?: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            type?: 'code' | 'media';
-            code: string;
-            media: string | Media;
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'stickyHighlights';
-      }
-    | {
-        reusableContentBlockFields: {
-          reusableContent: string | ReusableContent;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'reusableContentBlock';
-      }
-  )[];
-  parent?: string | Page;
-  breadcrumbs?: {
-    doc?: string | Page;
-    url?: string;
-    label?: string;
-    id?: string;
-  }[];
-  meta?: {
-    title?: string;
-    description?: string;
-    image?: string | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: 'draft' | 'published';
-}
-export interface Post {
-  id: string;
-  slug?: string;
-  title: string;
-  image: string | Media;
-  excerpt: {
-    [k: string]: unknown;
-  }[];
-  content: (
-    | {
-        blogContentFields: {
-          richText: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'blogContent';
-      }
-    | {
-        blogMarkdownFields: {
-          markdown: string;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'blogMarkdown';
-      }
-    | {
-        mediaBlockFields: {
-          position?: 'default' | 'wide';
-          media: string | Media;
-          caption?: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaBlock';
-      }
-  )[];
-  author?: string | User;
-  publishedOn: string;
-  meta?: {
-    title?: string;
-    description?: string;
-    image?: string | Media;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: 'draft' | 'published';
-}
-export interface Review {
-  id: string;
-  providerName?: string;
-  providerOrg?: string;
-  image?: string | Media;
-  rating?: number;
-  note?: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface ReusableContent {
-  id: string;
-  title: string;
-  layout: (
-    | {
-        heroFields: {
-          layout: 'default' | 'imageRight';
-          image: string | Media;
-          content?: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'default' | 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'hero';
-      }
-    | {
-        ctaFields: {
-          richText: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'insetImage' | 'fullWidthImage';
-          backgroundColor: string;
-          image?: string | Media;
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cta';
-      }
-    | {
-        cardGridFields: {
-          richText: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-          layout?: 'grid' | '2col_full' | '3col' | '2col_normal';
-          cards?: {
-            title: string;
-            description?: string;
-            enableLink?: boolean;
-            link?: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cardGrid';
-      }
-    | {
-        contentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'oneColumn' | 'twoColumns';
-          columnOne: {
-            [k: string]: unknown;
-          }[];
-          columnTwo: {
-            [k: string]: unknown;
-          }[];
-          columnThree: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'content';
-      }
-    | {
-        contentGridFields: {
-          forceDarkBackground?: boolean;
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'grid' | 'accordion1' | 'accordion2';
-          cells?: {
-            content: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'contentGrid';
-      }
-    | {
-        sliderFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          sliderType: 'quoteSlider' | 'imageSlider';
-          imageSlides: {
-            image: string | Media;
-            id?: string;
-          }[];
-          quoteSlides: {
-            richText: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'slider';
-      }
-    | {
-        stepsFields: {
-          useLeadingHeader?: boolean;
-          steps: {
-            layout?: {
-              contentFields: {
-                useLeadingHeader?: boolean;
-                leadingHeader: {
-                  [k: string]: unknown;
-                }[];
-                layout?: 'oneColumn' | 'twoColumns';
-                columnOne: {
-                  [k: string]: unknown;
-                }[];
-                columnTwo: {
-                  [k: string]: unknown;
-                }[];
-                columnThree: {
-                  [k: string]: unknown;
-                }[];
-              };
-              id?: string;
-              blockName?: string;
-              blockType: 'content';
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'steps';
-      }
-    | {
-        linkGridFields?: {
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'linkGrid';
-      }
-    | {
-        mediaBlockFields: {
-          position?: 'default' | 'wide';
-          media: string | Media;
-          caption?: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaBlock';
-      }
-    | {
-        mediaContentFields: {
-          alignment?: 'contentMedia' | 'mediaContent';
-          container?: boolean;
-          richText: {
-            [k: string]: unknown;
-          }[];
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-              | {
-                  value: string | Page;
-                  relationTo: 'pages';
-                }
-              | {
-                  value: string | Post;
-                  relationTo: 'posts';
-                }
-              | {
-                  value: string | Product;
-                  relationTo: 'products';
-                };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          media: string | Media;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaContent';
-      }
-    | {
-        stickyHighlightsFields?: {
-          highlights?: {
-            richText: {
-              [k: string]: unknown;
-            }[];
-            enableLink?: boolean;
-            link?: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Post;
-                    relationTo: 'posts';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            type?: 'code' | 'media';
-            code: string;
-            media: string | Media;
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'stickyHighlights';
-      }
-  )[];
-  updatedAt: string;
-  createdAt: string;
-}
 export interface Redirect {
   id: string;
   from: string;
@@ -1505,10 +848,6 @@ export interface Redirect {
       | {
           value: string | Page;
           relationTo: 'pages';
-        }
-      | {
-          value: string | Post;
-          relationTo: 'posts';
         }
       | {
           value: string | Product;
@@ -1531,10 +870,6 @@ export interface Menu {
           | {
               value: string | Page;
               relationTo: 'pages';
-            }
-          | {
-              value: string | Post;
-              relationTo: 'posts';
             }
           | {
               value: string | Product;
@@ -1562,10 +897,6 @@ export interface Menu {
             | {
                 value: string | Page;
                 relationTo: 'pages';
-              }
-            | {
-                value: string | Post;
-                relationTo: 'posts';
               }
             | {
                 value: string | Product;

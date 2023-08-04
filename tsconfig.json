@@ -36,7 +36,9 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "jsx": "react"
+    "jsx": "react",
+    "noEmit": true,
+    "allowImportingTsExtensions": true
     // "baseUrl": ".",
   },
   "include": [

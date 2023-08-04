@@ -12,16 +12,15 @@ import { LinkGridBlock } from '../blocks/LinkGrid'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
 import { ReusableContentBlock } from '../blocks/ReusableContent'
-
 import { fullTitle } from '../fields/fullTitle'
 import { slugField } from '../fields/slug'
 import { FeaturedContentBlock } from '../blocks/FeaturedContent'
 
-const Pages: CollectionConfig = {
-  slug: 'pages',
+const Products: CollectionConfig = {
+  slug: 'products',
   admin: {
     useAsTitle: 'fullTitle',
-    preview: doc => formatPreviewURL('pages', doc),
+    preview: doc => formatPreviewURL('products', doc),
     defaultColumns: ['fullTitle', 'slug', 'createdAt', 'updatedAt'],
     group: 'Website',
   },
@@ -60,7 +59,6 @@ const Pages: CollectionConfig = {
         CallToActionBlock, // a call to action block with additional functions
         BasicContentBlock, // a basic content block for chunks of text
         FeaturedContentBlock,
-        // FormsBlock, // shows created form
 
         LinkGridBlock, // a listing of links e.g. for FAQ or grouped Legalese, each link spawns new page
         MediaBlock, // just a image placement with a caption, mostly useful for blogs
@@ -72,4 +70,4 @@ const Pages: CollectionConfig = {
   ],
 }
 
-export default Pages
+export default Products

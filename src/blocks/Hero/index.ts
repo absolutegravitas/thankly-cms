@@ -2,7 +2,6 @@ import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
 import linkGroup from '../../fields/linkGroup'
-import livestreamFields from '../../fields/livestreamFields'
 import label from '../../fields/richText/label'
 import largeBody from '../../fields/richText/largeBody'
 
@@ -26,7 +25,6 @@ export const HeroBlock: Block = {
             { label: 'Image Right', value: 'imageRight' },
             // offset action buttons
             // { label: 'Home', value: 'home', },
-            // { label: 'Livestream', value: 'livestream', }, // video background
           ],
         },
         {
@@ -41,7 +39,6 @@ export const HeroBlock: Block = {
           admin: {
             elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', largeBody, 'ul', label],
             leaves: ['underline'],
-            // condition: (_, { type }) => type !== 'livestream',
           },
         },
         linkGroup(),

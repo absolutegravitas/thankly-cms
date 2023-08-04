@@ -3,7 +3,7 @@ import type { Block } from 'payload/types'
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
 
-export const ContentBlock: Block = {
+export const BasicContentBlock: Block = {
   slug: 'content',
   imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/contentBlock',
   fields: [
@@ -43,10 +43,10 @@ export const ContentBlock: Block = {
             //   label: 'Half + Half',
             //   value: 'halfAndHalf',
             // },
-            // {
-            //   label: 'Three Columns',
-            //   value: 'threeColumns',
-            // },
+            {
+              label: 'Three Columns',
+              value: 'threeColumns',
+            },
           ],
         },
         richText({

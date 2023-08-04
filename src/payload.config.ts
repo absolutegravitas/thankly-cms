@@ -3,8 +3,8 @@ import path from 'path'
 import { buildConfig } from 'payload/config'
 
 // plugins
-import { cloudStorage } from '@payloadcms/plugin-cloud-storage';
-import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3';
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
+import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
@@ -21,18 +21,31 @@ import BeforeDashboard from './components/BeforeDashboard'
 import Menus from './globals/Menus'
 
 import {
-  Media, Reviews, Orders, Pages, Posts, Products, ReusableContent, ProductBrands, StockItems, Suppliers, Users, Discounts
+  Media,
+  Reviews,
+  Orders,
+  Pages,
+  Products,
+  ReusableContent,
+  Brands,
+  StockItems,
+  Suppliers,
+  Users,
+  Discounts,
+  Faqs,
 } from './collections'
 
-
-dotenv.config({ path: path.resolve(__dirname, '../.env'), })
-const generateTitle: GenerateTitle = () => { return 'Thankly' }
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
+const generateTitle: GenerateTitle = () => {
+  return 'Thankly'
+}
 const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js')
 
 const adapter = s3Adapter({
   config: {
     credentials: {
-      accessKeyId: String(process.env.S3_ACCESS_KEY_ID), secretAccessKey: String(process.env.S3_SECRET_ACCESS_KEY),
+      accessKeyId: String(process.env.S3_ACCESS_KEY_ID),
+      secretAccessKey: String(process.env.S3_SECRET_ACCESS_KEY),
     },
     region: process.env.S3_REGION,
   },
@@ -41,32 +54,38 @@ const adapter = s3Adapter({
 
 export default buildConfig({
   collections: [
-    // shop
+    // Globals
+    Users,
+    Media,
+
+    // content
+    Pages,
+    ReusableContent,
+    Faqs,
+
     Orders,
     Products,
+    Reviews,
     Discounts,
+
     StockItems,
     Suppliers,
-    ProductBrands,
-    Reviews,
-    // website
-    Pages,
-    Posts,
-
-    // other (content blocks etc.)
-    Media,
-    ReusableContent,
-    Users,
+    Brands,
   ],
+  upload: {
+    limits: {
+      fileSize: 10000000, // 10MB, written in bytes
+    },
+  },
   plugins: [
     nestedDocs({
-      collections: ['pages',],
+      collections: ['pages', 'products'],
       generateLabel: (_, doc) => doc.title as string,
       generateURL: docs => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
-    redirects({ collections: ['pages', 'posts', 'products'], }),
+    redirects({ collections: ['pages', 'products'] }),
     seo({
-      collections: ['pages', 'posts', 'products'],
+      collections: ['pages', 'products'],
       uploadsCollection: 'media',
       generateTitle,
     }),
@@ -90,7 +109,9 @@ export default buildConfig({
           adapter: adapter, // see docs for the adapter you want to use
           generateFileURL: ({ filename, prefix }) => {
             console.log(filename, prefix)
-            return ['https://d1qkl36l6oj3o3.cloudfront.net', prefix, filename].filter(Boolean).join('/')
+            return ['https://d1qkl36l6oj3o3.cloudfront.net', prefix, filename]
+              .filter(Boolean)
+              .join('/')
           },
         },
       },
@@ -119,11 +140,31 @@ export default buildConfig({
     }),
   },
 
-  csrf: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
-  cors: [process.env.PAYLOAD_PUBLIC_APP_URL, 'https://checkout.stripe.com', 'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com', 'https://www.thankly.co', 'https://thankly.co', 'https://www.thankly.com.au', 'https://thankly.com.au', 'https://thankly.au'].filter(Boolean),
-  endpoints: [{ path: '/checkout', method: 'post', handler: checkout, },],
+  csrf: [
+    process.env.PAYLOAD_PUBLIC_APP_URL,
+    'https://checkout.stripe.com',
+    'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com',
+    'https://www.thankly.co',
+    'https://thankly.com.au',
+    'https://thankly.com.au',
+    'https://thankly.au',
+  ].filter(Boolean),
+  cors: [
+    process.env.PAYLOAD_PUBLIC_APP_URL,
+    'https://checkout.stripe.com',
+    'https://rq5f65r3bd.ap-southeast-2.awsapprunner.com',
+    'https://www.thankly.co',
+    'https://thankly.co',
+    'https://www.thankly.com.au',
+    'https://thankly.com.au',
+    'https://thankly.au',
+  ].filter(Boolean),
+  endpoints: [{ path: '/checkout', method: 'post', handler: checkout }],
   globals: [Menus],
-  graphQL: { disablePlaygroundInProduction: false, schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'), },
-  rateLimit: { trustProxy: true, max: 4000, },
-  typescript: { outputFile: path.resolve(__dirname, 'payload-types.ts'), },
-})  
+  graphQL: {
+    disablePlaygroundInProduction: false,
+    schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+  },
+  rateLimit: { trustProxy: true, max: 4000 },
+  typescript: { outputFile: path.resolve(__dirname, 'payload-types.ts') },
+})

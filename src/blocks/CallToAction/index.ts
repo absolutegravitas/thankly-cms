@@ -6,8 +6,6 @@ import richText from '../../fields/richText'
 import colorField from '../../fields/colorPicker/config'
 
 export const CallToActionBlock: Block = {
-  // https://tailwindui.com/components/marketing/sections/cta-sections#component-0763876148e2fa400b4f1cf13cdf0093
-  // https://tailwindui.com/components/marketing/sections/cta-sections#component-25ce2a81d17545994655ccc4062651a4
   slug: 'cta',
   imageURL: 'https://d1qkl36l6oj3o3.cloudfront.net/ctaBlock.png',
   labels: { singular: 'Call to Action', plural: 'Calls to Action' },

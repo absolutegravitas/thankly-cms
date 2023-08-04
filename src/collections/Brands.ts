@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { isAdmin } from '../access/isAdmin'
 
-const ProductBrands: CollectionConfig = {
+const Brands: CollectionConfig = {
   slug: 'product-brands',
   admin: {
     useAsTitle: 'title',
@@ -29,4 +29,4 @@ const ProductBrands: CollectionConfig = {
   ],
 }
 
-export default ProductBrands
+export default Brands

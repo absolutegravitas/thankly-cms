@@ -2,6 +2,55 @@
 
 This is the code that powers the official website CMS for [Payload](https://github.com/payloadcms/payload). The frontend is built with NextJS and [the code can be found here](https://github.com/payloadcms/website).
 
+
+Content Block Component Hierarchy
+
+ContentBlock
+- basic
+    - single col
+    - double col
+- 
+
+FeatureBlock
+- featuredProducts
+    -> 1 or may
+    -> 1 = featured collectin
+- featuredReviews
+
+- featuredPartners (as seen on / corp)
+
+- featured FAQs
+
+Standard Page
+- Hero
+    -> Full Screen -- https://tailwindui.com/components/ecommerce/page-examples/storefront-pages#component-04740945117f4ec46b10f866630a6347
+    -> With Mockup RHS -- https://tailwindui.com/components/marketing/sections/heroes#component-816bf20fe4e1cd0cc2fefabfa6a6732b
+
+- As Seen On (Featured Partners)
+- How It Works
+x- Featured Reviews
+- Major Feature (large image with content)
+x- Featured FAQs
+- Perks
+- CTA Block
+- Promo Block
+
+Curated Collections (Bundles also Discontinued) Page
+x- Hero
+- As Seen On
+- Major Features (bundle contents)
+- Pricing Block
+- Perks
+- Featured FAQs
+
+Cards Page (aka Products Page)
+- Hero
+- As Seen On
+- Cards Product Cards --> send card, send multiple cards
+
+Create Your Thankly Page
+
+
 ### Features shown
 
 This CMS showcases many powerful features that Payload is capable of, including:

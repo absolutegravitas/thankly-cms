@@ -5,8 +5,7 @@ const Discounts: CollectionConfig = {
   slug: 'discounts',
   admin: {
     useAsTitle: 'code',
-    group: 'Shop'
-
+    group: 'Shop',
   },
   access: {
     read: () => true,
@@ -16,18 +15,42 @@ const Discounts: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
-    { name: 'code', type: 'text', required: false, admin: { width: '50%', }, },
-    { name: 'description', type: 'textarea', required: false, admin: { width: '50%', }, },
-    { name: 'activeDate', type: 'date', required: false, admin: { width: '50%', }, },
-    { name: 'expiryDate', type: 'date', required: false, admin: { width: '50%', }, },
-    { name: 'value', type: 'number', required: false, admin: { width: '50%', }, },
+    { name: 'code', type: 'text', required: false, admin: { width: '50%' } },
+    { name: 'description', type: 'textarea', required: false, admin: { width: '50%' } },
+    {
+      name: 'activeDate',
+      type: 'date',
+      required: false,
+      admin: {
+        width: '50%',
+        date: {
+          pickerAppearance: 'dayOnly',
+          displayFormat: 'd MMM yyy',
+        },
+      },
+    },
+    {
+      name: 'expiryDate',
+      type: 'date',
+      required: false,
+      admin: {
+        width: '50%',
+        date: {
+          pickerAppearance: 'dayOnly',
+          displayFormat: 'd MMM yyy',
+        },
+      },
+    },
+    { name: 'value', type: 'number', required: false, admin: { width: '50%' } },
     {
       name: 'type',
       type: 'select',
-      hasMany: false, required: false, admin: { width: '50%', isClearable: true, },
+      hasMany: false,
+      required: false,
+      admin: { width: '50%', isClearable: true },
       options: [
-        { label: 'Percent Off', value: 'percent', },
-        { label: 'Amount Off', value: 'amount', },
+        { label: 'Percent Off', value: 'percent' },
+        { label: 'Amount Off', value: 'amount' },
       ],
     },
   ],

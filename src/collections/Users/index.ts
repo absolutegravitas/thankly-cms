@@ -13,9 +13,14 @@ export const UserFields: CollectionConfig['fields'] = [
   {
     type: 'row',
     fields: [
-      { name: 'name', type: 'text', required: true, admin: { width: '50%', }, },
-      { name: 'business', label: 'Business / Organisation', type: 'text', required: false, admin: { width: '50%', }, },
-
+      { name: 'name', type: 'text', required: true, admin: { width: '50%' } },
+      {
+        name: 'business',
+        label: 'Business / Organisation',
+        type: 'text',
+        required: false,
+        admin: { width: '50%' },
+      },
       {
         name: 'roles',
         type: 'select',
@@ -32,7 +37,8 @@ export const UserFields: CollectionConfig['fields'] = [
           {
             label: 'customer',
             value: 'customer',
-          }, {
+          },
+          {
             label: 'user',
             value: 'user',
           },
@@ -61,8 +67,7 @@ export const UserFields: CollectionConfig['fields'] = [
           },
         },
       },
-
-    ]
+    ],
   },
   {
     name: 'skipSync',

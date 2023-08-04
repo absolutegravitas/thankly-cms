@@ -12,23 +12,39 @@ const Reviews: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
+    { name: 'note', type: 'textarea', required: false },
     {
-      name: 'providerName',
+       name: 'providerName',
       label: 'Provider Name',
       type: 'text',
       required: false,
-      admin: { width: '50%' },
     },
     {
       name: 'providerOrg',
       label: 'Provider Org',
       type: 'text',
       required: false,
-      admin: { width: '50%' },
     },
     { name: 'image', label: 'Image', type: 'upload', relationTo: 'media', required: false },
-    { name: 'rating', type: 'number', required: false, min: 1, max: 5, admin: { width: '50%' } },
-    { name: 'note', type: 'textarea', required: false, admin: { width: '50%' } },
+    { name: 'rating', type: 'number', required: false, min: 1, max: 5 },
+    // {
+    //   name: 'tags',
+    //   type: 'array',
+    //   label: 'Tags',
+    //   labels: {
+    //     singular: 'Tag',
+    //     plural: 'Tags',
+    //   },
+    //   minRows: 1,
+    //   fields: [
+    //     {
+    //       name: 'name',
+    //       type: 'text',
+    //       required: true,
+    //     },
+    //   ],
+    //   required: true,
+    // },
   ],
 }
 

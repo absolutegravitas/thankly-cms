@@ -11,9 +11,7 @@ export const formatPagePath = (
       case 'pages':
         prefix = ''
         break
-      case 'posts':
-        prefix = '/blog'
-        break
+      
       default:
         prefix = `/${collection}`
     }
