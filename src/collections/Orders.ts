@@ -150,7 +150,16 @@ export const Orders: CollectionConfig = {
                   relationTo: 'products',
                   hasMany: true,
                 },
-                { name: 'stripePriceID', type: 'text', required: false }, // pull latest prices from Stripe
+                {
+                  name: 'tracking',
+                  label: 'Tracking',
+                  type: 'group',
+                  fields: [
+                    { name: 'number', type: 'text', required: false },
+                    { name: 'link', type: 'text', required: false },
+                  ],
+                },
+                { name: 'stripePriceID', type: 'text', required: false },
               ],
             },
 
@@ -219,6 +228,19 @@ export const Orders: CollectionConfig = {
                     { name: 'postcode', type: 'text', required: false },
                   ],
                 },
+                {
+                  name: 'requestedShipDate',
+                  type: 'date',
+                  required: false,
+                  admin: {
+                    width: '50%',
+                    date: {
+                      pickerAppearance: 'dayOnly',
+                      displayFormat: 'd MMM yyy',
+                    },
+                  },
+                },
+                { name: 'requestedShipDate', type: 'date', required: false },
               ],
             },
           ],

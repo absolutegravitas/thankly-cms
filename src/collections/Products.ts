@@ -48,8 +48,10 @@ const Products: CollectionConfig = {
   fields: [
     fullTitle,
     slugField(),
-
     { name: 'title', type: 'text', required: true },
+
+
+    
     {
       name: 'layout',
       type: 'blocks',

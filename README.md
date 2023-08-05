@@ -22,18 +22,30 @@ FeatureBlock
 - featured FAQs
 
 Standard Page
-- Hero
+x- Hero
     -> Full Screen -- https://tailwindui.com/components/ecommerce/page-examples/storefront-pages#component-04740945117f4ec46b10f866630a6347
     -> With Mockup RHS -- https://tailwindui.com/components/marketing/sections/heroes#component-816bf20fe4e1cd0cc2fefabfa6a6732b
 
-- As Seen On (Featured Partners)
-- How It Works
+x- As Seen On (Featured Partners)
+x- How It Works
 x- Featured Reviews
 - Major Feature (large image with content)
 x- Featured FAQs
 - Perks
 - CTA Block
 - Promo Block
+
+
+
+
+
+Cards Page (aka Products Page)
+- Hero
+- As Seen On
+- Cards Product Cards --> send card, send multiple cards
+
+
+
 
 Curated Collections (Bundles also Discontinued) Page
 x- Hero
@@ -43,10 +55,18 @@ x- Hero
 - Perks
 - Featured FAQs
 
-Cards Page (aka Products Page)
-- Hero
-- As Seen On
-- Cards Product Cards --> send card, send multiple cards
+
+
+
+For Business
+x- Hero
+x- As Seen on Business
+- Used by Brand Proof
+x- How it Works
+- Pricing (annual subscription or one off)
+x- Featured FAQs
+
+
 
 Create Your Thankly Page
 

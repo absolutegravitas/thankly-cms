@@ -19,7 +19,7 @@ export interface Config {
     discounts: Discount;
     stockItems: StockItem;
     suppliers: Supplier;
-    'product-brands': ProductBrand;
+    brands: Brand;
     redirects: Redirect;
   };
   globals: {
@@ -65,6 +65,7 @@ export interface Page {
     | {
         heroFields: {
           layout: 'default' | 'imageRight';
+          textColor: 'dark' | 'white';
           image: string | Media;
           content?: {
             [k: string]: unknown;
@@ -95,13 +96,16 @@ export interface Page {
       }
     | {
         ctaFields: {
-          richText: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: 'insetImage' | 'fullWidthImage';
-          backgroundColor: string;
-          image?: string | Media;
-          links?: {
+          layout?: '2options' | 'simpleCentred' | 'centredImage';
+          items: {
+            media?: string | Media;
+            content: {
+              [k: string]: unknown;
+            }[];
             link: {
               type?: 'reference' | 'custom';
               newTab?: boolean;
@@ -153,7 +157,7 @@ export interface Page {
             [k: string]: unknown;
           }[];
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
-          layout?: 'centeredAccordion' | 'threeColGrid';
+          layout?: 'centredAccordion' | 'threeColGrid';
           items?:
             | (
                 | {
@@ -235,9 +239,9 @@ export interface Page {
       }
     | {
         mediaContentFields: {
-          alignment?: 'contentMedia' | 'mediaContent';
-          container?: boolean;
-          richText: {
+          layout?: 'threeColGrid' | 'twoColGrid' | 'twoColBig';
+          alignment?: 'contentMedia' | 'mediaContent' | 'centredMedia';
+          content: {
             [k: string]: unknown;
           }[];
           enableLink?: boolean;
@@ -297,6 +301,7 @@ export interface Product {
     | {
         heroFields: {
           layout: 'default' | 'imageRight';
+          textColor: 'dark' | 'white';
           image: string | Media;
           content?: {
             [k: string]: unknown;
@@ -327,13 +332,16 @@ export interface Product {
       }
     | {
         ctaFields: {
-          richText: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: 'insetImage' | 'fullWidthImage';
-          backgroundColor: string;
-          image?: string | Media;
-          links?: {
+          layout?: '2options' | 'simpleCentred' | 'centredImage';
+          items: {
+            media?: string | Media;
+            content: {
+              [k: string]: unknown;
+            }[];
             link: {
               type?: 'reference' | 'custom';
               newTab?: boolean;
@@ -385,7 +393,7 @@ export interface Product {
             [k: string]: unknown;
           }[];
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
-          layout?: 'centeredAccordion' | 'threeColGrid';
+          layout?: 'centredAccordion' | 'threeColGrid';
           items?:
             | (
                 | {
@@ -467,9 +475,9 @@ export interface Product {
       }
     | {
         mediaContentFields: {
-          alignment?: 'contentMedia' | 'mediaContent';
-          container?: boolean;
-          richText: {
+          layout?: 'threeColGrid' | 'twoColGrid' | 'twoColBig';
+          alignment?: 'contentMedia' | 'mediaContent' | 'centredMedia';
+          content: {
             [k: string]: unknown;
           }[];
           enableLink?: boolean;
@@ -525,6 +533,8 @@ export interface Review {
   note?: string;
   providerName?: string;
   providerOrg?: string;
+  link?: string;
+  channel?: 'instagram' | 'facebook' | 'other';
   image?: string | Media;
   rating?: number;
   updatedAt: string;
@@ -550,6 +560,7 @@ export interface ReusableContent {
     | {
         heroFields: {
           layout: 'default' | 'imageRight';
+          textColor: 'dark' | 'white';
           image: string | Media;
           content?: {
             [k: string]: unknown;
@@ -580,13 +591,16 @@ export interface ReusableContent {
       }
     | {
         ctaFields: {
-          richText: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: 'insetImage' | 'fullWidthImage';
-          backgroundColor: string;
-          image?: string | Media;
-          links?: {
+          layout?: '2options' | 'simpleCentred' | 'centredImage';
+          items: {
+            media?: string | Media;
+            content: {
+              [k: string]: unknown;
+            }[];
             link: {
               type?: 'reference' | 'custom';
               newTab?: boolean;
@@ -638,7 +652,7 @@ export interface ReusableContent {
             [k: string]: unknown;
           }[];
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
-          layout?: 'centeredAccordion' | 'threeColGrid';
+          layout?: 'centredAccordion' | 'threeColGrid';
           items?:
             | (
                 | {
@@ -708,9 +722,9 @@ export interface ReusableContent {
       }
     | {
         mediaContentFields: {
-          alignment?: 'contentMedia' | 'mediaContent';
-          container?: boolean;
-          richText: {
+          layout?: 'threeColGrid' | 'twoColGrid' | 'twoColBig';
+          alignment?: 'contentMedia' | 'mediaContent' | 'centredMedia';
+          content: {
             [k: string]: unknown;
           }[];
           enableLink?: boolean;
@@ -768,6 +782,10 @@ export interface Order {
     thankly?: {
       status?: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
       product?: string[] | Product[];
+      tracking?: {
+        number?: string;
+        link?: string;
+      };
       stripePriceID?: string;
       message?: {
         styles?: 'normal' | 'cursive' | 'capitals';
@@ -784,6 +802,7 @@ export interface Order {
         state?: string;
         postcode?: string;
       };
+      requestedShipDate?: string;
     };
     discount?: string | Discount;
     id?: string;
@@ -808,7 +827,7 @@ export interface StockItem {
   type?: 'card' | 'gift' | 'box' | 'ribbon';
   description?: string;
   value?: 'high' | 'medium' | 'low' | 'discontinued';
-  brand?: string | ProductBrand;
+  brand?: string | Brand;
   supplier?: string | Supplier;
   sku?: string;
   totalQty?: number;
@@ -820,7 +839,7 @@ export interface StockItem {
   updatedAt: string;
   createdAt: string;
 }
-export interface ProductBrand {
+export interface Brand {
   id: string;
   title: string;
   website: string;

@@ -4,6 +4,7 @@ import { blockFields } from '../../fields/blockFields'
 import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
 import colorField from '../../fields/colorPicker/config'
+import link from '../../fields/link'
 
 export const CallToActionBlock: Block = {
   slug: 'cta',
@@ -13,32 +14,67 @@ export const CallToActionBlock: Block = {
     blockFields({
       name: 'ctaFields',
       fields: [
-        richText(),
+        {
+          name: 'useLeadingHeader',
+          label: 'Use Leading Header',
+          type: 'checkbox',
+        },
+        richText({
+          name: 'leadingHeader',
+          label: 'Leading Header',
+          admin: {
+            condition: (_, siblingData) => siblingData.useLeadingHeader,
+          },
+        }),
+
         {
           name: 'layout',
           type: 'select',
-          defaultValue: 'simple',
-          required: false,
+          defaultValue: '2options',
           options: [
-            // https://tailwindui.com/components/ecommerce/components/promo-sections#component-a63bf3a5e5430e5ba171ad153687d87d
-            // fullwidth image tiles
-            { label: 'Inset Image', value: 'insetImage' },
-            // https://tailwindui.com/components/ecommerce/components/promo-sections#component-1148f0d6ac25e4cefffa045a48cb4142
-            // fulwidth image tiles
-            { label: 'Full Width Image', value: 'fullWidthImage' },
+            // bottom section of https://tailwindui.com/components/ecommerce/page-examples/storefront-pages#component-087fa445e40f73cc5aa809b7ebac72f0
+            // or
+            // https://tailwindui.com/components/ecommerce/components/category-previews#component-fb276b5490d5ef7ebd8352e50043a5de
+
+            { label: '2 Side-by-Side Options', value: '2options' },
+
             // https://tailwindui.com/components/marketing/sections/cta-sections#component-211a2608506db0061bc968f07b98d61c
-            // { label: 'Simple No Image', value: 'simple' },
+            { label: 'Simple Centred', value: 'simpleCentred' },
+
+            // https://tailwindui.com/components/marketing/sections/cta-sections#component-211a2608506db0061bc968f07b98d61c
+            { label: 'Centred Image', value: 'centredImage' },
           ],
         },
-        colorField('backgroundColor', 'Background Color'),
+
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: false,
-          
+          type: 'array',
+          name: 'items',
+          required: true,
+          minRows: 1,
+          maxRows: 2,
+          admin: {
+            condition: (_, siblingData) =>
+              ['2options', 'centredImage', 'simpleCentred'].includes(siblingData.layout),
+          },
+          fields: [
+            {
+              name: 'media',
+              type: 'upload',
+              relationTo: 'media',
+              required: false,
+            },
+
+            richText({
+              name: 'content',
+              label: 'Content',
+              required: true,
+            }),
+
+            link({
+              appearances: ['primary', 'secondary', 'default'],
+            }),
+          ],
         },
-        linkGroup({ appearances: ['primary', 'secondary', 'default'] }),
       ],
     }),
   ],

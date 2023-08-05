@@ -2,7 +2,6 @@ import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
-import payload from 'payload'
 
 export const FeaturedContentBlock: Block = {
   slug: 'featuredContent',
@@ -38,7 +37,7 @@ export const FeaturedContentBlock: Block = {
           name: 'layout',
           label: 'Layout',
           required: false,
-          defaultValue: 'grid',
+          defaultValue: 'threeColGrid',
           admin: {
             condition: (_, siblingData) => ['products', 'reviews'].includes(siblingData.type),
           },
@@ -54,12 +53,12 @@ export const FeaturedContentBlock: Block = {
           name: 'layout',
           label: 'Layout',
           required: false,
-          defaultValue: 'grid',
+          defaultValue: 'threeColGrid',
           admin: {
             condition: (_, siblingData) => ['faqs'].includes(siblingData.type),
           },
           options: [
-            { label: 'Centered Accordion', value: 'centeredAccordion' },
+            { label: 'Centred Accordion', value: 'centredAccordion' },
             { label: 'Three Col Grid', value: 'threeColGrid' },
           ],
         },

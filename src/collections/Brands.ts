@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload/types'
 import { isAdmin } from '../access/isAdmin'
 
 const Brands: CollectionConfig = {
-  slug: 'product-brands',
+  slug: 'brands',
   admin: {
     useAsTitle: 'title',
     group: 'Shop'

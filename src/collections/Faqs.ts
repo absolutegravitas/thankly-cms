@@ -5,7 +5,8 @@ import richText from '../fields/richText'
 const Faqs: CollectionConfig = {
   slug: 'faqs',
   admin: {
-    useAsTitle: 'code',
+    useAsTitle: 'question',
+    defaultColumns: ['question', 'answer'],
     group: 'Website',
   },
   access: {

@@ -19,12 +19,22 @@ export const HeroBlock: Block = {
           required: true,
           defaultValue: 'default',
           options: [
-            // centered with background image: https://tailwindui.com/components/ecommerce/page-examples/storefront-pages#component-04740945117f4ec46b10f866630a6347
+            // centred with background image: https://tailwindui.com/components/ecommerce/page-examples/storefront-pages#component-04740945117f4ec46b10f866630a6347
             { label: 'Default', value: 'default' },
             // split with image on right https://tailwindui.com/components/marketing/sections/heroes#component-54294e7b86ddf5371565dbdfd133d79c
             { label: 'Image Right', value: 'imageRight' },
             // offset action buttons
             // { label: 'Home', value: 'home', },
+          ],
+        },
+        {
+          name: 'textColor',
+          type: 'select',
+          required: true,
+          defaultValue: 'dark',
+          options: [
+            { label: 'Dark', value: 'dark' },
+            { label: 'White', value: 'white' },
           ],
         },
         {

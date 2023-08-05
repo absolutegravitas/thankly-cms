@@ -14,7 +14,7 @@ const Reviews: CollectionConfig = {
   fields: [
     { name: 'note', type: 'textarea', required: false },
     {
-       name: 'providerName',
+      name: 'providerName',
       label: 'Provider Name',
       type: 'text',
       required: false,
@@ -23,6 +23,19 @@ const Reviews: CollectionConfig = {
       name: 'providerOrg',
       label: 'Provider Org',
       type: 'text',
+      required: false,
+    },
+    { name: 'link', type: 'text', required: false },
+    {
+      name: 'channel',
+      type: 'select',
+      defaultValue: 'facebook',
+      hasMany: false,
+      options: [
+        { label: 'Instagram', value: 'instagram' },
+        { label: 'Facebook', value: 'facebook' },
+        { label: 'Other', value: 'other' },
+      ],
       required: false,
     },
     { name: 'image', label: 'Image', type: 'upload', relationTo: 'media', required: false },
