@@ -297,7 +297,70 @@ export interface Product {
   fullTitle?: string;
   slug?: string;
   title: string;
+  description: string;
+  stripeID?: string;
+  quantity: number;
+  stock?: {
+    stock?: string[] | StockItem[];
+    id?: string;
+  }[];
+  currency?: string;
+  unit_amount?: number;
   layout: (
+    | {
+        productOverviewFields: {
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+          content: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'productOverview';
+      }
+    | {
+        productComponentsFields: {
+          layout: 'twoColumns' | 'fourColumns' | 'imageLeft' | 'imageRight';
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          features?: {
+            image: string | Media;
+            content: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+          image: string | Media;
+          content?: {
+            content: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'productComponents';
+      }
+    | {
+        perksFields?: {
+          items?: {
+            image: string | Media;
+            content?: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'perks';
+      }
     | {
         heroFields: {
           layout: 'default' | 'imageRight';
@@ -528,6 +591,43 @@ export interface Product {
   createdAt: string;
   _status?: 'draft' | 'published';
 }
+export interface StockItem {
+  id: string;
+  title?: string;
+  type?: 'card' | 'gift' | 'box' | 'ribbon';
+  description?: string;
+  value?: 'high' | 'medium' | 'low' | 'discontinued';
+  brand?: string | Brand;
+  supplier?: string | Supplier;
+  sku?: string;
+  totalQty?: number;
+  retailUnitCost?: number;
+  wholesaleUnitCost?: number;
+  comments?: string;
+  discontinued?: boolean;
+  image?: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Brand {
+  id: string;
+  title: string;
+  website: string;
+  comments?: string;
+  logo: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Supplier {
+  id: string;
+  title: string;
+  website: string;
+  relationship: 'positive' | 'neutral' | 'negative';
+  comments?: string;
+  logo: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
 export interface Review {
   id: string;
   note?: string;
@@ -558,36 +658,25 @@ export interface ReusableContent {
   title: string;
   layout: (
     | {
-        heroFields: {
-          layout: 'default' | 'imageRight';
-          textColor: 'dark' | 'white';
-          image: string | Media;
-          content?: {
+        contentFields: {
+          useLeadingHeader?: boolean;
+          leadingHeader: {
             [k: string]: unknown;
           }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'default' | 'primary' | 'secondary';
-            };
-            id?: string;
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
+          columnOne: {
+            [k: string]: unknown;
+          }[];
+          columnTwo: {
+            [k: string]: unknown;
+          }[];
+          columnThree: {
+            [k: string]: unknown;
           }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'hero';
+        blockType: 'content';
       }
     | {
         ctaFields: {
@@ -623,27 +712,6 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'cta';
-      }
-    | {
-        contentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
-          columnOne: {
-            [k: string]: unknown;
-          }[];
-          columnTwo: {
-            [k: string]: unknown;
-          }[];
-          columnThree: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'content';
       }
     | {
         featuredContentFields: {
@@ -695,6 +763,38 @@ export interface ReusableContent {
         blockType: 'featuredContent';
       }
     | {
+        heroFields: {
+          layout: 'default' | 'imageRight';
+          textColor: 'dark' | 'white';
+          image: string | Media;
+          content?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
+    | {
         linkGridFields?: {
           links?: {
             link: {
@@ -719,6 +819,32 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'linkGrid';
+      }
+    | {
+        mediaBlockFields: {
+          position?: 'default' | 'wide';
+          media: string | Media;
+          caption?: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'mediaBlock';
+      }
+    | {
+        perksFields?: {
+          items?: {
+            image: string | Media;
+            content?: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'perks';
       }
     | {
         mediaContentFields: {
@@ -749,6 +875,43 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'mediaContent';
+      }
+    | {
+        pricingFields?: {
+          plans?: {
+            name: string;
+            hasPrice?: boolean;
+            price: string;
+            title: string;
+            description?: string;
+            enableLink?: boolean;
+            link?: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            features?: {
+              icon?: 'check' | 'x';
+              feature?: string;
+              id?: string;
+            }[];
+            id?: string;
+          }[];
+          disclaimer?: string;
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'product-grid';
       }
   )[];
   updatedAt: string;
@@ -818,43 +981,6 @@ export interface Discount {
   expiryDate?: string;
   value?: number;
   type?: 'percent' | 'amount';
-  updatedAt: string;
-  createdAt: string;
-}
-export interface StockItem {
-  id: string;
-  title?: string;
-  type?: 'card' | 'gift' | 'box' | 'ribbon';
-  description?: string;
-  value?: 'high' | 'medium' | 'low' | 'discontinued';
-  brand?: string | Brand;
-  supplier?: string | Supplier;
-  sku?: string;
-  totalQty?: number;
-  retailUnitCost?: number;
-  wholesaleUnitCost?: number;
-  comments?: string;
-  discontinued?: boolean;
-  image?: string | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Brand {
-  id: string;
-  title: string;
-  website: string;
-  comments?: string;
-  logo: string | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Supplier {
-  id: string;
-  title: string;
-  website: string;
-  relationship: 'positive' | 'neutral' | 'negative';
-  comments?: string;
-  logo: string | Media;
   updatedAt: string;
   createdAt: string;
 }
