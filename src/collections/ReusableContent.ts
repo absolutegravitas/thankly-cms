@@ -8,6 +8,9 @@ import { LinkGridBlock } from '../blocks/LinkGrid'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
 import { FeaturedContentBlock } from '../blocks/FeaturedContent'
+import { ProductGridBlock } from '../blocks/ProductGrid'
+import { PerksBlock } from '../blocks/Incentive'
+import { ProductOverviewBlock } from '../blocks/ProductOverview'
 
 const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
@@ -27,21 +30,16 @@ const ReusableContent: CollectionConfig = {
       type: 'blocks',
       required: true,
       blocks: [
-        // Common
-        HeroBlock, // a hero block with image, video etc. overlays
-        CallToActionBlock, // a call to action block with additional functions
-        BasicContentBlock, // a basic content block for chunks of text
+        // ProductOverviewBlock,
+        BasicContentBlock,
+        CallToActionBlock, 
         FeaturedContentBlock,
-        // type FeaturedFAQ, FeaturedProduct, FeaturedReviews
-        // layout
-        // Pages
-
-        // Products
-        // ProductGridBlock
-        // ProductMain
-
+        HeroBlock,
         LinkGridBlock,
+        MediaBlock,
+        PerksBlock,
         MediaContentBlock,
+        ProductGridBlock,
       ],
     },
   ],

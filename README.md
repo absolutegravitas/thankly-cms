@@ -29,11 +29,11 @@ x- Hero
 x- As Seen On (Featured Partners)
 x- How It Works
 x- Featured Reviews
-- Major Feature (large image with content)
+x- Major Feature (large image with content)
 x- Featured FAQs
-- Perks
-- CTA Block
-- Promo Block
+x- Perks
+x- CTA Block
+x- Promo Block
 
 
 
