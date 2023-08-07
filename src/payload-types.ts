@@ -642,12 +642,12 @@ export interface Review {
 }
 export interface Faq {
   id: string;
-  question: string;
-  answer: {
+  question?: string;
+  answer?: {
     [k: string]: unknown;
   }[];
-  tags: {
-    name: string;
+  tags?: {
+    name?: string;
     id?: string;
   }[];
   updatedAt: string;

@@ -14,7 +14,6 @@ import { publishedOnly } from '../../access/publishedOnly'
 import { CallToActionBlock } from '../../blocks/CallToAction'
 import { BasicContentBlock } from '../../blocks/BasicContent'
 import { HeroBlock } from '../../blocks/Hero'
-import { LinkGridBlock } from '../../blocks/LinkGrid'
 import { MediaBlock } from '../../blocks/Media'
 import { MediaContentBlock } from '../../blocks/MediaContent'
 import { ReusableContentBlock } from '../../blocks/ReusableContent'
@@ -210,7 +209,6 @@ const OldProducts: CollectionConfig = {
         HeroBlock, // a hero block with image, video etc. overlays
         CallToActionBlock, // a call to action block with additional functions
         BasicContentBlock, // a basic content block for chunks of text
-        LinkGridBlock, // a listing of links e.g. for FAQ or grouped Legalese, each link spawns new page
         MediaBlock, // just a image placement with a caption, mostly useful for blogs
         MediaContentBlock, // image with some content positioned left & right e.g. feature
 

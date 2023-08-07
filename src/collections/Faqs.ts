@@ -17,8 +17,8 @@ const Faqs: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
-    { name: 'question', type: 'text', required: true },
-    richText({ name: 'answer', required: true }),
+    { name: 'question', type: 'text', required: false },
+    richText({ name: 'answer', required: false }),
     {
       name: 'tags',
       type: 'array',
@@ -29,10 +29,10 @@ const Faqs: CollectionConfig = {
         {
           name: 'name',
           type: 'text',
-          required: true,
+          required: false,
         },
       ],
-      required: true,
+      required: false,
     },
   ],
 }

@@ -8,7 +8,6 @@ import { regeneratePage } from '../utilities/regeneratePage'
 import { CallToActionBlock } from '../blocks/CallToAction'
 import { BasicContentBlock } from '../blocks/BasicContent'
 import { HeroBlock } from '../blocks/Hero'
-import { LinkGridBlock } from '../blocks/LinkGrid'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
 import { ReusableContentBlock } from '../blocks/ReusableContent'
@@ -108,17 +107,12 @@ const Products: CollectionConfig = {
       required: true,
       blocks: [
         ProductOverviewBlock, //https://tailwindui.com/components/ecommerce/components/product-overviews#component-2904df5d10ee9fc81ba07d1ad61a27ca
-
         ProductComponentsBlock,
-       
-
         PerksBlock, // https://tailwindui.com/components/ecommerce/components/incentives#component-38742d005e7e8f48feb79dea72a0a8a5
-
         HeroBlock, // a hero block with image, video etc. overlays
         CallToActionBlock, // a call to action block with additional functions
         BasicContentBlock, // a basic content block for chunks of text
         FeaturedContentBlock,
-        LinkGridBlock, // a listing of links e.g. for FAQ or grouped Legalese, each link spawns new page
         MediaBlock, // just a image placement with a caption, mostly useful for blogs
         MediaContentBlock, // image with some content positioned left & right e.g. feature
         ReusableContentBlock, // re-use an already created block, ie. one of the above typess

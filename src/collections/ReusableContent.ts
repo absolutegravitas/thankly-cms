@@ -4,7 +4,6 @@ import { isAdmin } from '../access/isAdmin'
 import { CallToActionBlock } from '../blocks/CallToAction'
 import { BasicContentBlock } from '../blocks/BasicContent'
 import { HeroBlock } from '../blocks/Hero'
-import { LinkGridBlock } from '../blocks/LinkGrid'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
 import { FeaturedContentBlock } from '../blocks/FeaturedContent'
@@ -30,12 +29,10 @@ const ReusableContent: CollectionConfig = {
       type: 'blocks',
       required: true,
       blocks: [
-        // ProductOverviewBlock,
-        BasicContentBlock,
-        CallToActionBlock, 
-        FeaturedContentBlock,
         HeroBlock,
-        LinkGridBlock,
+        BasicContentBlock,
+        CallToActionBlock,
+        FeaturedContentBlock,
         MediaBlock,
         PerksBlock,
         MediaContentBlock,
