@@ -53,6 +53,7 @@ const adapter = s3Adapter({
 })
 
 export default buildConfig({
+  globals: [Menus],
   collections: [
     // Globals
     Users,
@@ -160,7 +161,6 @@ export default buildConfig({
     'https://thankly.au',
   ].filter(Boolean),
   endpoints: [{ path: '/checkout', method: 'post', handler: checkout }],
-  globals: [Menus],
   graphQL: {
     disablePlaygroundInProduction: false,
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),

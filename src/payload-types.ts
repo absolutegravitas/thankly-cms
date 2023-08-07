@@ -200,32 +200,6 @@ export interface Page {
         blockType: 'featuredContent';
       }
     | {
-        linkGridFields?: {
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'linkGrid';
-      }
-    | {
         mediaBlockFields: {
           position?: 'default' | 'wide';
           media: string | Media;
@@ -499,32 +473,6 @@ export interface Product {
         blockType: 'featuredContent';
       }
     | {
-        linkGridFields?: {
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'linkGrid';
-      }
-    | {
         mediaBlockFields: {
           position?: 'default' | 'wide';
           media: string | Media;
@@ -658,6 +606,38 @@ export interface ReusableContent {
   title: string;
   layout: (
     | {
+        heroFields: {
+          layout: 'default' | 'imageRight';
+          textColor: 'dark' | 'white';
+          image: string | Media;
+          content?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
+    | {
         contentFields: {
           useLeadingHeader?: boolean;
           leadingHeader: {
@@ -763,64 +743,6 @@ export interface ReusableContent {
         blockType: 'featuredContent';
       }
     | {
-        heroFields: {
-          layout: 'default' | 'imageRight';
-          textColor: 'dark' | 'white';
-          image: string | Media;
-          content?: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'default' | 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'hero';
-      }
-    | {
-        linkGridFields?: {
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'linkGrid';
-      }
-    | {
         mediaBlockFields: {
           position?: 'default' | 'wide';
           media: string | Media;
@@ -875,43 +797,6 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'mediaContent';
-      }
-    | {
-        pricingFields?: {
-          plans?: {
-            name: string;
-            hasPrice?: boolean;
-            price: string;
-            title: string;
-            description?: string;
-            enableLink?: boolean;
-            link?: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
-            features?: {
-              icon?: 'check' | 'x';
-              feature?: string;
-              id?: string;
-            }[];
-            id?: string;
-          }[];
-          disclaimer?: string;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'product-grid';
       }
   )[];
   updatedAt: string;

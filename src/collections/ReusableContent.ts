@@ -7,9 +7,7 @@ import { HeroBlock } from '../blocks/Hero'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
 import { FeaturedContentBlock } from '../blocks/FeaturedContent'
-import { ProductGridBlock } from '../blocks/ProductGrid'
 import { PerksBlock } from '../blocks/Incentive'
-import { ProductOverviewBlock } from '../blocks/ProductOverview'
 
 const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
@@ -36,7 +34,6 @@ const ReusableContent: CollectionConfig = {
         MediaBlock,
         PerksBlock,
         MediaContentBlock,
-        ProductGridBlock,
       ],
     },
   ],
