@@ -106,15 +106,14 @@ const Products: CollectionConfig = {
       type: 'blocks',
       required: true,
       blocks: [
-        ProductOverviewBlock, //https://tailwindui.com/components/ecommerce/components/product-overviews#component-2904df5d10ee9fc81ba07d1ad61a27ca
-        ProductComponentsBlock,
-        PerksBlock, // https://tailwindui.com/components/ecommerce/components/incentives#component-38742d005e7e8f48feb79dea72a0a8a5
-        HeroBlock, // a hero block with image, video etc. overlays
-        CallToActionBlock, // a call to action block with additional functions
         BasicContentBlock, // a basic content block for chunks of text
+        CallToActionBlock, // a call to action block with additional functions
         FeaturedContentBlock,
-        MediaBlock, // just a image placement with a caption, mostly useful for blogs
+        HeroBlock, // a hero block with image, video etc. overlays
         MediaContentBlock, // image with some content positioned left & right e.g. feature
+        PerksBlock, // https://tailwindui.com/components/ecommerce/components/incentives#component-38742d005e7e8f48feb79dea72a0a8a5
+        ProductComponentsBlock,
+        ProductOverviewBlock, //https://tailwindui.com/components/ecommerce/components/product-overviews#component-2904df5d10ee9fc81ba07d1ad61a27ca
         ReusableContentBlock, // re-use an already created block, ie. one of the above typess
       ],
     },

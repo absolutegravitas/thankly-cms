@@ -59,7 +59,6 @@ const Pages: CollectionConfig = {
         CallToActionBlock, // a call to action block with additional functions
         BasicContentBlock, // a basic content block for chunks of text
         FeaturedContentBlock,
-        MediaBlock, // just a image placement with a caption, mostly useful for blogs
         MediaContentBlock, // image with some content positioned left & right e.g. feature
 
         ReusableContentBlock, // re-use an already created block, ie. one of the above types

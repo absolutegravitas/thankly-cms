@@ -33,8 +33,8 @@ export const HeroBlock: Block = {
           required: true,
           defaultValue: 'dark',
           options: [
-            { label: 'Dark', value: 'dark' },
-            { label: 'White', value: 'white' },
+            { label: 'Dark', value: 'text-gray-900' },
+            { label: 'White', value: 'text-white' },
           ],
         },
         {
