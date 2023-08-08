@@ -20,9 +20,9 @@ export const MediaContentBlock: Block = {
               label: 'Layout',
               required: false,
               defaultValue: 'threeColGrid',
-              admin: {
-                condition: (_, siblingData) => ['products', 'reviews'].includes(siblingData.type),
-              },
+              // admin: {
+              //   condition: (_, siblingData) => ['products', 'reviews'].includes(siblingData.type),
+              // },
               options: [
                 { label: '3 Col Grid', value: 'threeColGrid' },
                 { label: '2 Col Grid', value: 'twoColGrid' },
@@ -44,17 +44,6 @@ export const MediaContentBlock: Block = {
                 width: '50%',
               },
             },
-            // {
-            //   name: 'container',
-            //   type: 'checkbox',
-            //   admin: {
-            //     description: 'Check this box to render this block with a background container.',
-            //     width: '50%',
-            //     style: {
-            //       alignSelf: 'flex-end',
-            //     },
-            //   },
-            // },
           ],
         },
         richText({ name: 'content', label: 'Content' }),

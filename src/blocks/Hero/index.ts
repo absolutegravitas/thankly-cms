@@ -48,7 +48,7 @@ export const HeroBlock: Block = {
           type: 'richText',
           admin: {
             elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', largeBody, 'ul', label],
-            leaves: ['underline'],
+            leaves: ['underline', 'bold', 'italic', 'strikethrough'],
           },
         },
         linkGroup(),
