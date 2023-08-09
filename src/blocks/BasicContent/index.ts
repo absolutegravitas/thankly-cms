@@ -46,20 +46,20 @@ export const BasicContentBlock: Block = {
           ],
         },
 
-        richText({ name: 'columnOne' }),
-        richText({
-          name: 'columnTwo',
-          admin: {
-            condition: (_, siblingData) =>
-              ['twoColumns', 'threeColumns'].includes(siblingData.layout),
-          },
-        }),
-        richText({
-          name: 'columnThree',
-          admin: {
-            condition: (_, siblingData) => ['threeColumns'].includes(siblingData.layout),
-          },
-        }),
+        // richText({ name: 'columnOne' }),
+        // richText({
+        //   name: 'columnTwo',
+        //   admin: {
+        //     condition: (_, siblingData) =>
+        //       ['twoColumns', 'threeColumns'].includes(siblingData.layout),
+        //   },
+        // }),
+        // richText({
+        //   name: 'columnThree',
+        //   admin: {
+        //     condition: (_, siblingData) => ['threeColumns'].includes(siblingData.layout),
+        //   },
+        // }),
       ],
     }),
   ],
