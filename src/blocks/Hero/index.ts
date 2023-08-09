@@ -5,7 +5,6 @@ import linkGroup from '../../fields/linkGroup'
 import label from '../../fields/richText/label'
 import largeBody from '../../fields/richText/largeBody'
 import richText from '../../fields/richText'
-import colorField from '../../fields/colorPicker/config'
 
 export const HeroBlock: Block = {
   slug: 'hero',
@@ -14,24 +13,6 @@ export const HeroBlock: Block = {
     blockFields({
       name: 'heroFields',
       fields: [
-        // {
-        //   type: 'select',
-        //   name: 'layout',
-        //   label: 'Layout',
-        //   required: true,
-        //   defaultValue: 'default',
-        //   options: [{ label: 'Default', value: 'default' }],
-        // },
-        // {
-        //   name: 'textColor',
-        //   type: 'select',
-        //   required: true,
-        //   defaultValue: 'dark',
-        //   options: [
-        //     { label: 'Dark', value: 'text-gray-900' },
-        //     { label: 'White', value: 'text-white' },
-        //   ],
-        // },
         {
           name: 'image',
           type: 'upload',
@@ -39,7 +20,29 @@ export const HeroBlock: Block = {
           required: true,
         },
 
-        colorField('textColor', 'Text Color'),
+        {
+          name: 'bgColor',
+          type: 'select',
+          defaultValue: 'black',
+          options: [
+            // green: '#557755', // thankly green //colors.green,
+            // lightgreen: '#749b4e', // thankly green //colors.green,
+            // brown: '#985934', //  thankly brown
+            // khaki: '#ddd1b9', // thankly khaki
+            // lightbrown: '#c2c0ae',
+            // lighterbrown: '#dfded9',
+            // offwhite: '#E7ECEF', // thankly off-white / dusty gray
+
+            { label: 'White', value: 'text-white' },
+            { label: 'Off White', value: 'text-offwhite' },
+            { label: 'Black', value: 'text-black' },
+            { label: 'Thankly Dark Green', value: 'text-green' },
+            { label: 'Thankly Light Green', value: 'text-lightgreen' },
+            { label: 'Thankly Khaki', value: 'text-khaki' },
+            { label: 'Thankly Light Brown', value: 'text-lightbrown' },
+            { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
+          ],
+        },
 
         richText({
           name: 'content',

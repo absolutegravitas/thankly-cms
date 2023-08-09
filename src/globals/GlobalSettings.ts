@@ -1,8 +1,5 @@
 import type { GlobalConfig } from 'payload/types'
-
 import { isAdmin } from '../access/isAdmin'
-import link from '../fields/link'
-import colorField from '../fields/colorPicker/config'
 
 const GlobalSettings: GlobalConfig = {
   slug: 'globalSettings',

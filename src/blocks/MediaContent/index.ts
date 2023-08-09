@@ -13,20 +13,15 @@ export const MediaContentBlock: Block = {
       name: 'mediaContentFields',
       fields: [
         {
-          type: 'row',
-          fields: [
-            {
-              name: 'layout',
-              type: 'select',
-              defaultValue: 'contentMedia',
-              options: [
-                { label: 'Content / Media', value: 'contentMedia' },
-                { label: 'Media / Content', value: 'mediaContent' },
-                { label: 'Centred w Large Media', value: 'centredMedia' },
-              ],
-              admin: { description: 'Choose how to align the content.', width: '50%' },
-            },
+          name: 'layout',
+          type: 'select',
+          defaultValue: 'contentMedia',
+          options: [
+            { label: 'Content / Media', value: 'contentMedia' },
+            { label: 'Media / Content', value: 'mediaContent' },
+            { label: 'Centred w Large Media', value: 'centredMedia' },
           ],
+          admin: { description: 'Choose how to align the content.', width: '50%' },
         },
         { name: 'media', type: 'upload', relationTo: 'media', required: true },
         richText({ name: 'content', label: 'Content' }),
