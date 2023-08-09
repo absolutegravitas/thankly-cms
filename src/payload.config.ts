@@ -19,6 +19,7 @@ import { checkout } from './routes/checkout'
 import BeforeDashboard from './components/BeforeDashboard'
 
 import Menus from './globals/Menus'
+import GlobalSettings from './globals/GlobalSettings'
 
 import {
   Media,
@@ -53,7 +54,7 @@ const adapter = s3Adapter({
 })
 
 export default buildConfig({
-  globals: [Menus],
+  globals: [Menus, GlobalSettings],
   collections: [
     // Globals
     Users,

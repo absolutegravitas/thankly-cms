@@ -24,6 +24,7 @@ export interface Config {
   };
   globals: {
     menus: Menu;
+    globalSettings: GlobalSetting;
   };
 }
 export interface User {
@@ -64,10 +65,9 @@ export interface Page {
   layout: (
     | {
         heroFields: {
-          layout: 'default' | 'imageRight';
-          textColor: 'dark' | 'white';
           image: string | Media;
-          content?: {
+          textColor?: string;
+          content: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -96,32 +96,36 @@ export interface Page {
       }
     | {
         ctaFields: {
+          layout?: '2options' | 'simpleCentred' | 'centredImage';
+          bgColor?: string;
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: '2options' | 'simpleCentred' | 'centredImage';
           items: {
             media?: string | Media;
             content: {
               [k: string]: unknown;
             }[];
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
+            links?: {
+              link: {
+                type?: 'reference' | 'custom';
+                newTab?: boolean;
+                reference:
+                  | {
+                      value: string | Page;
+                      relationTo: 'pages';
+                    }
+                  | {
+                      value: string | Product;
+                      relationTo: 'products';
+                    };
+                url: string;
+                label: string;
+                appearance?: 'primary' | 'secondary' | 'default';
+              };
+              id?: string;
+            }[];
             id?: string;
           }[];
         };
@@ -135,15 +139,33 @@ export interface Page {
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
-          columnOne: {
-            [k: string]: unknown;
-          }[];
-          columnTwo: {
-            [k: string]: unknown;
-          }[];
-          columnThree: {
-            [k: string]: unknown;
+          bgColor?: string;
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
+          items?: {
+            image?: string | Media;
+            content: {
+              [k: string]: unknown;
+            }[];
+            links?: {
+              link: {
+                type?: 'reference' | 'custom';
+                newTab?: boolean;
+                reference:
+                  | {
+                      value: string | Page;
+                      relationTo: 'pages';
+                    }
+                  | {
+                      value: string | Product;
+                      relationTo: 'products';
+                    };
+                url: string;
+                label: string;
+                appearance?: 'primary' | 'secondary' | 'default';
+              };
+              id?: string;
+            }[];
+            id?: string;
           }[];
         };
         id?: string;
@@ -152,12 +174,8 @@ export interface Page {
       }
     | {
         featuredContentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           layout?: 'centredAccordion' | 'threeColGrid';
+          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           items?:
             | (
                 | {
@@ -187,6 +205,11 @@ export interface Page {
                     relationTo: 'faqs';
                   }
               )[];
+          bgColor?: string;
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
           images?: {
             image: string | Media;
             id?: string;
@@ -200,42 +223,31 @@ export interface Page {
         blockType: 'featuredContent';
       }
     | {
-        mediaBlockFields: {
-          position?: 'default' | 'wide';
-          media: string | Media;
-          caption?: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaBlock';
-      }
-    | {
         mediaContentFields: {
-          layout?: 'threeColGrid' | 'twoColGrid' | 'twoColBig';
-          alignment?: 'contentMedia' | 'mediaContent' | 'centredMedia';
+          layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
+          media: string | Media;
           content: {
             [k: string]: unknown;
           }[];
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-              | {
-                  value: string | Page;
-                  relationTo: 'pages';
-                }
-              | {
-                  value: string | Product;
-                  relationTo: 'products';
-                };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          media: string | Media;
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
         };
         id?: string;
         blockName?: string;
@@ -282,119 +294,76 @@ export interface Product {
   unit_amount?: number;
   layout: (
     | {
-        productOverviewFields: {
-          images?: {
-            image: string | Media;
-            id?: string;
-          }[];
-          content: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'productOverview';
-      }
-    | {
-        productComponentsFields: {
-          layout: 'twoColumns' | 'fourColumns' | 'imageLeft' | 'imageRight';
+        contentFields: {
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          features?: {
-            image: string | Media;
-            content: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-          image: string | Media;
-          content?: {
-            content: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'productComponents';
-      }
-    | {
-        perksFields?: {
+          bgColor?: string;
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           items?: {
-            image: string | Media;
-            content?: {
+            image?: string | Media;
+            content: {
               [k: string]: unknown;
+            }[];
+            links?: {
+              link: {
+                type?: 'reference' | 'custom';
+                newTab?: boolean;
+                reference:
+                  | {
+                      value: string | Page;
+                      relationTo: 'pages';
+                    }
+                  | {
+                      value: string | Product;
+                      relationTo: 'products';
+                    };
+                url: string;
+                label: string;
+                appearance?: 'primary' | 'secondary' | 'default';
+              };
+              id?: string;
             }[];
             id?: string;
           }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'perks';
-      }
-    | {
-        heroFields: {
-          layout: 'default' | 'imageRight';
-          textColor: 'dark' | 'white';
-          image: string | Media;
-          content?: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'default' | 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'hero';
+        blockType: 'content';
       }
     | {
         ctaFields: {
+          layout?: '2options' | 'simpleCentred' | 'centredImage';
+          bgColor?: string;
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: '2options' | 'simpleCentred' | 'centredImage';
           items: {
             media?: string | Media;
             content: {
               [k: string]: unknown;
             }[];
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
+            links?: {
+              link: {
+                type?: 'reference' | 'custom';
+                newTab?: boolean;
+                reference:
+                  | {
+                      value: string | Page;
+                      relationTo: 'pages';
+                    }
+                  | {
+                      value: string | Product;
+                      relationTo: 'products';
+                    };
+                url: string;
+                label: string;
+                appearance?: 'primary' | 'secondary' | 'default';
+              };
+              id?: string;
+            }[];
             id?: string;
           }[];
         };
@@ -403,34 +372,9 @@ export interface Product {
         blockType: 'cta';
       }
     | {
-        contentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
-          columnOne: {
-            [k: string]: unknown;
-          }[];
-          columnTwo: {
-            [k: string]: unknown;
-          }[];
-          columnThree: {
-            [k: string]: unknown;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'content';
-      }
-    | {
         featuredContentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           layout?: 'centredAccordion' | 'threeColGrid';
+          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           items?:
             | (
                 | {
@@ -460,6 +404,11 @@ export interface Product {
                     relationTo: 'faqs';
                   }
               )[];
+          bgColor?: string;
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
           images?: {
             image: string | Media;
             id?: string;
@@ -473,46 +422,121 @@ export interface Product {
         blockType: 'featuredContent';
       }
     | {
-        mediaBlockFields: {
-          position?: 'default' | 'wide';
-          media: string | Media;
-          caption?: {
+        heroFields: {
+          image: string | Media;
+          textColor?: string;
+          content: {
             [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
           }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'mediaBlock';
+        blockType: 'hero';
       }
     | {
         mediaContentFields: {
-          layout?: 'threeColGrid' | 'twoColGrid' | 'twoColBig';
-          alignment?: 'contentMedia' | 'mediaContent' | 'centredMedia';
+          layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
+          media: string | Media;
           content: {
             [k: string]: unknown;
           }[];
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-              | {
-                  value: string | Page;
-                  relationTo: 'pages';
-                }
-              | {
-                  value: string | Product;
-                  relationTo: 'products';
-                };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          media: string | Media;
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
+          }[];
         };
         id?: string;
         blockName?: string;
         blockType: 'mediaContent';
+      }
+    | {
+        perksFields?: {
+          bgColor?: string;
+          items?: {
+            image: string | Media;
+            content?: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'perks';
+      }
+    | {
+        productComponentsFields: {
+          layout: 'twoColumns' | 'fourColumns' | 'imageLeft' | 'imageRight';
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
+          features?: {
+            image: string | Media;
+            content: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+          image: string | Media;
+          content?: {
+            content: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'productComponents';
+      }
+    | {
+        productOverviewFields: {
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+          content: {
+            [k: string]: unknown;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'productOverview';
       }
     | {
         reusableContentBlockFields: {
@@ -607,10 +631,9 @@ export interface ReusableContent {
   layout: (
     | {
         heroFields: {
-          layout: 'default' | 'imageRight';
-          textColor: 'dark' | 'white';
           image: string | Media;
-          content?: {
+          textColor?: string;
+          content: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -643,15 +666,33 @@ export interface ReusableContent {
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns';
-          columnOne: {
-            [k: string]: unknown;
-          }[];
-          columnTwo: {
-            [k: string]: unknown;
-          }[];
-          columnThree: {
-            [k: string]: unknown;
+          bgColor?: string;
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
+          items?: {
+            image?: string | Media;
+            content: {
+              [k: string]: unknown;
+            }[];
+            links?: {
+              link: {
+                type?: 'reference' | 'custom';
+                newTab?: boolean;
+                reference:
+                  | {
+                      value: string | Page;
+                      relationTo: 'pages';
+                    }
+                  | {
+                      value: string | Product;
+                      relationTo: 'products';
+                    };
+                url: string;
+                label: string;
+                appearance?: 'primary' | 'secondary' | 'default';
+              };
+              id?: string;
+            }[];
+            id?: string;
           }[];
         };
         id?: string;
@@ -660,32 +701,36 @@ export interface ReusableContent {
       }
     | {
         ctaFields: {
+          layout?: '2options' | 'simpleCentred' | 'centredImage';
+          bgColor?: string;
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          layout?: '2options' | 'simpleCentred' | 'centredImage';
           items: {
             media?: string | Media;
             content: {
               [k: string]: unknown;
             }[];
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              appearance?: 'primary' | 'secondary' | 'default';
-            };
+            links?: {
+              link: {
+                type?: 'reference' | 'custom';
+                newTab?: boolean;
+                reference:
+                  | {
+                      value: string | Page;
+                      relationTo: 'pages';
+                    }
+                  | {
+                      value: string | Product;
+                      relationTo: 'products';
+                    };
+                url: string;
+                label: string;
+                appearance?: 'primary' | 'secondary' | 'default';
+              };
+              id?: string;
+            }[];
             id?: string;
           }[];
         };
@@ -695,12 +740,8 @@ export interface ReusableContent {
       }
     | {
         featuredContentFields: {
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
-          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           layout?: 'centredAccordion' | 'threeColGrid';
+          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           items?:
             | (
                 | {
@@ -730,6 +771,11 @@ export interface ReusableContent {
                     relationTo: 'faqs';
                   }
               )[];
+          bgColor?: string;
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
           images?: {
             image: string | Media;
             id?: string;
@@ -743,19 +789,39 @@ export interface ReusableContent {
         blockType: 'featuredContent';
       }
     | {
-        mediaBlockFields: {
-          position?: 'default' | 'wide';
+        mediaContentFields: {
+          layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
           media: string | Media;
-          caption?: {
+          content: {
             [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              appearance?: 'primary' | 'secondary' | 'default';
+            };
+            id?: string;
           }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'mediaBlock';
+        blockType: 'mediaContent';
       }
     | {
         perksFields?: {
+          bgColor?: string;
           items?: {
             image: string | Media;
             content?: {
@@ -767,36 +833,6 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'perks';
-      }
-    | {
-        mediaContentFields: {
-          layout?: 'threeColGrid' | 'twoColGrid' | 'twoColBig';
-          alignment?: 'contentMedia' | 'mediaContent' | 'centredMedia';
-          content: {
-            [k: string]: unknown;
-          }[];
-          enableLink?: boolean;
-          link?: {
-            type?: 'reference' | 'custom';
-            newTab?: boolean;
-            reference:
-              | {
-                  value: string | Page;
-                  relationTo: 'pages';
-                }
-              | {
-                  value: string | Product;
-                  relationTo: 'products';
-                };
-            url: string;
-            label: string;
-            appearance?: 'primary' | 'secondary' | 'default';
-          };
-          media: string | Media;
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'mediaContent';
       }
   )[];
   updatedAt: string;
@@ -941,6 +977,12 @@ export interface Menu {
       id?: string;
     }[];
   };
+  updatedAt?: string;
+  createdAt?: string;
+}
+export interface GlobalSetting {
+  id: string;
+  banner?: string;
   updatedAt?: string;
   createdAt?: string;
 }
