@@ -24,8 +24,6 @@ export const FeaturedContentBlock: Block = {
           options: [
             { label: '3 Col Grid', value: 'threeColGrid' },
             { label: '2 Col Grid', value: 'twoColGrid' },
-            // https://tailwindui.com/components/ecommerce/components/category-previews#component-fb276b5490d5ef7ebd8352e50043a5de
-            { label: '2 Col Big', value: 'twoColBig' },
           ],
         },
         {
@@ -43,16 +41,6 @@ export const FeaturedContentBlock: Block = {
           ],
         },
 
-        colorField('bgColor', 'Section Background Color'),
-
-        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
-        richText({
-          name: 'leadingHeader',
-          label: 'Leading Header',
-          admin: {
-            condition: (_, siblingData) => siblingData.useLeadingHeader,
-          },
-        }),
         {
           name: 'type',
           type: 'select',
@@ -83,6 +71,18 @@ export const FeaturedContentBlock: Block = {
               ['products', 'reviews', 'faqs'].includes(siblingData.type),
           },
         },
+        
+        colorField('bgColor', 'Section Background Color'),
+
+        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
+        richText({
+          name: 'leadingHeader',
+          label: 'Leading Header',
+          admin: {
+            condition: (_, siblingData) => siblingData.useLeadingHeader,
+          },
+        }),
+
         {
           type: 'array',
           name: 'images',

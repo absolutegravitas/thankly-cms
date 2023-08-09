@@ -3,6 +3,7 @@ import type { Block } from 'payload/types'
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
 import colorField from '../../fields/colorPicker/config'
+import linkGroup from '../../fields/linkGroup'
 
 export const BasicContentBlock: Block = {
   slug: 'content',
@@ -27,8 +28,24 @@ export const BasicContentBlock: Block = {
             { label: 'One Column', value: 'oneColumn' },
             { label: 'Two Columns', value: 'twoColumns' },
             { label: 'Three Columns', value: 'threeColumns' },
+            { label: 'Overlaid Images Three Columns', value: 'threeColumnsImage' },
           ],
         },
+
+        {
+          name: 'items',
+          type: 'array',
+          fields: [
+            { name: 'image', type: 'upload', relationTo: 'media', required: false },
+
+            richText({ name: 'content' }),
+
+            linkGroup({
+              appearances: ['primary', 'secondary', 'default'],
+            }),
+          ],
+        },
+
         richText({ name: 'columnOne' }),
         richText({
           name: 'columnTwo',
