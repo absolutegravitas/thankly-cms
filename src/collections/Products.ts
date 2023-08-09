@@ -14,7 +14,7 @@ import { ReusableContentBlock } from '../blocks/ReusableContent'
 import { fullTitle } from '../fields/fullTitle'
 import { slugField } from '../fields/slug'
 import { FeaturedContentBlock } from '../blocks/FeaturedContent'
-import { PerksBlock } from '../blocks/Incentive'
+import { PerksBlock } from '../blocks/Perks'
 import { ProductOverviewBlock } from '../blocks/ProductOverview'
 import { ProductComponentsBlock } from '../blocks/ProductComponents'
 

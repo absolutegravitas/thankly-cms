@@ -2,6 +2,7 @@ import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
+import colorField from '../../fields/colorPicker/config'
 
 export const BasicContentBlock: Block = {
   slug: 'content',
@@ -16,6 +17,8 @@ export const BasicContentBlock: Block = {
           label: 'Leading Header',
           admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
         }),
+        colorField('bgColor', 'Section Background Color'),
+
         {
           name: 'layout',
           type: 'select',

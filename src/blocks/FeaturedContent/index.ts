@@ -2,6 +2,7 @@ import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
+import colorField from '../../fields/colorPicker/config'
 
 export const FeaturedContentBlock: Block = {
   slug: 'featuredContent',
@@ -10,28 +11,7 @@ export const FeaturedContentBlock: Block = {
     blockFields({
       name: 'featuredContentFields',
       fields: [
-        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
-        richText({
-          name: 'leadingHeader',
-          label: 'Leading Header',
-          admin: {
-            condition: (_, siblingData) => siblingData.useLeadingHeader,
-          },
-        }),
-        {
-          name: 'type',
-          type: 'select',
-          defaultValue: 'products',
-          hasMany: false,
-          required: false,
-          admin: { isClearable: true },
-          options: [
-            { label: 'Products', value: 'products' },
-            { label: 'Reviews', value: 'reviews' },
-            { label: 'Seen On', value: 'seenon' },
-            { label: 'FAQs', value: 'faqs' },
-          ],
-        },
+        // layout options
         {
           type: 'select',
           name: 'layout',
@@ -62,6 +42,32 @@ export const FeaturedContentBlock: Block = {
             { label: 'Three Col Grid', value: 'threeColGrid' },
           ],
         },
+
+        colorField('bgColor', 'Section Background Color'),
+
+        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
+        richText({
+          name: 'leadingHeader',
+          label: 'Leading Header',
+          admin: {
+            condition: (_, siblingData) => siblingData.useLeadingHeader,
+          },
+        }),
+        {
+          name: 'type',
+          type: 'select',
+          defaultValue: 'products',
+          hasMany: false,
+          required: false,
+          admin: { isClearable: true },
+          options: [
+            { label: 'Products', value: 'products' },
+            { label: 'Reviews', value: 'reviews' },
+            { label: 'Seen On', value: 'seenon' },
+            { label: 'FAQs', value: 'faqs' },
+          ],
+        },
+
         {
           name: 'items',
           label: 'Items',

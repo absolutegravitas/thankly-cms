@@ -15,19 +15,6 @@ export const CallToActionBlock: Block = {
       name: 'ctaFields',
       fields: [
         {
-          name: 'useLeadingHeader',
-          label: 'Use Leading Header',
-          type: 'checkbox',
-        },
-        richText({
-          name: 'leadingHeader',
-          label: 'Leading Header',
-          admin: {
-            condition: (_, siblingData) => siblingData.useLeadingHeader,
-          },
-        }),
-
-        {
           name: 'layout',
           type: 'select',
           defaultValue: '2options',
@@ -45,6 +32,20 @@ export const CallToActionBlock: Block = {
             { label: 'Centred Image', value: 'centredImage' },
           ],
         },
+        colorField('bgColor', 'Section Background Color'),
+
+        {
+          name: 'useLeadingHeader',
+          label: 'Use Leading Header',
+          type: 'checkbox',
+        },
+        richText({
+          name: 'leadingHeader',
+          label: 'Leading Header',
+          admin: {
+            condition: (_, siblingData) => siblingData.useLeadingHeader,
+          },
+        }),
 
         {
           type: 'array',
@@ -70,7 +71,7 @@ export const CallToActionBlock: Block = {
               required: true,
             }),
 
-            link({
+            linkGroup({
               appearances: ['primary', 'secondary', 'default'],
             }),
           ],

@@ -3,6 +3,7 @@ import type { Block } from 'payload/types'
 import { blockFields } from '../../fields/blockFields'
 import link from '../../fields/link'
 import richText from '../../fields/richText'
+import linkGroup from '../../fields/linkGroup'
 
 export const MediaContentBlock: Block = {
   slug: 'mediaContent',
@@ -15,23 +16,7 @@ export const MediaContentBlock: Block = {
           type: 'row',
           fields: [
             {
-              type: 'select',
               name: 'layout',
-              label: 'Layout',
-              required: false,
-              defaultValue: 'threeColGrid',
-              // admin: {
-              //   condition: (_, siblingData) => ['products', 'reviews'].includes(siblingData.type),
-              // },
-              options: [
-                { label: '3 Col Grid', value: 'threeColGrid' },
-                { label: '2 Col Grid', value: 'twoColGrid' },
-                // https://tailwindui.com/components/ecommerce/components/category-previews#component-fb276b5490d5ef7ebd8352e50043a5de
-                { label: '2 Col Big', value: 'twoColBig' },
-              ],
-            },
-            {
-              name: 'alignment',
               type: 'select',
               defaultValue: 'contentMedia',
               options: [
@@ -39,35 +24,21 @@ export const MediaContentBlock: Block = {
                 { label: 'Media / Content', value: 'mediaContent' },
                 { label: 'Centred w Large Media', value: 'centredMedia' },
               ],
-              admin: {
-                description: 'Choose how to align the content.',
-                width: '50%',
-              },
+              admin: { description: 'Choose how to align the content.', width: '50%' },
             },
           ],
         },
+        { name: 'media', type: 'upload', relationTo: 'media', required: true },
         richText({ name: 'content', label: 'Content' }),
-        // richText(),
-        {
-          name: 'enableLink',
-          type: 'checkbox',
-        },
-        link({
-          // appearances: false,
+        // { name: 'enableLink', type: 'checkbox' },
+        linkGroup({
           appearances: ['primary', 'secondary', 'default'],
-
-          overrides: {
-            admin: {
-              condition: (_, { enableLink }) => enableLink,
-            },
-          },
+          // overrides: { admin: { condition: (_, { enableLink }) => enableLink } },
         }),
-        {
-          name: 'media',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-        },
+        // link({
+        //   appearances: ['primary', 'secondary', 'default'],
+        //   overrides: { admin: { condition: (_, { enableLink }) => enableLink } },
+        // }),
       ],
     }),
   ],
