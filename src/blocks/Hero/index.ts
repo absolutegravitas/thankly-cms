@@ -21,7 +21,7 @@ export const HeroBlock: Block = {
         },
 
         {
-          name: 'bgColor',
+          name: 'textColor',
           type: 'select',
           defaultValue: 'black',
           options: [
@@ -33,14 +33,14 @@ export const HeroBlock: Block = {
             // lighterbrown: '#dfded9',
             // offwhite: '#E7ECEF', // thankly off-white / dusty gray
 
-            { label: 'White', value: 'text-white' },
-            { label: 'Off White', value: 'text-offwhite' },
-            { label: 'Black', value: 'text-black' },
-            { label: 'Thankly Dark Green', value: 'text-green' },
-            { label: 'Thankly Light Green', value: 'text-lightgreen' },
-            { label: 'Thankly Khaki', value: 'text-khaki' },
-            { label: 'Thankly Light Brown', value: 'text-lightbrown' },
-            { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
+            { label: 'White', value: 'white' },
+            { label: 'Off White', value: 'offwhite' },
+            { label: 'Black', value: 'black' },
+            { label: 'Thankly Dark Green', value: 'green' },
+            { label: 'Thankly Light Green', value: 'lightgreen' },
+            { label: 'Thankly Khaki', value: 'khaki' },
+            { label: 'Thankly Light Brown', value: 'lightbrown' },
+            { label: 'Thankly Lighter Brown', value: 'lighterbrown' },
           ],
         },
 

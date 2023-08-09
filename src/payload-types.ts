@@ -66,7 +66,15 @@ export interface Page {
     | {
         heroFields: {
           image: string | Media;
-          textColor?: string;
+          textColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           content: {
             [k: string]: unknown;
           }[];
@@ -97,7 +105,15 @@ export interface Page {
     | {
         ctaFields: {
           layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?: string;
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
@@ -135,12 +151,20 @@ export interface Page {
       }
     | {
         contentFields: {
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          bgColor?: string;
-          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           items?: {
             image?: string | Media;
             content: {
@@ -176,6 +200,19 @@ export interface Page {
         featuredContentFields: {
           layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
           items?:
             | (
                 | {
@@ -205,11 +242,6 @@ export interface Page {
                     relationTo: 'faqs';
                   }
               )[];
-          bgColor?: string;
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
           images?: {
             image: string | Media;
             id?: string;
@@ -295,12 +327,20 @@ export interface Product {
   layout: (
     | {
         contentFields: {
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          bgColor?: string;
-          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           items?: {
             image?: string | Media;
             content: {
@@ -335,7 +375,15 @@ export interface Product {
     | {
         ctaFields: {
           layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?: string;
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
@@ -375,6 +423,19 @@ export interface Product {
         featuredContentFields: {
           layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
           items?:
             | (
                 | {
@@ -404,11 +465,6 @@ export interface Product {
                     relationTo: 'faqs';
                   }
               )[];
-          bgColor?: string;
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
           images?: {
             image: string | Media;
             id?: string;
@@ -424,7 +480,15 @@ export interface Product {
     | {
         heroFields: {
           image: string | Media;
-          textColor?: string;
+          textColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           content: {
             [k: string]: unknown;
           }[];
@@ -485,7 +549,15 @@ export interface Product {
       }
     | {
         perksFields?: {
-          bgColor?: string;
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           items?: {
             image: string | Media;
             content?: {
@@ -632,7 +704,15 @@ export interface ReusableContent {
     | {
         heroFields: {
           image: string | Media;
-          textColor?: string;
+          textColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           content: {
             [k: string]: unknown;
           }[];
@@ -662,12 +742,20 @@ export interface ReusableContent {
       }
     | {
         contentFields: {
+          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
           }[];
-          bgColor?: string;
-          layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           items?: {
             image?: string | Media;
             content: {
@@ -702,7 +790,15 @@ export interface ReusableContent {
     | {
         ctaFields: {
           layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?: string;
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           useLeadingHeader?: boolean;
           leadingHeader: {
             [k: string]: unknown;
@@ -742,6 +838,19 @@ export interface ReusableContent {
         featuredContentFields: {
           layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          useLeadingHeader?: boolean;
+          leadingHeader: {
+            [k: string]: unknown;
+          }[];
           items?:
             | (
                 | {
@@ -771,11 +880,6 @@ export interface ReusableContent {
                     relationTo: 'faqs';
                   }
               )[];
-          bgColor?: string;
-          useLeadingHeader?: boolean;
-          leadingHeader: {
-            [k: string]: unknown;
-          }[];
           images?: {
             image: string | Media;
             id?: string;
@@ -821,7 +925,15 @@ export interface ReusableContent {
       }
     | {
         perksFields?: {
-          bgColor?: string;
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
           items?: {
             image: string | Media;
             content?: {
