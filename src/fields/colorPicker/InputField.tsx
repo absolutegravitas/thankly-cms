@@ -1,102 +1,88 @@
-import React, { useEffect, useState, useCallback, Fragment } from 'react'
-
-// this is how we'll interface with Payload itself
-import { useFieldType } from 'payload/components/forms';
-
-// retrieve and store the last used colors of your users
-import { usePreferences } from 'payload/components/preferences';
-
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 // re-use Payload's built-in button component
-import { Button } from 'payload/components';
-
-// we'll re-use the built in Label component directly from Payload
-import { Label } from 'payload/components/forms';
-
+import { Button } from 'payload/components'
 // we can use existing Payload types easily
-import { Props } from 'payload/components/fields/Text';
+import { Props } from 'payload/components/fields/Text'
+// this is how we'll interface with Payload itself
+import { Label, useFieldType } from 'payload/components/forms'
+// we'll re-use the built in Label component directly from Payload
+// import { Label } from 'payload/components/forms'
+// retrieve and store the last used colors of your users
+import { usePreferences } from 'payload/components/preferences'
 
 // we'll import and reuse our existing validator function on the frontend, too
-import { validateHexColor } from './config';
+import { validateHexColor } from './config'
 
 // Import the SCSS stylesheet
-import './styles.scss';
+import './styles.scss'
 
 // keep a list of default colors to choose from
 const defaultColors = [
   '#E7ECEF', // dusty gray - background
   '#0D1317', // rich black // '#292929' // jet  black
 
+  '#dfded9', // lightest brown
+  '#c2c0ae', // light brown
   '#ddd1b9', // baby poo brown
   '#985934', // raw umber brown
 
-  '#0E544B', // brunswick green
+  // '#0E544B', // brunswick green
   '#749b4e', // asparagus
   '#557755', // fern green - accent
-];
-const baseClass = 'custom-color-picker';
+]
+const baseClass = 'custom-color-picker'
 
-const preferenceKey = 'color-picker-colors';
+const preferenceKey = 'color-picker-colors'
 
-const InputField: React.FC<Props> = (props) => {
-  const {
-    path,
-    label,
-    required
-  } = props;
+const InputField: React.FC<Props> = props => {
+  const { path, label, required } = props
 
-  const {
-    value = '',
-    setValue,
-  } = useFieldType({
+  const { value = '', setValue } = useFieldType({
     path,
     validate: validateHexColor,
-  });
+  })
 
-  const { getPreference, setPreference } = usePreferences();
-  const [colorOptions, setColorOptions] = useState(defaultColors);
-  const [isAdding, setIsAdding] = useState(false);
-  const [colorToAdd, setColorToAdd] = useState('');
+  const { getPreference, setPreference } = usePreferences()
+  const [colorOptions, setColorOptions] = useState(defaultColors)
+  const [isAdding, setIsAdding] = useState(false)
+  const [colorToAdd, setColorToAdd] = useState('')
 
   useEffect(() => {
     const mergeColorsFromPreferences = async () => {
-      const colorPreferences = await getPreference<string[]>(preferenceKey);
+      const colorPreferences = await getPreference<string[]>(preferenceKey)
       if (colorPreferences) {
-        setColorOptions(colorPreferences);
+        setColorOptions(colorPreferences)
       }
-    };
-    mergeColorsFromPreferences();
-  }, [getPreference, setColorOptions]);
+    }
+    mergeColorsFromPreferences()
+  }, [getPreference, setColorOptions])
 
   const handleAddColor = useCallback(() => {
-    setIsAdding(false);
-    setValue(colorToAdd);
+    setIsAdding(false)
+    setValue(colorToAdd)
 
     // prevent adding duplicates
-    if (colorOptions.indexOf(colorToAdd) > -1) return;
+    if (colorOptions.indexOf(colorToAdd) > -1) return
 
-    let newOptions = colorOptions;
-    newOptions.unshift(colorToAdd);
+    let newOptions = colorOptions
+    newOptions.unshift(colorToAdd)
 
     // update state with new colors
-    setColorOptions(newOptions);
+    setColorOptions(newOptions)
     // store the user color preferences for future use
-    setPreference(preferenceKey, newOptions);
-  }, [colorOptions, setPreference, colorToAdd, setIsAdding, setValue]);
+    setPreference(preferenceKey, newOptions)
+  }, [colorOptions, setPreference, colorToAdd, setIsAdding, setValue])
 
   return (
     <div className={baseClass}>
-      <Label
-        htmlFor={path}
-        label={label}
-        required={required}
-      />
+      <Label htmlFor={path} label={label} required={required} />
       {isAdding && (
         <div>
           <input
             className={`${baseClass}__input`}
             type="text"
             placeholder="#000000"
-            onChange={(e) => setColorToAdd(e.target.value)}
+            onChange={e => setColorToAdd(e.target.value)}
             value={colorToAdd}
           />
           <Button
@@ -126,18 +112,17 @@ const InputField: React.FC<Props> = (props) => {
         <Fragment>
           <ul className={`${baseClass}__colors`}>
             {colorOptions.map((color, i) => (
-                <li key={i}>
-                  <button
-                    type="button"
-                    key={color}
-                    className={`chip ${color === value ? 'chip--selected' : ''} chip--clickable`}
-                    style={{ backgroundColor: color }}
-                    aria-label={color}
-                    onClick={() => setValue(color)}
-                  />
-                </li>
-              )
-            )}
+              <li key={i}>
+                <button
+                  type="button"
+                  key={color}
+                  className={`chip ${color === value ? 'chip--selected' : ''} chip--clickable`}
+                  style={{ backgroundColor: color }}
+                  aria-label={color}
+                  onClick={() => setValue(color)}
+                />
+              </li>
+            ))}
           </ul>
           <Button
             className="add-color"
@@ -146,13 +131,13 @@ const InputField: React.FC<Props> = (props) => {
             iconPosition="left"
             iconStyle="with-border"
             onClick={() => {
-              setIsAdding(true);
-              setValue('');
+              setIsAdding(true)
+              setValue('')
             }}
           />
         </Fragment>
       )}
     </div>
   )
-};
-export default InputField;
+}
+export default InputField
