@@ -1,8 +1,10 @@
 import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
-import richText from '../../fields/richText'
+// import richText from '../../fields/richText'
 import linkGroup from '../../fields/linkGroup'
+// import { lexicalRichTextField, YouTubeFeature, LinkFeature } from 'payload-plugin-lexical'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const BasicContentBlock: Block = {
   slug: 'content',
@@ -22,13 +24,18 @@ export const BasicContentBlock: Block = {
             { label: 'Overlaid Images Three Columns', value: 'threeColumnsImage' },
           ],
         },
-
         { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
-        richText({
+        lexicalRichText({
           name: 'leadingHeader',
-          label: 'Leading Header',
+          label: 'Leading Header Content',
           admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
         }),
+
+        // richText({
+        //   name: 'leadingHeader',
+        //   label: 'Leading Header',
+        //   admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
+        // }),
 
         {
           name: 'bgColor',
@@ -54,14 +61,18 @@ export const BasicContentBlock: Block = {
             { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
           ],
         },
-        
+
         {
           name: 'items',
           type: 'array',
           fields: [
             { name: 'image', type: 'upload', relationTo: 'media', required: false },
-
-            richText({ name: 'content' }),
+            lexicalRichText({
+              name: 'content',
+              label: 'Content',
+              // admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
+            }),
+            // richText({ name: 'content' }),
 
             linkGroup({
               appearances: ['primary', 'secondary', 'default'],

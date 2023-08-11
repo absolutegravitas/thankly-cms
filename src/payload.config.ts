@@ -10,6 +10,7 @@ import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
 import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
 import stripePlugin from '@payloadcms/plugin-stripe'
+import { LexicalPlugin } from 'payload-plugin-lexical'
 
 // webhooks
 import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdated'
@@ -80,6 +81,12 @@ export default buildConfig({
     },
   },
   plugins: [
+    LexicalPlugin({
+      // Only set this if you want to use the the AISuggest Feature
+      // ai: {
+      //   openai_key: process.env.OPENAI_KEY,
+      // },
+    }),
     nestedDocs({
       collections: ['pages', 'products'],
       generateLabel: (_, doc) => doc.title as string,

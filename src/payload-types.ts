@@ -66,15 +66,7 @@ export interface Page {
     | {
         heroFields: {
           image: string | Media;
-          textColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
           content: {
             [k: string]: unknown;
           }[];
@@ -153,6 +145,9 @@ export interface Page {
         contentFields: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           useLeadingHeader?: boolean;
+          lexicalRichTextEditor?: {
+            [k: string]: unknown;
+          }[];
           leadingHeader: {
             [k: string]: unknown;
           }[];
@@ -329,6 +324,9 @@ export interface Product {
         contentFields: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           useLeadingHeader?: boolean;
+          lexicalRichTextEditor?: {
+            [k: string]: unknown;
+          }[];
           leadingHeader: {
             [k: string]: unknown;
           }[];
@@ -480,15 +478,7 @@ export interface Product {
     | {
         heroFields: {
           image: string | Media;
-          textColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
           content: {
             [k: string]: unknown;
           }[];
@@ -704,15 +694,7 @@ export interface ReusableContent {
     | {
         heroFields: {
           image: string | Media;
-          textColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
           content: {
             [k: string]: unknown;
           }[];
@@ -744,6 +726,9 @@ export interface ReusableContent {
         contentFields: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           useLeadingHeader?: boolean;
+          lexicalRichTextEditor?: {
+            [k: string]: unknown;
+          }[];
           leadingHeader: {
             [k: string]: unknown;
           }[];
