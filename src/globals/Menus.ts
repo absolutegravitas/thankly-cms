@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload/types'
 
 import { isAdmin } from '../access/isAdmin'
 import link from '../fields/link'
+import linkGroup from '../fields/linkGroup'
 
 const Menus: GlobalConfig = {
   slug: 'menus',
@@ -17,10 +18,49 @@ const Menus: GlobalConfig = {
       name: 'header',
       fields: [
         { name: 'name', label: 'Name (used for header menu)', type: 'text', required: true },
+        { name: 'banner', label: 'Banner Text', type: 'text', required: false },
         {
-          name: 'navItems',
+          name: 'menuItems',
+          label: 'Menu Items',
           type: 'array',
-          fields: [link({ appearances: ['primary', 'secondary', 'default'] })],
+
+          fields: [
+            { name: 'useSubMenu', label: 'Use Sub Menus', type: 'checkbox' },
+
+            // a single link turns out not needed
+            // link({
+            //   appearances: ['primary', 'secondary', 'default'],
+            //   overrides: {
+            //     admin: { condition: (_, siblingData) => !siblingData.useSubMenu },
+            //   },
+            // }),
+
+            // and/or nested links
+            {
+              name: 'name',
+              label: 'Item Name',
+              type: 'text',
+              required: false,
+              admin: { condition: (_, siblingData) => siblingData.useSubMenu },
+            },
+
+            linkGroup({
+              overrides: {
+                minRows: 1,
+                maxRows: 1,
+                
+                admin: {
+                
+                  condition: (_, siblingData) => !siblingData.useSubMenu,
+                },
+              },
+            }),
+            linkGroup({
+              overrides: {
+                admin: { condition: (_, siblingData) => siblingData.useSubMenu },
+              },
+            }),
+          ],
         },
       ],
     },
@@ -45,11 +85,12 @@ const Menus: GlobalConfig = {
           type: 'array',
           fields: [
             { name: 'name', label: 'Column Name', type: 'text', required: true },
-            {
-              name: 'navItems',
-              type: 'array',
-              fields: [link({ appearances: ['primary', 'secondary', 'default'] })],
-            },
+            linkGroup(),
+            // {
+            //   name: 'navItems',
+            //   type: 'array',
+            //   fields: [link({ appearances: ['primary', 'secondary', 'default'] })],
+            // },
           ],
         },
       ],

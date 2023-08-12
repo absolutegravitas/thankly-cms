@@ -2,6 +2,7 @@ import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
 import richText from '../../fields/richText'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const FeaturedContentBlock: Block = {
   slug: 'featuredContent',
@@ -79,15 +80,30 @@ export const FeaturedContentBlock: Block = {
             { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
           ],
         },
-        
+
         { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
-        richText({
+
+        // lexicalRichText({
+        //   name: 'leadingHeader',
+        //   label: 'leadingHeader',
+        //   admin: {
+        //     condition: (_, siblingData) => siblingData.useLeadingHeader,
+        //   },
+        // }),
+
+        lexicalRichText({
           name: 'leadingHeader',
-          label: 'Leading Header',
-          admin: {
-            condition: (_, siblingData) => siblingData.useLeadingHeader,
-          },
+          label: 'Leading Header Content',
+          admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
         }),
+
+        // richText({
+        //   name: 'leadingHeader',
+        //   label: 'Leading Header',
+        //   admin: {
+        //     condition: (_, siblingData) => siblingData.useLeadingHeader,
+        //   },
+        // }),
 
         {
           name: 'items',
@@ -121,8 +137,13 @@ export const FeaturedContentBlock: Block = {
           ],
           admin: { condition: (_, siblingData) => siblingData.type === 'seenon' },
         },
+// dont add links to pages that contain the same block where this exists
+        lexicalRichText({
+          name: 'trailingContent',
+          label: 'Trailing Content',
+        }),
 
-        richText({ name: 'trailingNote', label: 'Trailing Note', required: false }),
+        // richText({ name: 'trailingNote', label: 'Trailing Note', required: false }),
       ],
     }),
   ],

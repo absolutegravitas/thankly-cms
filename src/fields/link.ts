@@ -77,7 +77,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       name: 'reference',
       label: 'Document to link to',
       type: 'relationship',
-      relationTo: ['pages',  'products'],
+      relationTo: ['pages', 'products'],
       required: true,
       maxDepth: 1,
       admin: {
@@ -111,6 +111,19 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           admin: {
             width: '50%',
           },
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          label: 'Image (used on some Menus)',
+          relationTo: 'media',
+          required: false,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Used on some Menus.',
+          required: false,
         },
       ],
     })

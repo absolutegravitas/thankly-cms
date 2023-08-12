@@ -5,6 +5,7 @@ import linkGroup from '../../fields/linkGroup'
 import label from '../../fields/richText/label'
 import largeBody from '../../fields/richText/largeBody'
 import richText from '../../fields/richText'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const HeroBlock: Block = {
   slug: 'hero',
@@ -44,14 +45,16 @@ export const HeroBlock: Block = {
           ],
         },
 
-        richText({
-          name: 'content',
-          type: 'richText',
-          admin: {
-            elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', largeBody, 'ul', label],
-            leaves: ['underline', 'bold', 'italic', 'strikethrough'],
-          },
-        }),
+         lexicalRichText({name: 'content',label: 'Content',}),
+        
+        // richText({
+        //   name: 'content',
+        //   type: 'richText',
+        //   admin: {
+        //     elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', largeBody, 'ul', label],
+        //     leaves: ['underline', 'bold', 'italic', 'strikethrough'],
+        //   },
+        // }),
 
         linkGroup(),
       ],
