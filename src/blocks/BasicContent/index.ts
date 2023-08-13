@@ -24,17 +24,17 @@ export const BasicContentBlock: Block = {
             { label: 'Overlaid Images Three Columns', value: 'threeColumnsImage' },
           ],
         },
-        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
+        { name: 'useLeadingContent', label: 'Use Leading Content', type: 'checkbox' },
         lexicalRichText({
-          name: 'leadingHeader',
-          label: 'Leading Header Content',
-          admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
+          name: 'leadingContent',
+          label: 'Leading Content',
+          admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
         }),
 
         // richText({
-        //   name: 'leadingHeader',
+        //   name: 'leadingContent',
         //   label: 'Leading Header',
-        //   admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
+        //   admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
         // }),
 
         {
@@ -70,7 +70,7 @@ export const BasicContentBlock: Block = {
             lexicalRichText({
               name: 'content',
               label: 'Content',
-              // admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
+              // admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
             }),
             // richText({ name: 'content' }),
 

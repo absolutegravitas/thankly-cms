@@ -33,11 +33,11 @@ export const ProductComponentsBlock: Block = {
         },
 
         // common
-        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
+        { name: 'useLeadingContent', label: 'Use Leading Header', type: 'checkbox' },
         richText({
-          name: 'leadingHeader',
+          name: 'leadingContent',
           label: 'Leading Header',
-          admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
+          admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
         }),
 
         // 2 col

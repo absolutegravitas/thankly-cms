@@ -67,7 +67,7 @@ export interface Page {
         heroFields: {
           image: string | Media;
           textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
-          content: {
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -85,6 +85,8 @@ export interface Page {
                   };
               url: string;
               label: string;
+              image?: string | Media;
+              description?: string;
               appearance?: 'default' | 'primary' | 'secondary';
             };
             id?: string;
@@ -106,8 +108,8 @@ export interface Page {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent: {
             [k: string]: unknown;
           }[];
           items: {
@@ -130,6 +132,8 @@ export interface Page {
                     };
                 url: string;
                 label: string;
+                image?: string | Media;
+                description?: string;
                 appearance?: 'primary' | 'secondary' | 'default';
               };
               id?: string;
@@ -142,13 +146,10 @@ export interface Page {
         blockType: 'cta';
       }
     | {
-        contentFields: {
+        contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          useLeadingHeader?: boolean;
-          lexicalRichTextEditor?: {
-            [k: string]: unknown;
-          }[];
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent?: {
             [k: string]: unknown;
           }[];
           bgColor?:
@@ -162,7 +163,7 @@ export interface Page {
             | 'text-lighterbrown';
           items?: {
             image?: string | Media;
-            content: {
+            content?: {
               [k: string]: unknown;
             }[];
             links?: {
@@ -180,6 +181,8 @@ export interface Page {
                     };
                 url: string;
                 label: string;
+                image?: string | Media;
+                description?: string;
                 appearance?: 'primary' | 'secondary' | 'default';
               };
               id?: string;
@@ -192,7 +195,7 @@ export interface Page {
         blockType: 'content';
       }
     | {
-        featuredContentFields: {
+        featuredContentFields?: {
           layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           bgColor?:
@@ -204,8 +207,8 @@ export interface Page {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent?: {
             [k: string]: unknown;
           }[];
           items?:
@@ -241,7 +244,7 @@ export interface Page {
             image: string | Media;
             id?: string;
           }[];
-          trailingNote?: {
+          trailingContent?: {
             [k: string]: unknown;
           }[];
         };
@@ -271,6 +274,8 @@ export interface Page {
                   };
               url: string;
               label: string;
+              image?: string | Media;
+              description?: string;
               appearance?: 'primary' | 'secondary' | 'default';
             };
             id?: string;
@@ -321,13 +326,10 @@ export interface Product {
   unit_amount?: number;
   layout: (
     | {
-        contentFields: {
+        contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          useLeadingHeader?: boolean;
-          lexicalRichTextEditor?: {
-            [k: string]: unknown;
-          }[];
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent?: {
             [k: string]: unknown;
           }[];
           bgColor?:
@@ -341,7 +343,7 @@ export interface Product {
             | 'text-lighterbrown';
           items?: {
             image?: string | Media;
-            content: {
+            content?: {
               [k: string]: unknown;
             }[];
             links?: {
@@ -359,6 +361,8 @@ export interface Product {
                     };
                 url: string;
                 label: string;
+                image?: string | Media;
+                description?: string;
                 appearance?: 'primary' | 'secondary' | 'default';
               };
               id?: string;
@@ -382,8 +386,8 @@ export interface Product {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent: {
             [k: string]: unknown;
           }[];
           items: {
@@ -406,6 +410,8 @@ export interface Product {
                     };
                 url: string;
                 label: string;
+                image?: string | Media;
+                description?: string;
                 appearance?: 'primary' | 'secondary' | 'default';
               };
               id?: string;
@@ -418,7 +424,7 @@ export interface Product {
         blockType: 'cta';
       }
     | {
-        featuredContentFields: {
+        featuredContentFields?: {
           layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           bgColor?:
@@ -430,8 +436,8 @@ export interface Product {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent?: {
             [k: string]: unknown;
           }[];
           items?:
@@ -467,7 +473,7 @@ export interface Product {
             image: string | Media;
             id?: string;
           }[];
-          trailingNote?: {
+          trailingContent?: {
             [k: string]: unknown;
           }[];
         };
@@ -479,7 +485,7 @@ export interface Product {
         heroFields: {
           image: string | Media;
           textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
-          content: {
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -497,6 +503,8 @@ export interface Product {
                   };
               url: string;
               label: string;
+              image?: string | Media;
+              description?: string;
               appearance?: 'default' | 'primary' | 'secondary';
             };
             id?: string;
@@ -528,6 +536,8 @@ export interface Product {
                   };
               url: string;
               label: string;
+              image?: string | Media;
+              description?: string;
               appearance?: 'primary' | 'secondary' | 'default';
             };
             id?: string;
@@ -563,8 +573,8 @@ export interface Product {
     | {
         productComponentsFields: {
           layout: 'twoColumns' | 'fourColumns' | 'imageLeft' | 'imageRight';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent: {
             [k: string]: unknown;
           }[];
           features?: {
@@ -695,7 +705,7 @@ export interface ReusableContent {
         heroFields: {
           image: string | Media;
           textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
-          content: {
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -713,6 +723,8 @@ export interface ReusableContent {
                   };
               url: string;
               label: string;
+              image?: string | Media;
+              description?: string;
               appearance?: 'default' | 'primary' | 'secondary';
             };
             id?: string;
@@ -723,13 +735,10 @@ export interface ReusableContent {
         blockType: 'hero';
       }
     | {
-        contentFields: {
+        contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          useLeadingHeader?: boolean;
-          lexicalRichTextEditor?: {
-            [k: string]: unknown;
-          }[];
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent?: {
             [k: string]: unknown;
           }[];
           bgColor?:
@@ -743,7 +752,7 @@ export interface ReusableContent {
             | 'text-lighterbrown';
           items?: {
             image?: string | Media;
-            content: {
+            content?: {
               [k: string]: unknown;
             }[];
             links?: {
@@ -761,6 +770,8 @@ export interface ReusableContent {
                     };
                 url: string;
                 label: string;
+                image?: string | Media;
+                description?: string;
                 appearance?: 'primary' | 'secondary' | 'default';
               };
               id?: string;
@@ -784,8 +795,8 @@ export interface ReusableContent {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent: {
             [k: string]: unknown;
           }[];
           items: {
@@ -808,6 +819,8 @@ export interface ReusableContent {
                     };
                 url: string;
                 label: string;
+                image?: string | Media;
+                description?: string;
                 appearance?: 'primary' | 'secondary' | 'default';
               };
               id?: string;
@@ -820,7 +833,7 @@ export interface ReusableContent {
         blockType: 'cta';
       }
     | {
-        featuredContentFields: {
+        featuredContentFields?: {
           layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
           bgColor?:
@@ -832,8 +845,8 @@ export interface ReusableContent {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingHeader?: boolean;
-          leadingHeader: {
+          useLeadingContent?: boolean;
+          leadingContent?: {
             [k: string]: unknown;
           }[];
           items?:
@@ -869,7 +882,7 @@ export interface ReusableContent {
             image: string | Media;
             id?: string;
           }[];
-          trailingNote?: {
+          trailingContent?: {
             [k: string]: unknown;
           }[];
         };
@@ -899,6 +912,8 @@ export interface ReusableContent {
                   };
               url: string;
               label: string;
+              image?: string | Media;
+              description?: string;
               appearance?: 'primary' | 'secondary' | 'default';
             };
             id?: string;
@@ -1025,34 +1040,11 @@ export interface Menu {
   id: string;
   header: {
     name: string;
-    navItems?: {
-      link: {
-        type?: 'reference' | 'custom';
-        newTab?: boolean;
-        reference:
-          | {
-              value: string | Page;
-              relationTo: 'pages';
-            }
-          | {
-              value: string | Product;
-              relationTo: 'products';
-            };
-        url: string;
-        label: string;
-        appearance?: 'primary' | 'secondary' | 'default';
-      };
-      id?: string;
-    }[];
-  };
-  footer: {
-    logo?: string | Media;
-    name: string;
-    tagline: string;
-    copyright: string;
-    columns?: {
-      name: string;
-      navItems?: {
+    banner?: string;
+    menuItems?: {
+      useSubMenu?: boolean;
+      name?: string;
+      links?: {
         link: {
           type?: 'reference' | 'custom';
           newTab?: boolean;
@@ -1067,7 +1059,40 @@ export interface Menu {
               };
           url: string;
           label: string;
-          appearance?: 'primary' | 'secondary' | 'default';
+          image?: string | Media;
+          description?: string;
+          appearance?: 'default' | 'primary' | 'secondary';
+        };
+        id?: string;
+      }[];
+      id?: string;
+    }[];
+  };
+  footer: {
+    logo?: string | Media;
+    name: string;
+    tagline: string;
+    copyright: string;
+    columns?: {
+      name: string;
+      links?: {
+        link: {
+          type?: 'reference' | 'custom';
+          newTab?: boolean;
+          reference:
+            | {
+                value: string | Page;
+                relationTo: 'pages';
+              }
+            | {
+                value: string | Product;
+                relationTo: 'products';
+              };
+          url: string;
+          label: string;
+          image?: string | Media;
+          description?: string;
+          appearance?: 'default' | 'primary' | 'secondary';
         };
         id?: string;
       }[];

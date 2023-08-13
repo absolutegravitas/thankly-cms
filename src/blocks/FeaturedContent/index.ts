@@ -81,27 +81,27 @@ export const FeaturedContentBlock: Block = {
           ],
         },
 
-        { name: 'useLeadingHeader', label: 'Use Leading Header', type: 'checkbox' },
+        { name: 'useLeadingContent', label: 'Use Leading Header', type: 'checkbox' },
 
         // lexicalRichText({
-        //   name: 'leadingHeader',
-        //   label: 'leadingHeader',
+        //   name: 'leadingContent',
+        //   label: 'leadingContent',
         //   admin: {
-        //     condition: (_, siblingData) => siblingData.useLeadingHeader,
+        //     condition: (_, siblingData) => siblingData.useLeadingContent,
         //   },
         // }),
 
         lexicalRichText({
-          name: 'leadingHeader',
+          name: 'leadingContent',
           label: 'Leading Header Content',
-          admin: { condition: (_, siblingData) => siblingData.useLeadingHeader },
+          admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
         }),
 
         // richText({
-        //   name: 'leadingHeader',
+        //   name: 'leadingContent',
         //   label: 'Leading Header',
         //   admin: {
-        //     condition: (_, siblingData) => siblingData.useLeadingHeader,
+        //     condition: (_, siblingData) => siblingData.useLeadingContent,
         //   },
         // }),
 

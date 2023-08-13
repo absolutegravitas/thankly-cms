@@ -56,15 +56,15 @@ export const CallToActionBlock: Block = {
           ],
         },
         {
-          name: 'useLeadingHeader',
+          name: 'useLeadingContent',
           label: 'Use Leading Header',
           type: 'checkbox',
         },
         richText({
-          name: 'leadingHeader',
+          name: 'leadingContent',
           label: 'Leading Header',
           admin: {
-            condition: (_, siblingData) => siblingData.useLeadingHeader,
+            condition: (_, siblingData) => siblingData.useLeadingContent,
           },
         }),
 
