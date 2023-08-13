@@ -13,10 +13,10 @@ import stripePlugin from '@payloadcms/plugin-stripe'
 import { LexicalPlugin } from 'payload-plugin-lexical'
 
 // webhooks
-import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdated'
-import { productUpdated } from './stripe/webhooks/productUpdated'
-import { priceUpdated } from './stripe/webhooks/priceUpdated'
-import { checkout } from './routes/checkout'
+// import { invoiceCreatedOrUpdated } from './stripe/webhooks/invoiceCreatedOrUpdated'
+// import { productUpdated } from './stripe/webhooks/productUpdated'
+// import { priceUpdated } from './stripe/webhooks/priceUpdated'
+// import { checkout } from './routes/checkout'
 import BeforeDashboard from './components/BeforeDashboard'
 
 import Menus from './globals/Menus'
@@ -98,18 +98,18 @@ export default buildConfig({
       uploadsCollection: 'media',
       generateTitle,
     }),
-    stripePlugin({
-      stripeSecretKey: String(process.env.STRIPE_SECRET_KEY),
-      isTestKey: Boolean(process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY),
-      stripeWebhooksEndpointSecret: String(process.env.STRIPE_WEBHOOKS_ENDPOINT_SECRET),
-      webhooks: {
-        'invoice.created': invoiceCreatedOrUpdated,
-        'invoice.updated': invoiceCreatedOrUpdated,
-        'product.created': productUpdated,
-        'product.updated': productUpdated,
-        'price.updated': priceUpdated,
-      },
-    }),
+    // stripePlugin({
+    //   stripeSecretKey: String(process.env.STRIPE_SECRET_KEY),
+    //   isTestKey: Boolean(process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY),
+    //   stripeWebhooksEndpointSecret: String(process.env.STRIPE_WEBHOOKS_ENDPOINT_SECRET),
+    //   webhooks: {
+    //     'invoice.created': invoiceCreatedOrUpdated,
+    //     'invoice.updated': invoiceCreatedOrUpdated,
+    //     'product.created': productUpdated,
+    //     'product.updated': productUpdated,
+    //     'price.updated': priceUpdated,
+    //   },
+    // }),
     cloudStorage({
       enabled: true,
       collections: {
@@ -168,7 +168,7 @@ export default buildConfig({
     'https://thankly.com.au',
     'https://thankly.au',
   ].filter(Boolean),
-  endpoints: [{ path: '/checkout', method: 'post', handler: checkout }],
+  // endpoints: [{ path: '/checkout', method: 'post', handler: checkout }],
   graphQL: {
     disablePlaygroundInProduction: false,
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
