@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload/types'
 import { isAdmin } from '../access/isAdmin'
 import richText from '../fields/richText'
+import lexicalRichText from '../fields/LexicalRichTextField'
 
 const Faqs: CollectionConfig = {
   slug: 'faqs',
@@ -18,7 +19,12 @@ const Faqs: CollectionConfig = {
   },
   fields: [
     { name: 'question', type: 'text', required: false },
-    richText({ name: 'answer', required: false }),
+    lexicalRichText({
+      name: 'answer',
+      label: 'answer',
+    }),
+
+    // richText({ name: 'answer', required: false }),
     {
       name: 'tags',
       type: 'array',

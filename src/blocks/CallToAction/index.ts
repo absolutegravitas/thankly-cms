@@ -57,7 +57,7 @@ export const CallToActionBlock: Block = {
         },
         {
           name: 'useLeadingContent',
-          label: 'Use Leading Header',
+          label: 'Use Leading Content',
           type: 'checkbox',
         },
         richText({

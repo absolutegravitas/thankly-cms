@@ -14,7 +14,9 @@ import { ReusableContentBlock } from '../blocks/ReusableContent'
 
 import { fullTitle } from '../fields/fullTitle'
 import { slugField } from '../fields/slug'
-import { FeaturedContentBlock } from '../blocks/FeaturedContent'
+import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
+import { FeaturedProductsBlock } from '../blocks/FeaturedProducts'
+import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -58,7 +60,9 @@ const Pages: CollectionConfig = {
         HeroBlock, // a hero block with image, video etc. overlays
         CallToActionBlock, // a call to action block with additional functions
         BasicContentBlock, // a basic content block for chunks of text
-        FeaturedContentBlock,
+        FeaturedReviewsBlock,
+        FeaturedFaqsBlock,
+        FeaturedProductsBlock,
         MediaContentBlock, // image with some content positioned left & right e.g. feature
 
         ReusableContentBlock, // re-use an already created block, ie. one of the above types

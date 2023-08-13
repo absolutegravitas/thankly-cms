@@ -33,7 +33,7 @@ export const ProductComponentsBlock: Block = {
         },
 
         // common
-        { name: 'useLeadingContent', label: 'Use Leading Header', type: 'checkbox' },
+        { name: 'useLeadingContent', label: 'Use Leading Content', type: 'checkbox' },
         richText({
           name: 'leadingContent',
           label: 'Leading Header',

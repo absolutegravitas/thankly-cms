@@ -6,8 +6,10 @@ import { BasicContentBlock } from '../blocks/BasicContent'
 import { HeroBlock } from '../blocks/Hero'
 import { MediaBlock } from '../blocks/Media'
 import { MediaContentBlock } from '../blocks/MediaContent'
-import { FeaturedContentBlock } from '../blocks/FeaturedContent'
 import { PerksBlock } from '../blocks/Perks'
+import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
+import { FeaturedProductsBlock } from '../blocks/FeaturedProducts'
+import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
 
 const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
@@ -30,7 +32,9 @@ const ReusableContent: CollectionConfig = {
         HeroBlock,
         BasicContentBlock,
         CallToActionBlock,
-        FeaturedContentBlock,
+        FeaturedFaqsBlock,
+        FeaturedProductsBlock,
+        FeaturedReviewsBlock,
         MediaContentBlock,
         PerksBlock,
       ],

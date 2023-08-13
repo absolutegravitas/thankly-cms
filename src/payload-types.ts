@@ -196,8 +196,8 @@ export interface Page {
       }
     | {
         featuredContentFields?: {
-          layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          layout?: 'single' | 'threeColumn' | 'threeFancy' | 'centredAccordion' | 'threeColGrid';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -425,8 +425,8 @@ export interface Product {
       }
     | {
         featuredContentFields?: {
-          layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          layout?: 'single' | 'threeColumn' | 'threeFancy' | 'centredAccordion' | 'threeColGrid';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -834,8 +834,8 @@ export interface ReusableContent {
       }
     | {
         featuredContentFields?: {
-          layout?: 'centredAccordion' | 'threeColGrid';
           type?: 'products' | 'reviews' | 'seenon' | 'faqs';
+          layout?: 'single' | 'threeColumn' | 'threeFancy' | 'centredAccordion' | 'threeColGrid';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'

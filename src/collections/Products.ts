@@ -13,10 +13,12 @@ import { MediaContentBlock } from '../blocks/MediaContent'
 import { ReusableContentBlock } from '../blocks/ReusableContent'
 import { fullTitle } from '../fields/fullTitle'
 import { slugField } from '../fields/slug'
-import { FeaturedContentBlock } from '../blocks/FeaturedContent'
+import { FeaturedContentBlock } from '../blocks/FeaturedProducts'
 import { PerksBlock } from '../blocks/Perks'
 import { ProductOverviewBlock } from '../blocks/ProductOverview'
 import { ProductComponentsBlock } from '../blocks/ProductComponents'
+import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
+import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -108,7 +110,8 @@ const Products: CollectionConfig = {
       blocks: [
         BasicContentBlock, // a basic content block for chunks of text
         CallToActionBlock, // a call to action block with additional functions
-        FeaturedContentBlock,
+        FeaturedFaqsBlock,
+        FeaturedReviewsBlock,
         HeroBlock, // a hero block with image, video etc. overlays
         MediaContentBlock, // image with some content positioned left & right e.g. feature
         PerksBlock, // https://tailwindui.com/components/ecommerce/components/incentives#component-38742d005e7e8f48feb79dea72a0a8a5
