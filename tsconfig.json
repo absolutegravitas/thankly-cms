@@ -4,6 +4,9 @@
       "stripe": [
         "./node_modules/stripe"
       ],
+       "payload/generated-types": [
+        "./src/payload-types.ts"
+      ],
       "@collections/*": [
         "./src/collections/*"
       ],
@@ -18,9 +21,6 @@
         "./src/globals/*"
       ],
    
-      "@types": [
-        "./src/types.ts"
-      ],
     
     },
     "target": "es5",
@@ -34,12 +34,12 @@
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "baseUrl": ".", 
     "outDir": "./dist",
     "rootDir": "./src",
     "jsx": "react",
-    "noEmit": true,
-    "allowImportingTsExtensions": true
-    // "baseUrl": ".",
+    // "noEmit": true,
+    // "allowImportingTsExtensions": true,
   },
   "include": [
     "src",
@@ -52,6 +52,7 @@
     "build",
   ],
   "ts-node": {
-    "transpileOnly": true
+    "transpileOnly": true,
+    "swc":true
   }
 }

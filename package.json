@@ -1,6 +1,6 @@
 {
-  "name": "payload-starter-typescript",
-  "description": "Blank template - no collections",
+  "name": "thankly-cms",
+  "description": "thankly cms",
   "version": "1.0.0",
   "main": "dist/server.js",
   "license": "MIT",
@@ -15,11 +15,8 @@
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
     "lint": "eslint src",
-    "populate-ch": "ts-node src/scripts/populate-community-help.ts",
-    "seed": "rm -rf media && cross-env PAYLOAD_SEED=true PAYLOAD_DROP_DATABASE=true PAYLOAD_CONFIG_PATH=src/payload.config.ts ts-node src/server.ts",
     "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
     "stripe:webhooks": "stripe listen --forward-to localhost:8000/stripe/webhooks",
-    "syncToAlgolia": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/syncToAlgolia.js",
     "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
   },
   "dependencies": {
