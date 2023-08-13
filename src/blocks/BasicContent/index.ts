@@ -24,18 +24,6 @@ export const BasicContentBlock: Block = {
             { label: 'Overlaid Images Three Columns', value: 'threeColumnsImage' },
           ],
         },
-        { name: 'useLeadingContent', label: 'Use Leading Content', type: 'checkbox' },
-        lexicalRichText({
-          name: 'leadingContent',
-          label: 'Leading Content',
-          admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
-        }),
-
-        // richText({
-        //   name: 'leadingContent',
-        //   label: 'Leading Header',
-        //   admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
-        // }),
 
         {
           name: 'bgColor',
@@ -61,6 +49,21 @@ export const BasicContentBlock: Block = {
             { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
           ],
         },
+        {
+          label: 'Leading & Trailing Content',
+          type: 'collapsible',
+          fields: [
+            // dont add links to pages that contain the same block where this exists
+            lexicalRichText({
+              name: 'leadingContent',
+              label: 'Leading Content',
+            }),
+            lexicalRichText({
+              name: 'trailingContent',
+              label: 'Trailing Content',
+            }),
+          ],
+        },
 
         {
           name: 'items',
@@ -79,21 +82,6 @@ export const BasicContentBlock: Block = {
             }),
           ],
         },
-
-        // richText({ name: 'columnOne' }),
-        // richText({
-        //   name: 'columnTwo',
-        //   admin: {
-        //     condition: (_, siblingData) =>
-        //       ['twoColumns', 'threeColumns'].includes(siblingData.layout),
-        //   },
-        // }),
-        // richText({
-        //   name: 'columnThree',
-        //   admin: {
-        //     condition: (_, siblingData) => ['threeColumns'].includes(siblingData.layout),
-        //   },
-        // }),
       ],
     }),
   ],
