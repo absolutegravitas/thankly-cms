@@ -73,10 +73,7 @@ export const BasicContentBlock: Block = {
             lexicalRichText({
               name: 'content',
               label: 'Content',
-              // admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
             }),
-            // richText({ name: 'content' }),
-
             linkGroup({
               appearances: ['primary', 'secondary', 'default'],
             }),

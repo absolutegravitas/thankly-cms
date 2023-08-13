@@ -4,6 +4,7 @@ import { blockFields } from '../../fields/blockFields'
 import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
 import link from '../../fields/link'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const CallToActionBlock: Block = {
   slug: 'cta',
@@ -55,19 +56,22 @@ export const CallToActionBlock: Block = {
             { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
           ],
         },
-        {
-          name: 'useLeadingContent',
-          label: 'Use Leading Content',
-          type: 'checkbox',
-        },
-        richText({
-          name: 'leadingContent',
-          label: 'Leading Header',
-          admin: {
-            condition: (_, siblingData) => siblingData.useLeadingContent,
-          },
-        }),
 
+        {
+          label: 'Leading & Trailing Content',
+          type: 'collapsible',
+          fields: [
+            // dont add links to pages that contain the same block where this exists
+            lexicalRichText({
+              name: 'leadingContent',
+              label: 'Leading Content',
+            }),
+            lexicalRichText({
+              name: 'trailingContent',
+              label: 'Trailing Content',
+            }),
+          ],
+        },
         {
           type: 'array',
           name: 'items',
@@ -85,13 +89,10 @@ export const CallToActionBlock: Block = {
               relationTo: 'media',
               required: false,
             },
-
-            richText({
+            lexicalRichText({
               name: 'content',
               label: 'Content',
-              required: true,
             }),
-
             linkGroup({
               appearances: ['primary', 'secondary', 'default'],
             }),

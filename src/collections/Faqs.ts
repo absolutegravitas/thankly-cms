@@ -19,25 +19,14 @@ const Faqs: CollectionConfig = {
   },
   fields: [
     { name: 'question', type: 'text', required: false },
-    lexicalRichText({
-      name: 'answer',
-      label: 'answer',
-    }),
-
-    // richText({ name: 'answer', required: false }),
+    lexicalRichText({name: 'answer',label: 'answer',}),
     {
       name: 'tags',
       type: 'array',
       label: 'Tags',
       labels: { singular: 'Tag', plural: 'Tags' },
       minRows: 1,
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          required: false,
-        },
-      ],
+      fields: [{name: 'name',type: 'text',required: false,},],
       required: false,
     },
   ],

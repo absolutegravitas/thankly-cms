@@ -108,8 +108,10 @@ export interface Page {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingContent?: boolean;
-          leadingContent: {
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
             [k: string]: unknown;
           }[];
           items: {
@@ -148,10 +150,6 @@ export interface Page {
     | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          useLeadingContent?: boolean;
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -161,6 +159,12 @@ export interface Page {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
           items?: {
             image?: string | Media;
             content?: {
@@ -195,9 +199,8 @@ export interface Page {
         blockType: 'content';
       }
     | {
-        featuredContentFields?: {
-          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
-          layout?: 'single' | 'threeColumn' | 'threeFancy' | 'centredAccordion' | 'threeColGrid';
+        featuredReviewsFields: {
+          layout?: 'single' | 'threeColumns';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -207,50 +210,89 @@ export interface Page {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingContent?: boolean;
           leadingContent?: {
             [k: string]: unknown;
-          }[];
-          items?:
-            | (
-                | {
-                    value: string;
-                    relationTo: 'products';
-                  }
-                | {
-                    value: string;
-                    relationTo: 'reviews';
-                  }
-                | {
-                    value: string;
-                    relationTo: 'faqs';
-                  }
-              )[]
-            | (
-                | {
-                    value: Product;
-                    relationTo: 'products';
-                  }
-                | {
-                    value: Review;
-                    relationTo: 'reviews';
-                  }
-                | {
-                    value: Faq;
-                    relationTo: 'faqs';
-                  }
-              )[];
-          images?: {
-            image: string | Media;
-            id?: string;
           }[];
           trailingContent?: {
             [k: string]: unknown;
           }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'reviews';
+              }[]
+            | {
+                value: Review;
+                relationTo: 'reviews';
+              }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'featuredContent';
+        blockType: 'featuredReviews';
+      }
+    | {
+        featuredFaqsFields: {
+          layout?: 'threeColumn' | 'centredAccordion';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'faqs';
+              }[]
+            | {
+                value: Faq;
+                relationTo: 'faqs';
+              }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredFaqs';
+      }
+    | {
+        featuredProductsFields: {
+          layout?: 'single' | 'threeColumn' | 'threeFancy';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'products';
+              }[]
+            | {
+                value: Product;
+                relationTo: 'products';
+              }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredProducts';
       }
     | {
         mediaContentFields: {
@@ -328,10 +370,6 @@ export interface Product {
     | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          useLeadingContent?: boolean;
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -341,6 +379,12 @@ export interface Product {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
           items?: {
             image?: string | Media;
             content?: {
@@ -386,8 +430,10 @@ export interface Product {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingContent?: boolean;
-          leadingContent: {
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
             [k: string]: unknown;
           }[];
           items: {
@@ -424,9 +470,8 @@ export interface Product {
         blockType: 'cta';
       }
     | {
-        featuredContentFields?: {
-          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
-          layout?: 'single' | 'threeColumn' | 'threeFancy' | 'centredAccordion' | 'threeColGrid';
+        featuredFaqsFields: {
+          layout?: 'threeColumn' | 'centredAccordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -436,50 +481,57 @@ export interface Product {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingContent?: boolean;
           leadingContent?: {
             [k: string]: unknown;
-          }[];
-          items?:
-            | (
-                | {
-                    value: string;
-                    relationTo: 'products';
-                  }
-                | {
-                    value: string;
-                    relationTo: 'reviews';
-                  }
-                | {
-                    value: string;
-                    relationTo: 'faqs';
-                  }
-              )[]
-            | (
-                | {
-                    value: Product;
-                    relationTo: 'products';
-                  }
-                | {
-                    value: Review;
-                    relationTo: 'reviews';
-                  }
-                | {
-                    value: Faq;
-                    relationTo: 'faqs';
-                  }
-              )[];
-          images?: {
-            image: string | Media;
-            id?: string;
           }[];
           trailingContent?: {
             [k: string]: unknown;
           }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'faqs';
+              }[]
+            | {
+                value: Faq;
+                relationTo: 'faqs';
+              }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'featuredContent';
+        blockType: 'featuredFaqs';
+      }
+    | {
+        featuredReviewsFields: {
+          layout?: 'single' | 'threeColumns';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'reviews';
+              }[]
+            | {
+                value: Review;
+                relationTo: 'reviews';
+              }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredReviews';
       }
     | {
         heroFields: {
@@ -573,8 +625,10 @@ export interface Product {
     | {
         productComponentsFields: {
           layout: 'twoColumns' | 'fourColumns' | 'imageLeft' | 'imageRight';
-          useLeadingContent?: boolean;
-          leadingContent: {
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
             [k: string]: unknown;
           }[];
           features?: {
@@ -672,18 +726,6 @@ export interface Supplier {
   updatedAt: string;
   createdAt: string;
 }
-export interface Review {
-  id: string;
-  note?: string;
-  providerName?: string;
-  providerOrg?: string;
-  link?: string;
-  channel?: 'instagram' | 'facebook' | 'other';
-  image?: string | Media;
-  rating?: number;
-  updatedAt: string;
-  createdAt: string;
-}
 export interface Faq {
   id: string;
   question?: string;
@@ -694,6 +736,18 @@ export interface Faq {
     name?: string;
     id?: string;
   }[];
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Review {
+  id: string;
+  note?: string;
+  providerName?: string;
+  providerOrg?: string;
+  link?: string;
+  channel?: 'instagram' | 'facebook' | 'other';
+  image?: string | Media;
+  rating?: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -737,10 +791,6 @@ export interface ReusableContent {
     | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          useLeadingContent?: boolean;
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -750,6 +800,12 @@ export interface ReusableContent {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
           items?: {
             image?: string | Media;
             content?: {
@@ -795,8 +851,10 @@ export interface ReusableContent {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingContent?: boolean;
-          leadingContent: {
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
             [k: string]: unknown;
           }[];
           items: {
@@ -833,9 +891,8 @@ export interface ReusableContent {
         blockType: 'cta';
       }
     | {
-        featuredContentFields?: {
-          type?: 'products' | 'reviews' | 'seenon' | 'faqs';
-          layout?: 'single' | 'threeColumn' | 'threeFancy' | 'centredAccordion' | 'threeColGrid';
+        featuredFaqsFields: {
+          layout?: 'threeColumn' | 'centredAccordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -845,50 +902,89 @@ export interface ReusableContent {
             | 'text-khaki'
             | 'text-lightbrown'
             | 'text-lighterbrown';
-          useLeadingContent?: boolean;
           leadingContent?: {
             [k: string]: unknown;
-          }[];
-          items?:
-            | (
-                | {
-                    value: string;
-                    relationTo: 'products';
-                  }
-                | {
-                    value: string;
-                    relationTo: 'reviews';
-                  }
-                | {
-                    value: string;
-                    relationTo: 'faqs';
-                  }
-              )[]
-            | (
-                | {
-                    value: Product;
-                    relationTo: 'products';
-                  }
-                | {
-                    value: Review;
-                    relationTo: 'reviews';
-                  }
-                | {
-                    value: Faq;
-                    relationTo: 'faqs';
-                  }
-              )[];
-          images?: {
-            image: string | Media;
-            id?: string;
           }[];
           trailingContent?: {
             [k: string]: unknown;
           }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'faqs';
+              }[]
+            | {
+                value: Faq;
+                relationTo: 'faqs';
+              }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'featuredContent';
+        blockType: 'featuredFaqs';
+      }
+    | {
+        featuredProductsFields: {
+          layout?: 'single' | 'threeColumn' | 'threeFancy';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'products';
+              }[]
+            | {
+                value: Product;
+                relationTo: 'products';
+              }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredProducts';
+      }
+    | {
+        featuredReviewsFields: {
+          layout?: 'single' | 'threeColumns';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'reviews';
+              }[]
+            | {
+                value: Review;
+                relationTo: 'reviews';
+              }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredReviews';
       }
     | {
         mediaContentFields: {

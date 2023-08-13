@@ -1,6 +1,7 @@
 import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const FeaturedFaqsBlock: Block = {
   slug: 'featuredFaqs',
@@ -44,12 +45,27 @@ export const FeaturedFaqsBlock: Block = {
             { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
           ],
         },
+        {
+          label: 'Leading & Trailing Content',
+          type: 'collapsible',
+          fields: [
+            // dont add links to pages that contain the same block where this exists
+            lexicalRichText({
+              name: 'leadingContent',
+              label: 'Leading Content',
+            }),
+            lexicalRichText({
+              name: 'trailingContent',
+              label: 'Trailing Content',
+            }),
+          ],
+        },
 
         {
           name: 'items',
           label: 'Items',
           type: 'relationship',
-          relationTo: [ 'faqs'],
+          relationTo: ['faqs'],
           hasMany: true,
           required: true,
         },

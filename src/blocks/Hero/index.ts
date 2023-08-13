@@ -45,17 +45,7 @@ export const HeroBlock: Block = {
           ],
         },
 
-         lexicalRichText({name: 'content',label: 'Content',}),
-        
-        // richText({
-        //   name: 'content',
-        //   type: 'richText',
-        //   admin: {
-        //     elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', largeBody, 'ul', label],
-        //     leaves: ['underline', 'bold', 'italic', 'strikethrough'],
-        //   },
-        // }),
-
+        lexicalRichText({ name: 'content', label: 'Content' }),
         linkGroup(),
       ],
     }),

@@ -5,6 +5,7 @@ import linkGroup from '../../fields/linkGroup'
 import label from '../../fields/richText/label'
 import largeBody from '../../fields/richText/largeBody'
 import richText from '../../fields/richText'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const ProductOverviewBlock: Block = {
   // https://tailwindui.com/components/ecommerce/components/product-overviews#component-13a89c2dc50a31afd66541dc28fa3c13
@@ -28,13 +29,8 @@ export const ProductOverviewBlock: Block = {
             },
           ],
         },
-        richText({
-          name: 'content',
-          admin: {
-            elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', largeBody, 'ul', label],
-            leaves: ['underline', 'bold', 'italic'],
-          },
-        }),
+
+        lexicalRichText({ name: 'content', label: 'Content' }),
       ],
     }),
   ],

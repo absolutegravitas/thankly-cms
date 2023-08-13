@@ -5,6 +5,7 @@ import linkGroup from '../../fields/linkGroup'
 import label from '../../fields/richText/label'
 import largeBody from '../../fields/richText/largeBody'
 import richText from '../../fields/richText'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const ProductComponentsBlock: Block = {
   // https://tailwindui.com/components/ecommerce/components/product-overviews#component-13a89c2dc50a31afd66541dc28fa3c13
@@ -32,13 +33,21 @@ export const ProductComponentsBlock: Block = {
           ],
         },
 
-        // common
-        { name: 'useLeadingContent', label: 'Use Leading Content', type: 'checkbox' },
-        richText({
-          name: 'leadingContent',
-          label: 'Leading Header',
-          admin: { condition: (_, siblingData) => siblingData.useLeadingContent },
-        }),
+        {
+          label: 'Leading & Trailing Content',
+          type: 'collapsible',
+          fields: [
+            // dont add links to pages that contain the same block where this exists
+            lexicalRichText({
+              name: 'leadingContent',
+              label: 'Leading Content',
+            }),
+            lexicalRichText({
+              name: 'trailingContent',
+              label: 'Trailing Content',
+            }),
+          ],
+        },
 
         // 2 col
         {
@@ -49,7 +58,7 @@ export const ProductComponentsBlock: Block = {
           admin: { condition: (_, siblingData) => ['twoColumns'].includes(siblingData.layout) },
           fields: [
             { name: 'image', type: 'upload', relationTo: 'media', required: true },
-            richText({ name: 'content' }),
+            lexicalRichText({ name: 'content', label: 'Content' }),
           ],
         },
 
@@ -62,7 +71,7 @@ export const ProductComponentsBlock: Block = {
           admin: { condition: (_, siblingData) => ['fourColumns'].includes(siblingData.layout) },
           fields: [
             { name: 'image', type: 'upload', relationTo: 'media', required: true },
-            richText({ name: 'content' }),
+            lexicalRichText({ name: 'content', label: 'Content' }),
           ],
         },
 
@@ -80,7 +89,7 @@ export const ProductComponentsBlock: Block = {
           minRows: 4,
           // maxRows: 4,
           admin: { condition: (_, siblingData) => ['imageLeft'].includes(siblingData.layout) },
-          fields: [richText({ name: 'content' })],
+          fields: [lexicalRichText({ name: 'content', label: 'Content' })],
         },
 
         // for images right
@@ -92,7 +101,7 @@ export const ProductComponentsBlock: Block = {
           admin: { condition: (_, siblingData) => ['imageRight'].includes(siblingData.layout) },
           fields: [
             { name: 'image', type: 'upload', relationTo: 'media', required: true },
-            richText({ name: 'content' }),
+            lexicalRichText({ name: 'content', label: 'Content' }),
           ],
         },
       ],

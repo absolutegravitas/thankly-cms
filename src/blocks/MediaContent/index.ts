@@ -1,9 +1,8 @@
 import type { Block } from 'payload/types'
 
 import { blockFields } from '../../fields/blockFields'
-import link from '../../fields/link'
-import richText from '../../fields/richText'
 import linkGroup from '../../fields/linkGroup'
+import lexicalRichText from '../../fields/LexicalRichTextField'
 
 export const MediaContentBlock: Block = {
   slug: 'mediaContent',
@@ -24,16 +23,8 @@ export const MediaContentBlock: Block = {
           admin: { description: 'Choose how to align the content.', width: '50%' },
         },
         { name: 'media', type: 'upload', relationTo: 'media', required: true },
-        richText({ name: 'content', label: 'Content' }),
-        // { name: 'enableLink', type: 'checkbox' },
-        linkGroup({
-          appearances: ['primary', 'secondary', 'default'],
-          // overrides: { admin: { condition: (_, { enableLink }) => enableLink } },
-        }),
-        // link({
-        //   appearances: ['primary', 'secondary', 'default'],
-        //   overrides: { admin: { condition: (_, { enableLink }) => enableLink } },
-        // }),
+        lexicalRichText({name: 'content',label: 'Content',}),
+        linkGroup({appearances: ['primary', 'secondary', 'default'],}),
       ],
     }),
   ],
