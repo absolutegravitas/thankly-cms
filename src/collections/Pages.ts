@@ -17,6 +17,7 @@ import { slugField } from '../fields/slug'
 import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
 import { FeaturedProductsBlock } from '../blocks/FeaturedProducts'
 import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
+import { FeaturedLogosBlock } from '../blocks/FeaturedLogos'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -57,14 +58,14 @@ const Pages: CollectionConfig = {
       type: 'blocks',
       required: true,
       blocks: [
-        HeroBlock, // a hero block with image, video etc. overlays
-        CallToActionBlock, // a call to action block with additional functions
         BasicContentBlock, // a basic content block for chunks of text
-        FeaturedReviewsBlock,
+        CallToActionBlock, // a call to action block with additional functions
         FeaturedFaqsBlock,
+        FeaturedLogosBlock,
         FeaturedProductsBlock,
+        FeaturedReviewsBlock,
+        HeroBlock, // a hero block with image, video etc. overlays
         MediaContentBlock, // image with some content positioned left & right e.g. feature
-
         ReusableContentBlock, // re-use an already created block, ie. one of the above types
       ],
     },

@@ -10,6 +10,7 @@ import { PerksBlock } from '../blocks/Perks'
 import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
 import { FeaturedProductsBlock } from '../blocks/FeaturedProducts'
 import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
+import { FeaturedLogosBlock } from '../blocks/FeaturedLogos'
 
 const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
@@ -29,12 +30,13 @@ const ReusableContent: CollectionConfig = {
       type: 'blocks',
       required: true,
       blocks: [
-        HeroBlock,
         BasicContentBlock,
         CallToActionBlock,
         FeaturedFaqsBlock,
+        FeaturedLogosBlock,
         FeaturedProductsBlock,
         FeaturedReviewsBlock,
+        HeroBlock,
         MediaContentBlock,
         PerksBlock,
       ],

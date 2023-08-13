@@ -936,179 +936,39 @@ type Page {
   _status: Page__status
 }
 
-union Page_Layout = Hero | Cta | Content | FeaturedContent | MediaContent | ReusableContentBlock
+union Page_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedProducts | FeaturedReviews | Hero | MediaContent | ReusableContentBlock
 
-type Hero {
-  heroFields: Hero_HeroFields
+type Content {
+  contentFields: Content_ContentFields
   id: String
   blockName: String
   blockType: String
 }
 
-type Hero_HeroFields {
-  image(where: Hero_HeroFields_Image_where): Media
-  textColor: Hero_HeroFields_textColor
-  content(depth: Int): JSON
-  links: [Hero_HeroFields_Links!]
+type Content_ContentFields {
+  layout: Content_ContentFields_layout
+  bgColor: Content_ContentFields_bgColor
+  leadingContent(depth: Int): JSON
+  trailingContent(depth: Int): JSON
+  items: [Content_ContentFields_Items!]
 }
 
-input Hero_HeroFields_Image_where {
-  alt: Hero_HeroFields_Image_alt_operator
-  updatedAt: Hero_HeroFields_Image_updatedAt_operator
-  createdAt: Hero_HeroFields_Image_createdAt_operator
-  url: Hero_HeroFields_Image_url_operator
-  filename: Hero_HeroFields_Image_filename_operator
-  mimeType: Hero_HeroFields_Image_mimeType_operator
-  filesize: Hero_HeroFields_Image_filesize_operator
-  width: Hero_HeroFields_Image_width_operator
-  height: Hero_HeroFields_Image_height_operator
-  id: Hero_HeroFields_Image_id_operator
-  OR: [Hero_HeroFields_Image_where_or]
-  AND: [Hero_HeroFields_Image_where_and]
+enum Content_ContentFields_layout {
+  oneColumn
+  twoColumns
+  threeColumns
+  threeColumnsImage
 }
 
-input Hero_HeroFields_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Hero_HeroFields_Image_where_or {
-  alt: Hero_HeroFields_Image_alt_operator
-  updatedAt: Hero_HeroFields_Image_updatedAt_operator
-  createdAt: Hero_HeroFields_Image_createdAt_operator
-  url: Hero_HeroFields_Image_url_operator
-  filename: Hero_HeroFields_Image_filename_operator
-  mimeType: Hero_HeroFields_Image_mimeType_operator
-  filesize: Hero_HeroFields_Image_filesize_operator
-  width: Hero_HeroFields_Image_width_operator
-  height: Hero_HeroFields_Image_height_operator
-  id: Hero_HeroFields_Image_id_operator
-}
-
-input Hero_HeroFields_Image_where_and {
-  alt: Hero_HeroFields_Image_alt_operator
-  updatedAt: Hero_HeroFields_Image_updatedAt_operator
-  createdAt: Hero_HeroFields_Image_createdAt_operator
-  url: Hero_HeroFields_Image_url_operator
-  filename: Hero_HeroFields_Image_filename_operator
-  mimeType: Hero_HeroFields_Image_mimeType_operator
-  filesize: Hero_HeroFields_Image_filesize_operator
-  width: Hero_HeroFields_Image_width_operator
-  height: Hero_HeroFields_Image_height_operator
-  id: Hero_HeroFields_Image_id_operator
-}
-
-enum Hero_HeroFields_textColor {
-  white
-  offwhite
-  black
-  green
-  lightgreen
-  khaki
-  lightbrown
-  lighterbrown
+enum Content_ContentFields_bgColor {
+  text_white
+  text_offwhite
+  text_black
+  text_green
+  text_lightgreen
+  text_khaki
+  text_lightbrown
+  text_lighterbrown
 }
 
 """
@@ -1116,38 +976,193 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
-type Hero_HeroFields_Links {
-  link: Hero_HeroFields_Links_Link
+type Content_ContentFields_Items {
+  image(where: Content_ContentFields_Items_Image_where): Media
+  content(depth: Int): JSON
+  links: [Content_ContentFields_Items_Links!]
   id: String
 }
 
-type Hero_HeroFields_Links_Link {
-  type: Hero_HeroFields_Links_Link_type
-  newTab: Boolean
-  reference: Hero_HeroFields_Links_Link_Reference_Relationship
-  url: String
-  label: String
-  image(where: Hero_HeroFields_Links_Link_Image_where): Media
-  description: String
-  appearance: Hero_HeroFields_Links_Link_appearance
+input Content_ContentFields_Items_Image_where {
+  alt: Content_ContentFields_Items_Image_alt_operator
+  updatedAt: Content_ContentFields_Items_Image_updatedAt_operator
+  createdAt: Content_ContentFields_Items_Image_createdAt_operator
+  url: Content_ContentFields_Items_Image_url_operator
+  filename: Content_ContentFields_Items_Image_filename_operator
+  mimeType: Content_ContentFields_Items_Image_mimeType_operator
+  filesize: Content_ContentFields_Items_Image_filesize_operator
+  width: Content_ContentFields_Items_Image_width_operator
+  height: Content_ContentFields_Items_Image_height_operator
+  id: Content_ContentFields_Items_Image_id_operator
+  OR: [Content_ContentFields_Items_Image_where_or]
+  AND: [Content_ContentFields_Items_Image_where_and]
 }
 
-enum Hero_HeroFields_Links_Link_type {
+input Content_ContentFields_Items_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Content_ContentFields_Items_Image_where_or {
+  alt: Content_ContentFields_Items_Image_alt_operator
+  updatedAt: Content_ContentFields_Items_Image_updatedAt_operator
+  createdAt: Content_ContentFields_Items_Image_createdAt_operator
+  url: Content_ContentFields_Items_Image_url_operator
+  filename: Content_ContentFields_Items_Image_filename_operator
+  mimeType: Content_ContentFields_Items_Image_mimeType_operator
+  filesize: Content_ContentFields_Items_Image_filesize_operator
+  width: Content_ContentFields_Items_Image_width_operator
+  height: Content_ContentFields_Items_Image_height_operator
+  id: Content_ContentFields_Items_Image_id_operator
+}
+
+input Content_ContentFields_Items_Image_where_and {
+  alt: Content_ContentFields_Items_Image_alt_operator
+  updatedAt: Content_ContentFields_Items_Image_updatedAt_operator
+  createdAt: Content_ContentFields_Items_Image_createdAt_operator
+  url: Content_ContentFields_Items_Image_url_operator
+  filename: Content_ContentFields_Items_Image_filename_operator
+  mimeType: Content_ContentFields_Items_Image_mimeType_operator
+  filesize: Content_ContentFields_Items_Image_filesize_operator
+  width: Content_ContentFields_Items_Image_width_operator
+  height: Content_ContentFields_Items_Image_height_operator
+  id: Content_ContentFields_Items_Image_id_operator
+}
+
+type Content_ContentFields_Items_Links {
+  link: Content_ContentFields_Items_Links_Link
+  id: String
+}
+
+type Content_ContentFields_Items_Links_Link {
+  type: Content_ContentFields_Items_Links_Link_type
+  newTab: Boolean
+  reference: Content_ContentFields_Items_Links_Link_Reference_Relationship
+  url: String
+  label: String
+  image(where: Content_ContentFields_Items_Links_Link_Image_where): Media
+  description: String
+  appearance: Content_ContentFields_Items_Links_Link_appearance
+}
+
+enum Content_ContentFields_Items_Links_Link_type {
   reference
   custom
 }
 
-type Hero_HeroFields_Links_Link_Reference_Relationship {
-  relationTo: Hero_HeroFields_Links_Link_Reference_RelationTo
-  value: Hero_HeroFields_Links_Link_Reference
+type Content_ContentFields_Items_Links_Link_Reference_Relationship {
+  relationTo: Content_ContentFields_Items_Links_Link_Reference_RelationTo
+  value: Content_ContentFields_Items_Links_Link_Reference
 }
 
-enum Hero_HeroFields_Links_Link_Reference_RelationTo {
+enum Content_ContentFields_Items_Links_Link_Reference_RelationTo {
   pages
   products
 }
 
-union Hero_HeroFields_Links_Link_Reference = Page | Product
+union Content_ContentFields_Items_Links_Link_Reference = Page | Product
 
 type Product {
   id: String
@@ -1678,382 +1693,7 @@ input StockItem_Image_where_and {
   id: StockItem_Image_id_operator
 }
 
-union Product_Layout = Content | Cta | FeaturedContent | Hero | MediaContent | Perks | ProductComponents | ProductOverview | ReusableContentBlock
-
-type Content {
-  contentFields: Content_ContentFields
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Content_ContentFields {
-  layout: Content_ContentFields_layout
-  useLeadingContent: Boolean
-  leadingContent(depth: Int): JSON
-  bgColor: Content_ContentFields_bgColor
-  items: [Content_ContentFields_Items!]
-}
-
-enum Content_ContentFields_layout {
-  oneColumn
-  twoColumns
-  threeColumns
-  threeColumnsImage
-}
-
-enum Content_ContentFields_bgColor {
-  text_white
-  text_offwhite
-  text_black
-  text_green
-  text_lightgreen
-  text_khaki
-  text_lightbrown
-  text_lighterbrown
-}
-
-type Content_ContentFields_Items {
-  image(where: Content_ContentFields_Items_Image_where): Media
-  content(depth: Int): JSON
-  links: [Content_ContentFields_Items_Links!]
-  id: String
-}
-
-input Content_ContentFields_Items_Image_where {
-  alt: Content_ContentFields_Items_Image_alt_operator
-  updatedAt: Content_ContentFields_Items_Image_updatedAt_operator
-  createdAt: Content_ContentFields_Items_Image_createdAt_operator
-  url: Content_ContentFields_Items_Image_url_operator
-  filename: Content_ContentFields_Items_Image_filename_operator
-  mimeType: Content_ContentFields_Items_Image_mimeType_operator
-  filesize: Content_ContentFields_Items_Image_filesize_operator
-  width: Content_ContentFields_Items_Image_width_operator
-  height: Content_ContentFields_Items_Image_height_operator
-  id: Content_ContentFields_Items_Image_id_operator
-  OR: [Content_ContentFields_Items_Image_where_or]
-  AND: [Content_ContentFields_Items_Image_where_and]
-}
-
-input Content_ContentFields_Items_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Image_where_or {
-  alt: Content_ContentFields_Items_Image_alt_operator
-  updatedAt: Content_ContentFields_Items_Image_updatedAt_operator
-  createdAt: Content_ContentFields_Items_Image_createdAt_operator
-  url: Content_ContentFields_Items_Image_url_operator
-  filename: Content_ContentFields_Items_Image_filename_operator
-  mimeType: Content_ContentFields_Items_Image_mimeType_operator
-  filesize: Content_ContentFields_Items_Image_filesize_operator
-  width: Content_ContentFields_Items_Image_width_operator
-  height: Content_ContentFields_Items_Image_height_operator
-  id: Content_ContentFields_Items_Image_id_operator
-}
-
-input Content_ContentFields_Items_Image_where_and {
-  alt: Content_ContentFields_Items_Image_alt_operator
-  updatedAt: Content_ContentFields_Items_Image_updatedAt_operator
-  createdAt: Content_ContentFields_Items_Image_createdAt_operator
-  url: Content_ContentFields_Items_Image_url_operator
-  filename: Content_ContentFields_Items_Image_filename_operator
-  mimeType: Content_ContentFields_Items_Image_mimeType_operator
-  filesize: Content_ContentFields_Items_Image_filesize_operator
-  width: Content_ContentFields_Items_Image_width_operator
-  height: Content_ContentFields_Items_Image_height_operator
-  id: Content_ContentFields_Items_Image_id_operator
-}
-
-type Content_ContentFields_Items_Links {
-  link: Content_ContentFields_Items_Links_Link
-  id: String
-}
-
-type Content_ContentFields_Items_Links_Link {
-  type: Content_ContentFields_Items_Links_Link_type
-  newTab: Boolean
-  reference: Content_ContentFields_Items_Links_Link_Reference_Relationship
-  url: String
-  label: String
-  image(where: Content_ContentFields_Items_Links_Link_Image_where): Media
-  description: String
-  appearance: Content_ContentFields_Items_Links_Link_appearance
-}
-
-enum Content_ContentFields_Items_Links_Link_type {
-  reference
-  custom
-}
-
-type Content_ContentFields_Items_Links_Link_Reference_Relationship {
-  relationTo: Content_ContentFields_Items_Links_Link_Reference_RelationTo
-  value: Content_ContentFields_Items_Links_Link_Reference
-}
-
-enum Content_ContentFields_Items_Links_Link_Reference_RelationTo {
-  pages
-  products
-}
-
-union Content_ContentFields_Items_Links_Link_Reference = Page | Product
-
-input Content_ContentFields_Items_Links_Link_Image_where {
-  alt: Content_ContentFields_Items_Links_Link_Image_alt_operator
-  updatedAt: Content_ContentFields_Items_Links_Link_Image_updatedAt_operator
-  createdAt: Content_ContentFields_Items_Links_Link_Image_createdAt_operator
-  url: Content_ContentFields_Items_Links_Link_Image_url_operator
-  filename: Content_ContentFields_Items_Links_Link_Image_filename_operator
-  mimeType: Content_ContentFields_Items_Links_Link_Image_mimeType_operator
-  filesize: Content_ContentFields_Items_Links_Link_Image_filesize_operator
-  width: Content_ContentFields_Items_Links_Link_Image_width_operator
-  height: Content_ContentFields_Items_Links_Link_Image_height_operator
-  id: Content_ContentFields_Items_Links_Link_Image_id_operator
-  OR: [Content_ContentFields_Items_Links_Link_Image_where_or]
-  AND: [Content_ContentFields_Items_Links_Link_Image_where_and]
-}
-
-input Content_ContentFields_Items_Links_Link_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Content_ContentFields_Items_Links_Link_Image_where_or {
-  alt: Content_ContentFields_Items_Links_Link_Image_alt_operator
-  updatedAt: Content_ContentFields_Items_Links_Link_Image_updatedAt_operator
-  createdAt: Content_ContentFields_Items_Links_Link_Image_createdAt_operator
-  url: Content_ContentFields_Items_Links_Link_Image_url_operator
-  filename: Content_ContentFields_Items_Links_Link_Image_filename_operator
-  mimeType: Content_ContentFields_Items_Links_Link_Image_mimeType_operator
-  filesize: Content_ContentFields_Items_Links_Link_Image_filesize_operator
-  width: Content_ContentFields_Items_Links_Link_Image_width_operator
-  height: Content_ContentFields_Items_Links_Link_Image_height_operator
-  id: Content_ContentFields_Items_Links_Link_Image_id_operator
-}
-
-input Content_ContentFields_Items_Links_Link_Image_where_and {
-  alt: Content_ContentFields_Items_Links_Link_Image_alt_operator
-  updatedAt: Content_ContentFields_Items_Links_Link_Image_updatedAt_operator
-  createdAt: Content_ContentFields_Items_Links_Link_Image_createdAt_operator
-  url: Content_ContentFields_Items_Links_Link_Image_url_operator
-  filename: Content_ContentFields_Items_Links_Link_Image_filename_operator
-  mimeType: Content_ContentFields_Items_Links_Link_Image_mimeType_operator
-  filesize: Content_ContentFields_Items_Links_Link_Image_filesize_operator
-  width: Content_ContentFields_Items_Links_Link_Image_width_operator
-  height: Content_ContentFields_Items_Links_Link_Image_height_operator
-  id: Content_ContentFields_Items_Links_Link_Image_id_operator
-}
-
-enum Content_ContentFields_Items_Links_Link_appearance {
-  primary
-  secondary
-  default
-}
+union Product_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedReviews | Hero | MediaContent | Perks | ProductComponents | ProductOverview | ReusableContentBlock
 
 type Cta {
   ctaFields: Cta_CtaFields
@@ -2065,8 +1705,8 @@ type Cta {
 type Cta_CtaFields {
   layout: Cta_CtaFields_layout
   bgColor: Cta_CtaFields_bgColor
-  useLeadingContent: Boolean
   leadingContent(depth: Int): JSON
+  trailingContent(depth: Int): JSON
   items: [Cta_CtaFields_Items!]
 }
 
@@ -2429,37 +2069,27 @@ enum Cta_CtaFields_Items_Links_Link_appearance {
   default
 }
 
-type FeaturedContent {
-  featuredContentFields: FeaturedContent_FeaturedContentFields
+type FeaturedFaqs {
+  featuredFaqsFields: FeaturedFaqs_FeaturedFaqsFields
   id: String
   blockName: String
   blockType: String
 }
 
-type FeaturedContent_FeaturedContentFields {
-  layout: FeaturedContent_FeaturedContentFields_layout
-  type: FeaturedContent_FeaturedContentFields_type
-  bgColor: FeaturedContent_FeaturedContentFields_bgColor
-  useLeadingContent: Boolean
+type FeaturedFaqs_FeaturedFaqsFields {
+  layout: FeaturedFaqs_FeaturedFaqsFields_layout
+  bgColor: FeaturedFaqs_FeaturedFaqsFields_bgColor
   leadingContent(depth: Int): JSON
-  items: [FeaturedContent_FeaturedContentFields_Items_Relationship!]
-  images: [FeaturedContent_FeaturedContentFields_Images!]
   trailingContent(depth: Int): JSON
+  items: [FeaturedFaqs_FeaturedFaqsFields_Items_Relationship!]
 }
 
-enum FeaturedContent_FeaturedContentFields_layout {
+enum FeaturedFaqs_FeaturedFaqsFields_layout {
+  threeColumn
   centredAccordion
-  threeColGrid
 }
 
-enum FeaturedContent_FeaturedContentFields_type {
-  products
-  reviews
-  seenon
-  faqs
-}
-
-enum FeaturedContent_FeaturedContentFields_bgColor {
+enum FeaturedFaqs_FeaturedFaqsFields_bgColor {
   text_white
   text_offwhite
   text_black
@@ -2470,18 +2100,256 @@ enum FeaturedContent_FeaturedContentFields_bgColor {
   text_lighterbrown
 }
 
-type FeaturedContent_FeaturedContentFields_Items_Relationship {
-  relationTo: FeaturedContent_FeaturedContentFields_Items_RelationTo
-  value: FeaturedContent_FeaturedContentFields_Items
+type FeaturedFaqs_FeaturedFaqsFields_Items_Relationship {
+  relationTo: FeaturedFaqs_FeaturedFaqsFields_Items_RelationTo
+  value: FeaturedFaqs_FeaturedFaqsFields_Items
 }
 
-enum FeaturedContent_FeaturedContentFields_Items_RelationTo {
-  products
-  reviews
+enum FeaturedFaqs_FeaturedFaqsFields_Items_RelationTo {
   faqs
 }
 
-union FeaturedContent_FeaturedContentFields_Items = Product | Review | Faq
+union FeaturedFaqs_FeaturedFaqsFields_Items = Faq
+
+type Faq {
+  id: String
+  question: String
+  answer(depth: Int): JSON
+  tags: [Faq_Tags!]
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Faq_Tags {
+  name: String
+  id: String
+}
+
+type FeaturedLogos {
+  featuredLogosFields: FeaturedLogos_FeaturedLogosFields
+  id: String
+  blockName: String
+  blockType: String
+}
+
+type FeaturedLogos_FeaturedLogosFields {
+  layout: FeaturedLogos_FeaturedLogosFields_layout
+  bgColor: FeaturedLogos_FeaturedLogosFields_bgColor
+  leadingContent(depth: Int): JSON
+  trailingContent(depth: Int): JSON
+  images: [FeaturedLogos_FeaturedLogosFields_Images!]
+}
+
+enum FeaturedLogos_FeaturedLogosFields_layout {
+  threeColumn
+  centredAccordion
+}
+
+enum FeaturedLogos_FeaturedLogosFields_bgColor {
+  text_white
+  text_offwhite
+  text_black
+  text_green
+  text_lightgreen
+  text_khaki
+  text_lightbrown
+  text_lighterbrown
+}
+
+type FeaturedLogos_FeaturedLogosFields_Images {
+  image(where: FeaturedLogos_FeaturedLogosFields_Images_Image_where): Media
+  id: String
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_where {
+  alt: FeaturedLogos_FeaturedLogosFields_Images_Image_alt_operator
+  updatedAt: FeaturedLogos_FeaturedLogosFields_Images_Image_updatedAt_operator
+  createdAt: FeaturedLogos_FeaturedLogosFields_Images_Image_createdAt_operator
+  url: FeaturedLogos_FeaturedLogosFields_Images_Image_url_operator
+  filename: FeaturedLogos_FeaturedLogosFields_Images_Image_filename_operator
+  mimeType: FeaturedLogos_FeaturedLogosFields_Images_Image_mimeType_operator
+  filesize: FeaturedLogos_FeaturedLogosFields_Images_Image_filesize_operator
+  width: FeaturedLogos_FeaturedLogosFields_Images_Image_width_operator
+  height: FeaturedLogos_FeaturedLogosFields_Images_Image_height_operator
+  id: FeaturedLogos_FeaturedLogosFields_Images_Image_id_operator
+  OR: [FeaturedLogos_FeaturedLogosFields_Images_Image_where_or]
+  AND: [FeaturedLogos_FeaturedLogosFields_Images_Image_where_and]
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_where_or {
+  alt: FeaturedLogos_FeaturedLogosFields_Images_Image_alt_operator
+  updatedAt: FeaturedLogos_FeaturedLogosFields_Images_Image_updatedAt_operator
+  createdAt: FeaturedLogos_FeaturedLogosFields_Images_Image_createdAt_operator
+  url: FeaturedLogos_FeaturedLogosFields_Images_Image_url_operator
+  filename: FeaturedLogos_FeaturedLogosFields_Images_Image_filename_operator
+  mimeType: FeaturedLogos_FeaturedLogosFields_Images_Image_mimeType_operator
+  filesize: FeaturedLogos_FeaturedLogosFields_Images_Image_filesize_operator
+  width: FeaturedLogos_FeaturedLogosFields_Images_Image_width_operator
+  height: FeaturedLogos_FeaturedLogosFields_Images_Image_height_operator
+  id: FeaturedLogos_FeaturedLogosFields_Images_Image_id_operator
+}
+
+input FeaturedLogos_FeaturedLogosFields_Images_Image_where_and {
+  alt: FeaturedLogos_FeaturedLogosFields_Images_Image_alt_operator
+  updatedAt: FeaturedLogos_FeaturedLogosFields_Images_Image_updatedAt_operator
+  createdAt: FeaturedLogos_FeaturedLogosFields_Images_Image_createdAt_operator
+  url: FeaturedLogos_FeaturedLogosFields_Images_Image_url_operator
+  filename: FeaturedLogos_FeaturedLogosFields_Images_Image_filename_operator
+  mimeType: FeaturedLogos_FeaturedLogosFields_Images_Image_mimeType_operator
+  filesize: FeaturedLogos_FeaturedLogosFields_Images_Image_filesize_operator
+  width: FeaturedLogos_FeaturedLogosFields_Images_Image_width_operator
+  height: FeaturedLogos_FeaturedLogosFields_Images_Image_height_operator
+  id: FeaturedLogos_FeaturedLogosFields_Images_Image_id_operator
+}
+
+type FeaturedReviews {
+  featuredReviewsFields: FeaturedReviews_FeaturedReviewsFields
+  id: String
+  blockName: String
+  blockType: String
+}
+
+type FeaturedReviews_FeaturedReviewsFields {
+  layout: FeaturedReviews_FeaturedReviewsFields_layout
+  bgColor: FeaturedReviews_FeaturedReviewsFields_bgColor
+  leadingContent(depth: Int): JSON
+  trailingContent(depth: Int): JSON
+  items: [FeaturedReviews_FeaturedReviewsFields_Items_Relationship!]
+}
+
+enum FeaturedReviews_FeaturedReviewsFields_layout {
+  single
+  threeColumns
+}
+
+enum FeaturedReviews_FeaturedReviewsFields_bgColor {
+  text_white
+  text_offwhite
+  text_black
+  text_green
+  text_lightgreen
+  text_khaki
+  text_lightbrown
+  text_lighterbrown
+}
+
+type FeaturedReviews_FeaturedReviewsFields_Items_Relationship {
+  relationTo: FeaturedReviews_FeaturedReviewsFields_Items_RelationTo
+  value: FeaturedReviews_FeaturedReviewsFields_Items
+}
+
+enum FeaturedReviews_FeaturedReviewsFields_Items_RelationTo {
+  reviews
+}
+
+union FeaturedReviews_FeaturedReviewsFields_Items = Review
 
 type Review {
   id: String
@@ -2650,41 +2518,36 @@ input Review_Image_where_and {
   id: Review_Image_id_operator
 }
 
-type Faq {
+type Hero {
+  heroFields: Hero_HeroFields
   id: String
-  question: String
-  answer(depth: Int): JSON
-  tags: [Faq_Tags!]
-  updatedAt: DateTime
-  createdAt: DateTime
+  blockName: String
+  blockType: String
 }
 
-type Faq_Tags {
-  name: String
-  id: String
+type Hero_HeroFields {
+  image(where: Hero_HeroFields_Image_where): Media
+  textColor: Hero_HeroFields_textColor
+  content(depth: Int): JSON
+  links: [Hero_HeroFields_Links!]
 }
 
-type FeaturedContent_FeaturedContentFields_Images {
-  image(where: FeaturedContent_FeaturedContentFields_Images_Image_where): Media
-  id: String
+input Hero_HeroFields_Image_where {
+  alt: Hero_HeroFields_Image_alt_operator
+  updatedAt: Hero_HeroFields_Image_updatedAt_operator
+  createdAt: Hero_HeroFields_Image_createdAt_operator
+  url: Hero_HeroFields_Image_url_operator
+  filename: Hero_HeroFields_Image_filename_operator
+  mimeType: Hero_HeroFields_Image_mimeType_operator
+  filesize: Hero_HeroFields_Image_filesize_operator
+  width: Hero_HeroFields_Image_width_operator
+  height: Hero_HeroFields_Image_height_operator
+  id: Hero_HeroFields_Image_id_operator
+  OR: [Hero_HeroFields_Image_where_or]
+  AND: [Hero_HeroFields_Image_where_and]
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_where {
-  alt: FeaturedContent_FeaturedContentFields_Images_Image_alt_operator
-  updatedAt: FeaturedContent_FeaturedContentFields_Images_Image_updatedAt_operator
-  createdAt: FeaturedContent_FeaturedContentFields_Images_Image_createdAt_operator
-  url: FeaturedContent_FeaturedContentFields_Images_Image_url_operator
-  filename: FeaturedContent_FeaturedContentFields_Images_Image_filename_operator
-  mimeType: FeaturedContent_FeaturedContentFields_Images_Image_mimeType_operator
-  filesize: FeaturedContent_FeaturedContentFields_Images_Image_filesize_operator
-  width: FeaturedContent_FeaturedContentFields_Images_Image_width_operator
-  height: FeaturedContent_FeaturedContentFields_Images_Image_height_operator
-  id: FeaturedContent_FeaturedContentFields_Images_Image_id_operator
-  OR: [FeaturedContent_FeaturedContentFields_Images_Image_where_or]
-  AND: [FeaturedContent_FeaturedContentFields_Images_Image_where_and]
-}
-
-input FeaturedContent_FeaturedContentFields_Images_Image_alt_operator {
+input Hero_HeroFields_Image_alt_operator {
   equals: String
   not_equals: String
   like: String
@@ -2695,7 +2558,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_alt_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_updatedAt_operator {
+input Hero_HeroFields_Image_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -2706,7 +2569,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_updatedAt_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_createdAt_operator {
+input Hero_HeroFields_Image_createdAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -2717,7 +2580,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_createdAt_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_url_operator {
+input Hero_HeroFields_Image_url_operator {
   equals: String
   not_equals: String
   like: String
@@ -2728,7 +2591,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_url_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_filename_operator {
+input Hero_HeroFields_Image_filename_operator {
   equals: String
   not_equals: String
   like: String
@@ -2739,7 +2602,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_filename_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_mimeType_operator {
+input Hero_HeroFields_Image_mimeType_operator {
   equals: String
   not_equals: String
   like: String
@@ -2750,7 +2613,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_mimeType_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_filesize_operator {
+input Hero_HeroFields_Image_filesize_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -2760,7 +2623,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_filesize_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_width_operator {
+input Hero_HeroFields_Image_width_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -2770,7 +2633,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_width_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_height_operator {
+input Hero_HeroFields_Image_height_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -2780,7 +2643,7 @@ input FeaturedContent_FeaturedContentFields_Images_Image_height_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_id_operator {
+input Hero_HeroFields_Image_id_operator {
   equals: String
   not_equals: String
   like: String
@@ -2791,30 +2654,228 @@ input FeaturedContent_FeaturedContentFields_Images_Image_id_operator {
   exists: Boolean
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_where_or {
-  alt: FeaturedContent_FeaturedContentFields_Images_Image_alt_operator
-  updatedAt: FeaturedContent_FeaturedContentFields_Images_Image_updatedAt_operator
-  createdAt: FeaturedContent_FeaturedContentFields_Images_Image_createdAt_operator
-  url: FeaturedContent_FeaturedContentFields_Images_Image_url_operator
-  filename: FeaturedContent_FeaturedContentFields_Images_Image_filename_operator
-  mimeType: FeaturedContent_FeaturedContentFields_Images_Image_mimeType_operator
-  filesize: FeaturedContent_FeaturedContentFields_Images_Image_filesize_operator
-  width: FeaturedContent_FeaturedContentFields_Images_Image_width_operator
-  height: FeaturedContent_FeaturedContentFields_Images_Image_height_operator
-  id: FeaturedContent_FeaturedContentFields_Images_Image_id_operator
+input Hero_HeroFields_Image_where_or {
+  alt: Hero_HeroFields_Image_alt_operator
+  updatedAt: Hero_HeroFields_Image_updatedAt_operator
+  createdAt: Hero_HeroFields_Image_createdAt_operator
+  url: Hero_HeroFields_Image_url_operator
+  filename: Hero_HeroFields_Image_filename_operator
+  mimeType: Hero_HeroFields_Image_mimeType_operator
+  filesize: Hero_HeroFields_Image_filesize_operator
+  width: Hero_HeroFields_Image_width_operator
+  height: Hero_HeroFields_Image_height_operator
+  id: Hero_HeroFields_Image_id_operator
 }
 
-input FeaturedContent_FeaturedContentFields_Images_Image_where_and {
-  alt: FeaturedContent_FeaturedContentFields_Images_Image_alt_operator
-  updatedAt: FeaturedContent_FeaturedContentFields_Images_Image_updatedAt_operator
-  createdAt: FeaturedContent_FeaturedContentFields_Images_Image_createdAt_operator
-  url: FeaturedContent_FeaturedContentFields_Images_Image_url_operator
-  filename: FeaturedContent_FeaturedContentFields_Images_Image_filename_operator
-  mimeType: FeaturedContent_FeaturedContentFields_Images_Image_mimeType_operator
-  filesize: FeaturedContent_FeaturedContentFields_Images_Image_filesize_operator
-  width: FeaturedContent_FeaturedContentFields_Images_Image_width_operator
-  height: FeaturedContent_FeaturedContentFields_Images_Image_height_operator
-  id: FeaturedContent_FeaturedContentFields_Images_Image_id_operator
+input Hero_HeroFields_Image_where_and {
+  alt: Hero_HeroFields_Image_alt_operator
+  updatedAt: Hero_HeroFields_Image_updatedAt_operator
+  createdAt: Hero_HeroFields_Image_createdAt_operator
+  url: Hero_HeroFields_Image_url_operator
+  filename: Hero_HeroFields_Image_filename_operator
+  mimeType: Hero_HeroFields_Image_mimeType_operator
+  filesize: Hero_HeroFields_Image_filesize_operator
+  width: Hero_HeroFields_Image_width_operator
+  height: Hero_HeroFields_Image_height_operator
+  id: Hero_HeroFields_Image_id_operator
+}
+
+enum Hero_HeroFields_textColor {
+  white
+  offwhite
+  black
+  green
+  lightgreen
+  khaki
+  lightbrown
+  lighterbrown
+}
+
+type Hero_HeroFields_Links {
+  link: Hero_HeroFields_Links_Link
+  id: String
+}
+
+type Hero_HeroFields_Links_Link {
+  type: Hero_HeroFields_Links_Link_type
+  newTab: Boolean
+  reference: Hero_HeroFields_Links_Link_Reference_Relationship
+  url: String
+  label: String
+  image(where: Hero_HeroFields_Links_Link_Image_where): Media
+  description: String
+  appearance: Hero_HeroFields_Links_Link_appearance
+}
+
+enum Hero_HeroFields_Links_Link_type {
+  reference
+  custom
+}
+
+type Hero_HeroFields_Links_Link_Reference_Relationship {
+  relationTo: Hero_HeroFields_Links_Link_Reference_RelationTo
+  value: Hero_HeroFields_Links_Link_Reference
+}
+
+enum Hero_HeroFields_Links_Link_Reference_RelationTo {
+  pages
+  products
+}
+
+union Hero_HeroFields_Links_Link_Reference = Page | Product
+
+input Hero_HeroFields_Links_Link_Image_where {
+  alt: Hero_HeroFields_Links_Link_Image_alt_operator
+  updatedAt: Hero_HeroFields_Links_Link_Image_updatedAt_operator
+  createdAt: Hero_HeroFields_Links_Link_Image_createdAt_operator
+  url: Hero_HeroFields_Links_Link_Image_url_operator
+  filename: Hero_HeroFields_Links_Link_Image_filename_operator
+  mimeType: Hero_HeroFields_Links_Link_Image_mimeType_operator
+  filesize: Hero_HeroFields_Links_Link_Image_filesize_operator
+  width: Hero_HeroFields_Links_Link_Image_width_operator
+  height: Hero_HeroFields_Links_Link_Image_height_operator
+  id: Hero_HeroFields_Links_Link_Image_id_operator
+  OR: [Hero_HeroFields_Links_Link_Image_where_or]
+  AND: [Hero_HeroFields_Links_Link_Image_where_and]
+}
+
+input Hero_HeroFields_Links_Link_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Hero_HeroFields_Links_Link_Image_where_or {
+  alt: Hero_HeroFields_Links_Link_Image_alt_operator
+  updatedAt: Hero_HeroFields_Links_Link_Image_updatedAt_operator
+  createdAt: Hero_HeroFields_Links_Link_Image_createdAt_operator
+  url: Hero_HeroFields_Links_Link_Image_url_operator
+  filename: Hero_HeroFields_Links_Link_Image_filename_operator
+  mimeType: Hero_HeroFields_Links_Link_Image_mimeType_operator
+  filesize: Hero_HeroFields_Links_Link_Image_filesize_operator
+  width: Hero_HeroFields_Links_Link_Image_width_operator
+  height: Hero_HeroFields_Links_Link_Image_height_operator
+  id: Hero_HeroFields_Links_Link_Image_id_operator
+}
+
+input Hero_HeroFields_Links_Link_Image_where_and {
+  alt: Hero_HeroFields_Links_Link_Image_alt_operator
+  updatedAt: Hero_HeroFields_Links_Link_Image_updatedAt_operator
+  createdAt: Hero_HeroFields_Links_Link_Image_createdAt_operator
+  url: Hero_HeroFields_Links_Link_Image_url_operator
+  filename: Hero_HeroFields_Links_Link_Image_filename_operator
+  mimeType: Hero_HeroFields_Links_Link_Image_mimeType_operator
+  filesize: Hero_HeroFields_Links_Link_Image_filesize_operator
+  width: Hero_HeroFields_Links_Link_Image_width_operator
+  height: Hero_HeroFields_Links_Link_Image_height_operator
+  id: Hero_HeroFields_Links_Link_Image_id_operator
+}
+
+enum Hero_HeroFields_Links_Link_appearance {
+  default
+  primary
+  secondary
 }
 
 type MediaContent {
@@ -3358,8 +3419,8 @@ type ProductComponents {
 
 type ProductComponents_ProductComponentsFields {
   layout: ProductComponents_ProductComponentsFields_layout
-  useLeadingContent: Boolean
   leadingContent(depth: Int): JSON
+  trailingContent(depth: Int): JSON
   features: [ProductComponents_ProductComponentsFields_Features!]
   image(where: ProductComponents_ProductComponentsFields_Image_where): Media
   content: [ProductComponents_ProductComponentsFields_Content!]
@@ -3863,7 +3924,50 @@ type ReusableContent {
   createdAt: DateTime
 }
 
-union ReusableContent_Layout = Hero | Content | Cta | FeaturedContent | MediaContent | Perks
+union ReusableContent_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedProducts | FeaturedReviews | Hero | MediaContent | Perks
+
+type FeaturedProducts {
+  featuredProductsFields: FeaturedProducts_FeaturedProductsFields
+  id: String
+  blockName: String
+  blockType: String
+}
+
+type FeaturedProducts_FeaturedProductsFields {
+  layout: FeaturedProducts_FeaturedProductsFields_layout
+  bgColor: FeaturedProducts_FeaturedProductsFields_bgColor
+  leadingContent(depth: Int): JSON
+  trailingContent(depth: Int): JSON
+  items: [FeaturedProducts_FeaturedProductsFields_Items_Relationship!]
+}
+
+enum FeaturedProducts_FeaturedProductsFields_layout {
+  single
+  threeColumn
+  threeFancy
+}
+
+enum FeaturedProducts_FeaturedProductsFields_bgColor {
+  text_white
+  text_offwhite
+  text_black
+  text_green
+  text_lightgreen
+  text_khaki
+  text_lightbrown
+  text_lighterbrown
+}
+
+type FeaturedProducts_FeaturedProductsFields_Items_Relationship {
+  relationTo: FeaturedProducts_FeaturedProductsFields_Items_RelationTo
+  value: FeaturedProducts_FeaturedProductsFields_Items
+}
+
+enum FeaturedProducts_FeaturedProductsFields_Items_RelationTo {
+  products
+}
+
+union FeaturedProducts_FeaturedProductsFields_Items = Product
 
 type Product_Breadcrumbs {
   doc: Product
@@ -4031,22 +4135,22 @@ enum Product__status {
   published
 }
 
-input Hero_HeroFields_Links_Link_Image_where {
-  alt: Hero_HeroFields_Links_Link_Image_alt_operator
-  updatedAt: Hero_HeroFields_Links_Link_Image_updatedAt_operator
-  createdAt: Hero_HeroFields_Links_Link_Image_createdAt_operator
-  url: Hero_HeroFields_Links_Link_Image_url_operator
-  filename: Hero_HeroFields_Links_Link_Image_filename_operator
-  mimeType: Hero_HeroFields_Links_Link_Image_mimeType_operator
-  filesize: Hero_HeroFields_Links_Link_Image_filesize_operator
-  width: Hero_HeroFields_Links_Link_Image_width_operator
-  height: Hero_HeroFields_Links_Link_Image_height_operator
-  id: Hero_HeroFields_Links_Link_Image_id_operator
-  OR: [Hero_HeroFields_Links_Link_Image_where_or]
-  AND: [Hero_HeroFields_Links_Link_Image_where_and]
+input Content_ContentFields_Items_Links_Link_Image_where {
+  alt: Content_ContentFields_Items_Links_Link_Image_alt_operator
+  updatedAt: Content_ContentFields_Items_Links_Link_Image_updatedAt_operator
+  createdAt: Content_ContentFields_Items_Links_Link_Image_createdAt_operator
+  url: Content_ContentFields_Items_Links_Link_Image_url_operator
+  filename: Content_ContentFields_Items_Links_Link_Image_filename_operator
+  mimeType: Content_ContentFields_Items_Links_Link_Image_mimeType_operator
+  filesize: Content_ContentFields_Items_Links_Link_Image_filesize_operator
+  width: Content_ContentFields_Items_Links_Link_Image_width_operator
+  height: Content_ContentFields_Items_Links_Link_Image_height_operator
+  id: Content_ContentFields_Items_Links_Link_Image_id_operator
+  OR: [Content_ContentFields_Items_Links_Link_Image_where_or]
+  AND: [Content_ContentFields_Items_Links_Link_Image_where_and]
 }
 
-input Hero_HeroFields_Links_Link_Image_alt_operator {
+input Content_ContentFields_Items_Links_Link_Image_alt_operator {
   equals: String
   not_equals: String
   like: String
@@ -4057,7 +4161,7 @@ input Hero_HeroFields_Links_Link_Image_alt_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_updatedAt_operator {
+input Content_ContentFields_Items_Links_Link_Image_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -4068,7 +4172,7 @@ input Hero_HeroFields_Links_Link_Image_updatedAt_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_createdAt_operator {
+input Content_ContentFields_Items_Links_Link_Image_createdAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -4079,7 +4183,7 @@ input Hero_HeroFields_Links_Link_Image_createdAt_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_url_operator {
+input Content_ContentFields_Items_Links_Link_Image_url_operator {
   equals: String
   not_equals: String
   like: String
@@ -4090,7 +4194,7 @@ input Hero_HeroFields_Links_Link_Image_url_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_filename_operator {
+input Content_ContentFields_Items_Links_Link_Image_filename_operator {
   equals: String
   not_equals: String
   like: String
@@ -4101,7 +4205,7 @@ input Hero_HeroFields_Links_Link_Image_filename_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_mimeType_operator {
+input Content_ContentFields_Items_Links_Link_Image_mimeType_operator {
   equals: String
   not_equals: String
   like: String
@@ -4112,7 +4216,7 @@ input Hero_HeroFields_Links_Link_Image_mimeType_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_filesize_operator {
+input Content_ContentFields_Items_Links_Link_Image_filesize_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -4122,7 +4226,7 @@ input Hero_HeroFields_Links_Link_Image_filesize_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_width_operator {
+input Content_ContentFields_Items_Links_Link_Image_width_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -4132,7 +4236,7 @@ input Hero_HeroFields_Links_Link_Image_width_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_height_operator {
+input Content_ContentFields_Items_Links_Link_Image_height_operator {
   equals: Float
   not_equals: Float
   greater_than_equal: Float
@@ -4142,7 +4246,7 @@ input Hero_HeroFields_Links_Link_Image_height_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_id_operator {
+input Content_ContentFields_Items_Links_Link_Image_id_operator {
   equals: String
   not_equals: String
   like: String
@@ -4153,36 +4257,36 @@ input Hero_HeroFields_Links_Link_Image_id_operator {
   exists: Boolean
 }
 
-input Hero_HeroFields_Links_Link_Image_where_or {
-  alt: Hero_HeroFields_Links_Link_Image_alt_operator
-  updatedAt: Hero_HeroFields_Links_Link_Image_updatedAt_operator
-  createdAt: Hero_HeroFields_Links_Link_Image_createdAt_operator
-  url: Hero_HeroFields_Links_Link_Image_url_operator
-  filename: Hero_HeroFields_Links_Link_Image_filename_operator
-  mimeType: Hero_HeroFields_Links_Link_Image_mimeType_operator
-  filesize: Hero_HeroFields_Links_Link_Image_filesize_operator
-  width: Hero_HeroFields_Links_Link_Image_width_operator
-  height: Hero_HeroFields_Links_Link_Image_height_operator
-  id: Hero_HeroFields_Links_Link_Image_id_operator
+input Content_ContentFields_Items_Links_Link_Image_where_or {
+  alt: Content_ContentFields_Items_Links_Link_Image_alt_operator
+  updatedAt: Content_ContentFields_Items_Links_Link_Image_updatedAt_operator
+  createdAt: Content_ContentFields_Items_Links_Link_Image_createdAt_operator
+  url: Content_ContentFields_Items_Links_Link_Image_url_operator
+  filename: Content_ContentFields_Items_Links_Link_Image_filename_operator
+  mimeType: Content_ContentFields_Items_Links_Link_Image_mimeType_operator
+  filesize: Content_ContentFields_Items_Links_Link_Image_filesize_operator
+  width: Content_ContentFields_Items_Links_Link_Image_width_operator
+  height: Content_ContentFields_Items_Links_Link_Image_height_operator
+  id: Content_ContentFields_Items_Links_Link_Image_id_operator
 }
 
-input Hero_HeroFields_Links_Link_Image_where_and {
-  alt: Hero_HeroFields_Links_Link_Image_alt_operator
-  updatedAt: Hero_HeroFields_Links_Link_Image_updatedAt_operator
-  createdAt: Hero_HeroFields_Links_Link_Image_createdAt_operator
-  url: Hero_HeroFields_Links_Link_Image_url_operator
-  filename: Hero_HeroFields_Links_Link_Image_filename_operator
-  mimeType: Hero_HeroFields_Links_Link_Image_mimeType_operator
-  filesize: Hero_HeroFields_Links_Link_Image_filesize_operator
-  width: Hero_HeroFields_Links_Link_Image_width_operator
-  height: Hero_HeroFields_Links_Link_Image_height_operator
-  id: Hero_HeroFields_Links_Link_Image_id_operator
+input Content_ContentFields_Items_Links_Link_Image_where_and {
+  alt: Content_ContentFields_Items_Links_Link_Image_alt_operator
+  updatedAt: Content_ContentFields_Items_Links_Link_Image_updatedAt_operator
+  createdAt: Content_ContentFields_Items_Links_Link_Image_createdAt_operator
+  url: Content_ContentFields_Items_Links_Link_Image_url_operator
+  filename: Content_ContentFields_Items_Links_Link_Image_filename_operator
+  mimeType: Content_ContentFields_Items_Links_Link_Image_mimeType_operator
+  filesize: Content_ContentFields_Items_Links_Link_Image_filesize_operator
+  width: Content_ContentFields_Items_Links_Link_Image_width_operator
+  height: Content_ContentFields_Items_Links_Link_Image_height_operator
+  id: Content_ContentFields_Items_Links_Link_Image_id_operator
 }
 
-enum Hero_HeroFields_Links_Link_appearance {
-  default
+enum Content_ContentFields_Items_Links_Link_appearance {
   primary
   secondary
+  default
 }
 
 type Page_Breadcrumbs {
@@ -5098,7 +5202,7 @@ type PageVersion_Version {
   _status: PageVersion_Version__status
 }
 
-union PageVersion_Version_Layout = Hero | Cta | Content | FeaturedContent | MediaContent | ReusableContentBlock
+union PageVersion_Version_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedProducts | FeaturedReviews | Hero | MediaContent | ReusableContentBlock
 
 type PageVersion_Version_Breadcrumbs {
   doc: Page
@@ -8751,7 +8855,7 @@ type ProductVersion_Version_Stock {
   id: String
 }
 
-union ProductVersion_Version_Layout = Content | Cta | FeaturedContent | Hero | MediaContent | Perks | ProductComponents | ProductOverview | ReusableContentBlock
+union ProductVersion_Version_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedReviews | Hero | MediaContent | Perks | ProductComponents | ProductOverview | ReusableContentBlock
 
 type ProductVersion_Version_Breadcrumbs {
   doc: Product

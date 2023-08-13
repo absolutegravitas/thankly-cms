@@ -13,12 +13,12 @@ import { MediaContentBlock } from '../blocks/MediaContent'
 import { ReusableContentBlock } from '../blocks/ReusableContent'
 import { fullTitle } from '../fields/fullTitle'
 import { slugField } from '../fields/slug'
-import { FeaturedContentBlock } from '../blocks/FeaturedProducts'
 import { PerksBlock } from '../blocks/Perks'
 import { ProductOverviewBlock } from '../blocks/ProductOverview'
 import { ProductComponentsBlock } from '../blocks/ProductComponents'
 import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
 import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
+import { FeaturedLogosBlock } from '../blocks/FeaturedLogos'
 
 const Products: CollectionConfig = {
   slug: 'products',
@@ -111,6 +111,7 @@ const Products: CollectionConfig = {
         BasicContentBlock, // a basic content block for chunks of text
         CallToActionBlock, // a call to action block with additional functions
         FeaturedFaqsBlock,
+        FeaturedLogosBlock,
         FeaturedReviewsBlock,
         HeroBlock, // a hero block with image, video etc. overlays
         MediaContentBlock, // image with some content positioned left & right e.g. feature

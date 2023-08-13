@@ -64,90 +64,6 @@ export interface Page {
   title: string;
   layout: (
     | {
-        heroFields: {
-          image: string | Media;
-          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
-          content?: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              image?: string | Media;
-              description?: string;
-              appearance?: 'default' | 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'hero';
-      }
-    | {
-        ctaFields: {
-          layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
-          trailingContent?: {
-            [k: string]: unknown;
-          }[];
-          items: {
-            media?: string | Media;
-            content: {
-              [k: string]: unknown;
-            }[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                image?: string | Media;
-                description?: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cta';
-      }
-    | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           bgColor?:
@@ -199,8 +115,8 @@ export interface Page {
         blockType: 'content';
       }
     | {
-        featuredReviewsFields: {
-          layout?: 'single' | 'threeColumns';
+        ctaFields: {
+          layout?: '2options' | 'simpleCentred' | 'centredImage';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -216,19 +132,38 @@ export interface Page {
           trailingContent?: {
             [k: string]: unknown;
           }[];
-          items:
-            | {
-                value: string;
-                relationTo: 'reviews';
-              }[]
-            | {
-                value: Review;
-                relationTo: 'reviews';
-              }[];
+          items: {
+            media?: string | Media;
+            content?: {
+              [k: string]: unknown;
+            }[];
+            links?: {
+              link: {
+                type?: 'reference' | 'custom';
+                newTab?: boolean;
+                reference:
+                  | {
+                      value: string | Page;
+                      relationTo: 'pages';
+                    }
+                  | {
+                      value: string | Product;
+                      relationTo: 'products';
+                    };
+                url: string;
+                label: string;
+                image?: string | Media;
+                description?: string;
+                appearance?: 'primary' | 'secondary' | 'default';
+              };
+              id?: string;
+            }[];
+            id?: string;
+          }[];
         };
         id?: string;
         blockName?: string;
-        blockType: 'featuredReviews';
+        blockType: 'cta';
       }
     | {
         featuredFaqsFields: {
@@ -263,6 +198,33 @@ export interface Page {
         blockType: 'featuredFaqs';
       }
     | {
+        featuredLogosFields?: {
+          layout?: 'threeColumn' | 'centredAccordion';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredLogos';
+      }
+    | {
         featuredProductsFields: {
           layout?: 'single' | 'threeColumn' | 'threeFancy';
           bgColor?:
@@ -295,10 +257,75 @@ export interface Page {
         blockType: 'featuredProducts';
       }
     | {
+        featuredReviewsFields: {
+          layout?: 'single' | 'threeColumns';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items:
+            | {
+                value: string;
+                relationTo: 'reviews';
+              }[]
+            | {
+                value: Review;
+                relationTo: 'reviews';
+              }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredReviews';
+      }
+    | {
+        heroFields: {
+          image: string | Media;
+          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
+          content?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              image?: string | Media;
+              description?: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
+    | {
         mediaContentFields: {
           layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
           media: string | Media;
-          content: {
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -438,7 +465,7 @@ export interface Product {
           }[];
           items: {
             media?: string | Media;
-            content: {
+            content?: {
               [k: string]: unknown;
             }[];
             links?: {
@@ -500,6 +527,33 @@ export interface Product {
         id?: string;
         blockName?: string;
         blockType: 'featuredFaqs';
+      }
+    | {
+        featuredLogosFields?: {
+          layout?: 'threeColumn' | 'centredAccordion';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredLogos';
       }
     | {
         featuredReviewsFields: {
@@ -570,7 +624,7 @@ export interface Product {
         mediaContentFields: {
           layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
           media: string | Media;
-          content: {
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
@@ -633,14 +687,14 @@ export interface Product {
           }[];
           features?: {
             image: string | Media;
-            content: {
+            content?: {
               [k: string]: unknown;
             }[];
             id?: string;
           }[];
           image: string | Media;
           content?: {
-            content: {
+            content?: {
               [k: string]: unknown;
             }[];
             id?: string;
@@ -651,12 +705,12 @@ export interface Product {
         blockType: 'productComponents';
       }
     | {
-        productOverviewFields: {
+        productOverviewFields?: {
           images?: {
             image: string | Media;
             id?: string;
           }[];
-          content: {
+          content?: {
             [k: string]: unknown;
           }[];
         };
@@ -756,39 +810,6 @@ export interface ReusableContent {
   title: string;
   layout: (
     | {
-        heroFields: {
-          image: string | Media;
-          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
-          content?: {
-            [k: string]: unknown;
-          }[];
-          links?: {
-            link: {
-              type?: 'reference' | 'custom';
-              newTab?: boolean;
-              reference:
-                | {
-                    value: string | Page;
-                    relationTo: 'pages';
-                  }
-                | {
-                    value: string | Product;
-                    relationTo: 'products';
-                  };
-              url: string;
-              label: string;
-              image?: string | Media;
-              description?: string;
-              appearance?: 'default' | 'primary' | 'secondary';
-            };
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'hero';
-      }
-    | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
           bgColor?:
@@ -859,7 +880,7 @@ export interface ReusableContent {
           }[];
           items: {
             media?: string | Media;
-            content: {
+            content?: {
               [k: string]: unknown;
             }[];
             links?: {
@@ -921,6 +942,33 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'featuredFaqs';
+      }
+    | {
+        featuredLogosFields?: {
+          layout?: 'threeColumn' | 'centredAccordion';
+          bgColor?:
+            | 'text-white'
+            | 'text-offwhite'
+            | 'text-black'
+            | 'text-green'
+            | 'text-lightgreen'
+            | 'text-khaki'
+            | 'text-lightbrown'
+            | 'text-lighterbrown';
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          images?: {
+            image: string | Media;
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'featuredLogos';
       }
     | {
         featuredProductsFields: {
@@ -987,10 +1035,43 @@ export interface ReusableContent {
         blockType: 'featuredReviews';
       }
     | {
+        heroFields: {
+          image: string | Media;
+          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
+          content?: {
+            [k: string]: unknown;
+          }[];
+          links?: {
+            link: {
+              type?: 'reference' | 'custom';
+              newTab?: boolean;
+              reference:
+                | {
+                    value: string | Page;
+                    relationTo: 'pages';
+                  }
+                | {
+                    value: string | Product;
+                    relationTo: 'products';
+                  };
+              url: string;
+              label: string;
+              image?: string | Media;
+              description?: string;
+              appearance?: 'default' | 'primary' | 'secondary';
+            };
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'hero';
+      }
+    | {
         mediaContentFields: {
           layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
           media: string | Media;
-          content: {
+          content?: {
             [k: string]: unknown;
           }[];
           links?: {
