@@ -15,6 +15,7 @@ export interface Config {
     faqs: Faq;
     orders: Order;
     products: Product;
+    categories: Category;
     reviews: Review;
     discounts: Discount;
     stockItems: StockItem;
@@ -167,7 +168,6 @@ export interface Page {
       }
     | {
         featuredFaqsFields: {
-          layout?: 'threeColumn' | 'centredAccordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -386,6 +386,7 @@ export interface Product {
   title: string;
   description: string;
   quantity: number;
+  categories?: string[] | Category[];
   stripeProductID?: string;
   stripePriceID?: string;
   unit_amount?: number;
@@ -447,59 +448,7 @@ export interface Product {
         blockType: 'content';
       }
     | {
-        ctaFields: {
-          layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
-          trailingContent?: {
-            [k: string]: unknown;
-          }[];
-          items: {
-            media?: string | Media;
-            content?: {
-              [k: string]: unknown;
-            }[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                image?: string | Media;
-                description?: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cta';
-      }
-    | {
         featuredFaqsFields: {
-          layout?: 'threeColumn' | 'centredAccordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -655,34 +604,6 @@ export interface Product {
         blockType: 'mediaContent';
       }
     | {
-        productComponentsFields: {
-          layout: 'twoColumns' | 'fourColumns' | 'imageLeft' | 'imageRight';
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
-          trailingContent?: {
-            [k: string]: unknown;
-          }[];
-          features?: {
-            image: string | Media;
-            content?: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-          image: string | Media;
-          content?: {
-            content?: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'productComponents';
-      }
-    | {
         productOverviewFields?: {
           images?: {
             image: string | Media;
@@ -720,6 +641,12 @@ export interface Product {
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
+}
+export interface Category {
+  id: string;
+  title?: string;
+  updatedAt: string;
+  createdAt: string;
 }
 export interface StockItem {
   id: string;
@@ -891,7 +818,6 @@ export interface ReusableContent {
       }
     | {
         featuredFaqsFields: {
-          layout?: 'threeColumn' | 'centredAccordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'

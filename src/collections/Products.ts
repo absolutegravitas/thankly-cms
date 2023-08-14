@@ -54,11 +54,18 @@ const Products: CollectionConfig = {
     { name: 'title', type: 'text', required: true },
     { name: 'description', type: 'textarea', required: true },
     { name: 'quantity', type: 'number', required: true, admin: { position: 'sidebar' } },
-
+    {
+      name: 'categories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
     {
       label: 'Price Details',
       type: 'collapsible',
-      admin: { position: 'sidebar' },
       fields: [
         { name: 'stripeProductID', type: 'text', required: false },
         { name: 'stripePriceID', type: 'text', required: false },
@@ -69,14 +76,12 @@ const Products: CollectionConfig = {
           type: 'number',
           required: false,
           defaultValue: '0',
-          admin: { position: 'sidebar' },
         },
         {
           name: 'currency',
           type: 'text',
           required: false,
           defaultValue: 'aud',
-          admin: { position: 'sidebar' },
         },
       ],
     },
@@ -99,7 +104,7 @@ const Products: CollectionConfig = {
         },
       ],
     },
-    
+
     {
       name: 'layout',
       label: ' ',
@@ -107,13 +112,13 @@ const Products: CollectionConfig = {
       required: true,
       blocks: [
         BasicContentBlock, // a basic content block for chunks of text
-        CallToActionBlock, // a call to action block with additional functions
+        // CallToActionBlock, // a call to action block with additional functions
         FeaturedFaqsBlock,
         FeaturedLogosBlock,
         FeaturedReviewsBlock,
         HeroBlock, // a hero block with image, video etc. overlays
         MediaContentBlock, // image with some content positioned left & right e.g. feature
-        ProductComponentsBlock,
+        // ProductComponentsBlock,
         ProductOverviewBlock, //https://tailwindui.com/components/ecommerce/components/product-overviews#component-2904df5d10ee9fc81ba07d1ad61a27ca
         ReusableContentBlock, // re-use an already created block, ie. one of the above typess
       ],

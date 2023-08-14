@@ -35,6 +35,7 @@ import {
   Users,
   Discounts,
   Faqs,
+  Categories
 } from './collections'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
@@ -68,6 +69,7 @@ export default buildConfig({
 
     Orders,
     Products,
+    Categories,
     Reviews,
     Discounts,
 

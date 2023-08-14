@@ -10,17 +10,17 @@ export const FeaturedFaqsBlock: Block = {
     blockFields({
       name: 'featuredFaqsFields',
       fields: [
-        {
-          type: 'select',
-          name: 'layout',
-          label: 'Layout',
-          required: false,
-          defaultValue: 'centredAccordion',
-          options: [
-            { label: 'Three Columns', value: 'threeColumn' },
-            { label: 'Centred Accordion', value: 'centredAccordion' },
-          ],
-        },
+        // {
+        //   type: 'select',
+        //   name: 'layout',
+        //   label: 'Layout',
+        //   required: false,
+        //   defaultValue: 'accordion',
+        //   options: [
+        //     { label: 'Three Columns', value: 'threeColumn' },
+        //     { label: 'Accordion', value: 'accordion' },
+        //   ],
+        // },
         {
           name: 'bgColor',
           label: 'Section Background Color',
