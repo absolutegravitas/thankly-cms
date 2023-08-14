@@ -5,8 +5,7 @@ const Brands: CollectionConfig = {
   slug: 'brands',
   admin: {
     useAsTitle: 'title',
-    group: 'Shop'
-
+    group: 'Shop',
   },
   access: {
     read: () => true,
@@ -16,16 +15,11 @@ const Brands: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
-    {
-      type: 'row',
-      fields: [
-        { name: 'title', type: 'text', required: true, admin: { width: '50%', }, },
-        { name: 'website', type: 'text', required: true, admin: { width: '50%', }, },
-      ]
-    },
-    { name: 'comments', type: 'textarea', required: false, },
-    { name: 'logo', type: 'upload', relationTo: 'media', required: true, },
-
+    { name: 'logo', type: 'upload', relationTo: 'media', required: true },
+    { name: 'title', type: 'text', required: true, admin: { width: '50%' } },
+    { name: 'website', type: 'text', required: true, admin: { width: '50%' } },
+    { name: 'description', type: 'textarea', required: false },
+    { name: 'comments', type: 'textarea', required: false },
   ],
 }
 
