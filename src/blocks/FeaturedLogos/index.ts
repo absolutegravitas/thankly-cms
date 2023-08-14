@@ -15,10 +15,10 @@ export const FeaturedLogosBlock: Block = {
           name: 'layout',
           label: 'Layout',
           required: false,
-          defaultValue: 'centredAccordion',
+          defaultValue: 'accordion',
           options: [
             { label: 'Three Columns', value: 'threeColumn' },
-            { label: 'Centred Accordion', value: 'centredAccordion' },
+            { label: 'Accordion', value: 'Accordion' },
           ],
         },
         {
