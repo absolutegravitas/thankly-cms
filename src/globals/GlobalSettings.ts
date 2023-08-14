@@ -10,7 +10,7 @@ const GlobalSettings: GlobalConfig = {
   // graphQL: { name: 'Menus' },
   fields: [
     { name: 'banner', label: 'Banner Text', type: 'text', required: false },
-   
+    
   ],
 }
 export default GlobalSettings

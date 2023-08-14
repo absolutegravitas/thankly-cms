@@ -385,14 +385,15 @@ export interface Product {
   slug?: string;
   title: string;
   description: string;
-  stripeID?: string;
   quantity: number;
+  stripeProductID?: string;
+  stripePriceID?: string;
+  unit_amount?: number;
+  currency?: string;
   stock?: {
     stock?: string[] | StockItem[];
     id?: string;
   }[];
-  currency?: string;
-  unit_amount?: number;
   layout: (
     | {
         contentFields?: {
@@ -722,38 +723,38 @@ export interface Product {
 }
 export interface StockItem {
   id: string;
+  sku?: string;
   title?: string;
-  type?: 'card' | 'gift' | 'box' | 'ribbon';
   description?: string;
-  value?: 'high' | 'medium' | 'low' | 'discontinued';
+  discontinued?: boolean;
   brand?: string | Brand;
   supplier?: string | Supplier;
-  sku?: string;
+  type?: 'card' | 'gift' | 'box' | 'ribbon';
   totalQty?: number;
   retailUnitCost?: number;
   wholesaleUnitCost?: number;
   comments?: string;
-  discontinued?: boolean;
   image?: string | Media;
   updatedAt: string;
   createdAt: string;
 }
 export interface Brand {
   id: string;
+  logo?: string | Media;
   title: string;
-  website: string;
+  website?: string;
+  description?: string;
   comments?: string;
-  logo: string | Media;
   updatedAt: string;
   createdAt: string;
 }
 export interface Supplier {
   id: string;
+  logo?: string | Media;
   title: string;
-  website: string;
-  relationship: 'positive' | 'neutral' | 'negative';
+  website?: string;
+  description?: string;
   comments?: string;
-  logo: string | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -772,13 +773,13 @@ export interface Faq {
 }
 export interface Review {
   id: string;
-  note?: string;
-  providerName?: string;
+  providerName: string;
+  note: string;
+  rating?: number;
+  image?: string | Media;
   providerOrg?: string;
   link?: string;
   channel?: 'instagram' | 'facebook' | 'other';
-  image?: string | Media;
-  rating?: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -1107,12 +1108,12 @@ export interface Order {
   items: {
     type?: 'product' | 'discount' | 'other';
     thankly?: {
-      status?: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
-      product?: string[] | Product[];
+      status?: 'processing' | 'shipped' | 'delivered' | 'cancelled';
       tracking?: {
         number?: string;
         link?: string;
       };
+      product?: string[] | Product[];
       stripePriceID?: string;
       message?: {
         styles?: 'normal' | 'cursive' | 'capitals';
@@ -1129,7 +1130,6 @@ export interface Order {
         state?: string;
         postcode?: string;
       };
-      requestedShipDate?: string;
     };
     discount?: string | Discount;
     id?: string;
@@ -1141,10 +1141,10 @@ export interface Discount {
   id: string;
   code?: string;
   description?: string;
+  type?: 'percent' | 'amount';
+  value?: number;
   activeDate?: string;
   expiryDate?: string;
-  value?: number;
-  type?: 'percent' | 'amount';
   updatedAt: string;
   createdAt: string;
 }
