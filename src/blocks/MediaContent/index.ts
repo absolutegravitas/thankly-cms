@@ -20,7 +20,7 @@ export const MediaContentBlock: Block = {
             { label: 'Media / Content', value: 'mediaContent' },
             { label: 'Centred w Large Media', value: 'centredMedia' },
           ],
-          admin: { description: 'Choose how to align the content.', width: '50%' },
+          admin: { description: 'Choose how to align the content.',},
         },
         { name: 'media', type: 'upload', relationTo: 'media', required: true },
         lexicalRichText({name: 'content',label: 'Content',}),

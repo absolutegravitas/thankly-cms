@@ -53,14 +53,39 @@ const Products: CollectionConfig = {
     slugField(),
     { name: 'title', type: 'text', required: true },
     { name: 'description', type: 'textarea', required: true },
-
-    { name: 'stripeID', type: 'text', required: false, admin: { position: 'sidebar' } },
     { name: 'quantity', type: 'number', required: true, admin: { position: 'sidebar' } },
+
+    {
+      label: 'Price Details',
+      type: 'collapsible',
+      admin: { position: 'sidebar' },
+      fields: [
+        { name: 'stripeProductID', type: 'text', required: false },
+        { name: 'stripePriceID', type: 'text', required: false },
+
+        {
+          name: 'unit_amount',
+          label: 'price',
+          type: 'number',
+          required: false,
+          defaultValue: '0',
+          admin: { position: 'sidebar' },
+        },
+        {
+          name: 'currency',
+          type: 'text',
+          required: false,
+          defaultValue: 'aud',
+          admin: { position: 'sidebar' },
+        },
+      ],
+    },
+
     {
       name: 'stock',
       type: 'array',
-      label: 'Stock',
-      admin: { position: 'sidebar' },
+      label: 'Stock Items',
+      // admin: { position: 'sidebar' },
       minRows: 1,
       // maxRows: 4,
       labels: { singular: 'Stock', plural: 'Stock' },
@@ -70,37 +95,11 @@ const Products: CollectionConfig = {
           type: 'relationship',
           relationTo: 'stockItems',
           hasMany: true,
-          // admin: { width: '50%', },
+          //
         },
       ],
     },
-    // {
-    // name: 'prices',
-    // type: 'collapsible',
-    // label: 'Prices',
-    // admin: { position: 'sidebar' },
-    // minRows: 1,
-    // maxRows: 4,
-    // labels: { singular: 'Price', plural: 'Prices' },
-    // fields: [
-    { name: 'stripeID', type: 'text', required: false, admin: { position: 'sidebar' } },
-    {
-      name: 'currency',
-      type: 'text',
-      required: false,
-      defaultValue: 'aud',
-      admin: { position: 'sidebar' },
-    },
-    {
-      name: 'unit_amount',
-      label: 'price',
-      type: 'number',
-      required: false,
-      defaultValue: '0',
-      admin: { position: 'sidebar' },
-    },
-    // ],
-    // },
+    
     {
       name: 'layout',
       label: ' ',

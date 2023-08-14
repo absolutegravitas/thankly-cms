@@ -13,13 +13,13 @@ export const UserFields: CollectionConfig['fields'] = [
   {
     type: 'row',
     fields: [
-      { name: 'name', type: 'text', required: true, admin: { width: '50%' } },
+      { name: 'name', type: 'text', required: true, },
       {
         name: 'business',
         label: 'Business / Organisation',
         type: 'text',
         required: false,
-        admin: { width: '50%' },
+        admin: {},
       },
       {
         name: 'roles',
@@ -27,7 +27,7 @@ export const UserFields: CollectionConfig['fields'] = [
         hasMany: true,
         defaultValue: ['customer'],
         admin: {
-          width: '50%',
+          
         },
         options: [
           {
@@ -61,7 +61,7 @@ export const UserFields: CollectionConfig['fields'] = [
         },
         admin: {
           // psosition: 'sidebar',
-          width: '50%',
+          
           components: {
             Field: CustomerSelect,
           },

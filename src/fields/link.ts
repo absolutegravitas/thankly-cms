@@ -53,7 +53,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
             defaultValue: 'reference',
             admin: {
               layout: 'horizontal',
-              width: '50%',
+              
             },
           },
           {
@@ -61,7 +61,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
             label: 'Open in new tab',
             type: 'checkbox',
             admin: {
-              width: '50%',
+              
               style: {
                 alignSelf: 'flex-end',
               },
@@ -109,7 +109,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           type: 'text',
           required: true,
           admin: {
-            width: '50%',
+            
           },
         },
         {

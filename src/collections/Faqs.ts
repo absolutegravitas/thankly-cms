@@ -28,6 +28,7 @@ const Faqs: CollectionConfig = {
       minRows: 1,
       fields: [{name: 'name',type: 'text',required: false,},],
       required: false,
+      admin: {position:'sidebar'}
     },
   ],
 }

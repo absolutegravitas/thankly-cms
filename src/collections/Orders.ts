@@ -123,18 +123,60 @@ export const Orders: CollectionConfig = {
             condition: (_, siblingData) => siblingData.type === 'product',
           },
           fields: [
+            // ITEM STATUS
             {
-              name: 'status',
-              type: 'select',
-              defaultValue: 'processing',
-              hasMany: false,
-              required: false,
-              admin: { width: '50%', isClearable: true },
-              options: [
-                { label: 'processing', value: 'Processing' },
-                { label: 'shipped', value: 'Shipped' },
-                { label: 'delivered', value: 'Delivered' },
-                { label: 'cancelled', value: 'Cancelled' },
+              label: 'Item Status & Other Details',
+              type: 'collapsible',
+              fields: [
+                {
+                  name: 'status',
+                  label: 'Order Item Status',
+                  type: 'select',
+                  defaultValue: 'processing',
+                  hasMany: false,
+                  required: false,
+                  admin: { isClearable: true },
+                  options: [
+                    { value: 'processing', label: 'Processing' },
+                    { value: 'shipped', label: 'Shipped' },
+                    { value: 'delivered', label: 'Delivered' },
+                    { value: 'cancelled', label: 'Cancelled' },
+                  ],
+                },
+                // {
+                //   name: 'requestedShipDate',
+                //   type: 'date',
+                //   required: false,
+                //   admin: {
+                //     date: {
+                //       pickerAppearance: 'dayOnly',
+                //       displayFormat: 'd MMM yyy',
+                //     },
+                //   },
+                // },
+                // {
+                //   name: 'actualShipDate',
+                //   type: 'date',
+                //   required: false,
+                //   admin: {
+                //     date: {
+                //       pickerAppearance: 'dayOnly',
+                //       displayFormat: 'd MMM yyy',
+                //     },
+                //   },
+                // },
+
+                {
+                  name: 'tracking',
+                  label: 'Tracking',
+                  type: 'group',
+                  fields: [
+                    { name: 'number', type: 'text', required: false },
+                    { name: 'link', type: 'text', required: false },
+                  ],
+                },
+
+                // { name: 'number', type: 'text', required: false },
               ],
             },
 
@@ -150,30 +192,24 @@ export const Orders: CollectionConfig = {
                   relationTo: 'products',
                   hasMany: true,
                 },
-                {
-                  name: 'tracking',
-                  label: 'Tracking',
-                  type: 'group',
-                  fields: [
-                    { name: 'number', type: 'text', required: false },
-                    { name: 'link', type: 'text', required: false },
-                  ],
-                },
+
                 { name: 'stripePriceID', type: 'text', required: false },
               ],
             },
 
             // MESSAGE
             {
-              label: 'Message',
+              label: 'Message Details & Options',
               type: 'collapsible',
               fields: [
                 {
                   name: 'message',
+                  label: ' ',
                   type: 'group',
                   fields: [
                     {
                       name: 'styles',
+                      label: 'Writing Styles',
                       type: 'select',
                       defaultValue: 'normal',
                       hasMany: false,
@@ -203,6 +239,7 @@ export const Orders: CollectionConfig = {
                 {
                   name: 'receiver',
                   label: ' ',
+
                   type: 'group',
                   fields: [
                     { name: 'name', type: 'text', required: false },
@@ -228,19 +265,6 @@ export const Orders: CollectionConfig = {
                     { name: 'postcode', type: 'text', required: false },
                   ],
                 },
-                {
-                  name: 'requestedShipDate',
-                  type: 'date',
-                  required: false,
-                  admin: {
-                    width: '50%',
-                    date: {
-                      pickerAppearance: 'dayOnly',
-                      displayFormat: 'd MMM yyy',
-                    },
-                  },
-                },
-                { name: 'requestedShipDate', type: 'date', required: false },
               ],
             },
           ],

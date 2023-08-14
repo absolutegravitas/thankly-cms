@@ -97,6 +97,7 @@ export default buildConfig({
       collections: ['pages', 'products'],
       uploadsCollection: 'media',
       generateTitle,
+      
     }),
     // stripePlugin({
     //   stripeSecretKey: String(process.env.STRIPE_SECRET_KEY),
