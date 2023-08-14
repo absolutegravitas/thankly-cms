@@ -1693,7 +1693,7 @@ input StockItem_Image_where_and {
   id: StockItem_Image_id_operator
 }
 
-union Product_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedReviews | Hero | MediaContent | Perks | ProductComponents | ProductOverview | ReusableContentBlock
+union Product_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedReviews | Hero | MediaContent | ProductComponents | ProductOverview | ReusableContentBlock
 
 type Cta {
   ctaFields: Cta_CtaFields
@@ -2142,7 +2142,7 @@ type FeaturedLogos_FeaturedLogosFields {
 
 enum FeaturedLogos_FeaturedLogosFields_layout {
   threeColumn
-  centredAccordion
+  Accordion
 }
 
 enum FeaturedLogos_FeaturedLogosFields_bgColor {
@@ -3233,183 +3233,6 @@ enum MediaContent_MediaContentFields_Links_Link_appearance {
   default
 }
 
-type Perks {
-  perksFields: Perks_PerksFields
-  id: String
-  blockName: String
-  blockType: String
-}
-
-type Perks_PerksFields {
-  bgColor: Perks_PerksFields_bgColor
-  items: [Perks_PerksFields_Items!]
-}
-
-enum Perks_PerksFields_bgColor {
-  text_white
-  text_offwhite
-  text_black
-  text_green
-  text_lightgreen
-  text_khaki
-  text_lightbrown
-  text_lighterbrown
-}
-
-type Perks_PerksFields_Items {
-  image(where: Perks_PerksFields_Items_Image_where): Media
-  content(depth: Int): JSON
-  id: String
-}
-
-input Perks_PerksFields_Items_Image_where {
-  alt: Perks_PerksFields_Items_Image_alt_operator
-  updatedAt: Perks_PerksFields_Items_Image_updatedAt_operator
-  createdAt: Perks_PerksFields_Items_Image_createdAt_operator
-  url: Perks_PerksFields_Items_Image_url_operator
-  filename: Perks_PerksFields_Items_Image_filename_operator
-  mimeType: Perks_PerksFields_Items_Image_mimeType_operator
-  filesize: Perks_PerksFields_Items_Image_filesize_operator
-  width: Perks_PerksFields_Items_Image_width_operator
-  height: Perks_PerksFields_Items_Image_height_operator
-  id: Perks_PerksFields_Items_Image_id_operator
-  OR: [Perks_PerksFields_Items_Image_where_or]
-  AND: [Perks_PerksFields_Items_Image_where_and]
-}
-
-input Perks_PerksFields_Items_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Perks_PerksFields_Items_Image_where_or {
-  alt: Perks_PerksFields_Items_Image_alt_operator
-  updatedAt: Perks_PerksFields_Items_Image_updatedAt_operator
-  createdAt: Perks_PerksFields_Items_Image_createdAt_operator
-  url: Perks_PerksFields_Items_Image_url_operator
-  filename: Perks_PerksFields_Items_Image_filename_operator
-  mimeType: Perks_PerksFields_Items_Image_mimeType_operator
-  filesize: Perks_PerksFields_Items_Image_filesize_operator
-  width: Perks_PerksFields_Items_Image_width_operator
-  height: Perks_PerksFields_Items_Image_height_operator
-  id: Perks_PerksFields_Items_Image_id_operator
-}
-
-input Perks_PerksFields_Items_Image_where_and {
-  alt: Perks_PerksFields_Items_Image_alt_operator
-  updatedAt: Perks_PerksFields_Items_Image_updatedAt_operator
-  createdAt: Perks_PerksFields_Items_Image_createdAt_operator
-  url: Perks_PerksFields_Items_Image_url_operator
-  filename: Perks_PerksFields_Items_Image_filename_operator
-  mimeType: Perks_PerksFields_Items_Image_mimeType_operator
-  filesize: Perks_PerksFields_Items_Image_filesize_operator
-  width: Perks_PerksFields_Items_Image_width_operator
-  height: Perks_PerksFields_Items_Image_height_operator
-  id: Perks_PerksFields_Items_Image_id_operator
-}
-
 type ProductComponents {
   productComponentsFields: ProductComponents_ProductComponentsFields
   id: String
@@ -3924,7 +3747,7 @@ type ReusableContent {
   createdAt: DateTime
 }
 
-union ReusableContent_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedProducts | FeaturedReviews | Hero | MediaContent | Perks
+union ReusableContent_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedProducts | FeaturedReviews | Hero | MediaContent
 
 type FeaturedProducts {
   featuredProductsFields: FeaturedProducts_FeaturedProductsFields
@@ -8855,7 +8678,7 @@ type ProductVersion_Version_Stock {
   id: String
 }
 
-union ProductVersion_Version_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedReviews | Hero | MediaContent | Perks | ProductComponents | ProductOverview | ReusableContentBlock
+union ProductVersion_Version_Layout = Content | Cta | FeaturedFaqs | FeaturedLogos | FeaturedReviews | Hero | MediaContent | ProductComponents | ProductOverview | ReusableContentBlock
 
 type ProductVersion_Version_Breadcrumbs {
   doc: Product

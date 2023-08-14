@@ -199,7 +199,7 @@ export interface Page {
       }
     | {
         featuredLogosFields?: {
-          layout?: 'threeColumn' | 'centredAccordion';
+          layout?: 'threeColumn' | 'Accordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -530,7 +530,7 @@ export interface Product {
       }
     | {
         featuredLogosFields?: {
-          layout?: 'threeColumn' | 'centredAccordion';
+          layout?: 'threeColumn' | 'Accordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -652,29 +652,6 @@ export interface Product {
         id?: string;
         blockName?: string;
         blockType: 'mediaContent';
-      }
-    | {
-        perksFields?: {
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
-          items?: {
-            image: string | Media;
-            content?: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'perks';
       }
     | {
         productComponentsFields: {
@@ -945,7 +922,7 @@ export interface ReusableContent {
       }
     | {
         featuredLogosFields?: {
-          layout?: 'threeColumn' | 'centredAccordion';
+          layout?: 'threeColumn' | 'Accordion';
           bgColor?:
             | 'text-white'
             | 'text-offwhite'
@@ -1099,29 +1076,6 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'mediaContent';
-      }
-    | {
-        perksFields?: {
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
-          items?: {
-            image: string | Media;
-            content?: {
-              [k: string]: unknown;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'perks';
       }
   )[];
   updatedAt: string;

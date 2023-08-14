@@ -13,7 +13,6 @@ import { MediaContentBlock } from '../blocks/MediaContent'
 import { ReusableContentBlock } from '../blocks/ReusableContent'
 import { fullTitle } from '../fields/fullTitle'
 import { slugField } from '../fields/slug'
-import { PerksBlock } from '../blocks/Perks'
 import { ProductOverviewBlock } from '../blocks/ProductOverview'
 import { ProductComponentsBlock } from '../blocks/ProductComponents'
 import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
@@ -115,7 +114,6 @@ const Products: CollectionConfig = {
         FeaturedReviewsBlock,
         HeroBlock, // a hero block with image, video etc. overlays
         MediaContentBlock, // image with some content positioned left & right e.g. feature
-        PerksBlock, // https://tailwindui.com/components/ecommerce/components/incentives#component-38742d005e7e8f48feb79dea72a0a8a5
         ProductComponentsBlock,
         ProductOverviewBlock, //https://tailwindui.com/components/ecommerce/components/product-overviews#component-2904df5d10ee9fc81ba07d1ad61a27ca
         ReusableContentBlock, // re-use an already created block, ie. one of the above typess
