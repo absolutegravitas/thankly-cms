@@ -105,7 +105,7 @@ const InputField: React.FC<Props> = props => {
         </div>
       )} */}
       {!isAdding && (
-        <Fragment>
+        <Fragment >
           <ul className={`${baseClass}__colors`}>
             {colorOptions.map((color, i) => (
               <li key={i}>

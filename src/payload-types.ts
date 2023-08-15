@@ -67,15 +67,7 @@ export interface Page {
     | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -118,15 +110,7 @@ export interface Page {
     | {
         ctaFields: {
           layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -168,15 +152,7 @@ export interface Page {
       }
     | {
         featuredFaqsFields: {
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -200,15 +176,7 @@ export interface Page {
     | {
         featuredLogosFields?: {
           layout?: 'threeColumn' | 'Accordion';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -227,15 +195,7 @@ export interface Page {
     | {
         featuredProductsFields: {
           layout?: 'single' | 'threeColumn' | 'threeFancy';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -259,15 +219,7 @@ export interface Page {
     | {
         featuredReviewsFields: {
           layout?: 'single' | 'threeColumns';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -291,7 +243,6 @@ export interface Page {
     | {
         heroFields: {
           image: string | Media;
-          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
           content?: {
             [k: string]: unknown;
           }[];
@@ -399,15 +350,7 @@ export interface Product {
     | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -449,15 +392,7 @@ export interface Product {
       }
     | {
         featuredFaqsFields: {
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -481,15 +416,7 @@ export interface Product {
     | {
         featuredLogosFields?: {
           layout?: 'threeColumn' | 'Accordion';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -508,15 +435,7 @@ export interface Product {
     | {
         featuredReviewsFields: {
           layout?: 'single' | 'threeColumns';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -540,7 +459,6 @@ export interface Product {
     | {
         heroFields: {
           image: string | Media;
-          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
           content?: {
             [k: string]: unknown;
           }[];
@@ -717,15 +635,7 @@ export interface ReusableContent {
     | {
         contentFields?: {
           layout?: 'oneColumn' | 'twoColumns' | 'threeColumns' | 'threeColumnsImage';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -768,15 +678,7 @@ export interface ReusableContent {
     | {
         ctaFields: {
           layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -818,15 +720,7 @@ export interface ReusableContent {
       }
     | {
         featuredFaqsFields: {
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -850,15 +744,7 @@ export interface ReusableContent {
     | {
         featuredLogosFields?: {
           layout?: 'threeColumn' | 'Accordion';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -877,15 +763,7 @@ export interface ReusableContent {
     | {
         featuredProductsFields: {
           layout?: 'single' | 'threeColumn' | 'threeFancy';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -909,15 +787,7 @@ export interface ReusableContent {
     | {
         featuredReviewsFields: {
           layout?: 'single' | 'threeColumns';
-          bgColor?:
-            | 'text-white'
-            | 'text-offwhite'
-            | 'text-black'
-            | 'text-green'
-            | 'text-lightgreen'
-            | 'text-khaki'
-            | 'text-lightbrown'
-            | 'text-lighterbrown';
+          bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
           }[];
@@ -941,7 +811,6 @@ export interface ReusableContent {
     | {
         heroFields: {
           image: string | Media;
-          textColor?: 'white' | 'offwhite' | 'black' | 'green' | 'lightgreen' | 'khaki' | 'lightbrown' | 'lighterbrown';
           content?: {
             [k: string]: unknown;
           }[];
