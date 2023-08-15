@@ -9,6 +9,7 @@ import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
 import { FeaturedProductsBlock } from '../blocks/FeaturedProducts'
 import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
 import { FeaturedLogosBlock } from '../blocks/FeaturedLogos'
+import { StepsBlock } from '../blocks/Steps'
 
 const ReusableContent: CollectionConfig = {
   slug: 'reusable-content',
@@ -34,6 +35,7 @@ const ReusableContent: CollectionConfig = {
         FeaturedProductsBlock,
         FeaturedReviewsBlock,
         HeroBlock,
+        StepsBlock,
         MediaContentBlock,
       ],
     },

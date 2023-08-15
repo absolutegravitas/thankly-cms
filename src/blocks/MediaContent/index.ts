@@ -3,6 +3,7 @@ import type { Block } from 'payload/types'
 import { blockFields } from '../../fields/blockFields'
 import linkGroup from '../../fields/linkGroup'
 import lexicalRichText from '../../fields/LexicalRichTextField'
+import colorField from '../../fields/colorPicker/config'
 
 export const MediaContentBlock: Block = {
   slug: 'mediaContent',
@@ -20,11 +21,12 @@ export const MediaContentBlock: Block = {
             { label: 'Media / Content', value: 'mediaContent' },
             { label: 'Centred w Large Media', value: 'centredMedia' },
           ],
-          admin: { description: 'Choose how to align the content.',},
+          admin: { description: 'Choose how to align the content.' },
         },
-        { name: 'media', type: 'upload', relationTo: 'media', required: true },
-        lexicalRichText({name: 'content',label: 'Content',}),
-        linkGroup({appearances: ['primary', 'secondary', 'default'],}),
+        colorField('bgColor', 'Background Color'),
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        lexicalRichText({ name: 'content', label: 'Content' }),
+        linkGroup({ appearances: ['primary', 'secondary', 'default'] }),
       ],
     }),
   ],

@@ -108,49 +108,6 @@ export interface Page {
         blockType: 'content';
       }
     | {
-        ctaFields: {
-          layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?: string;
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
-          trailingContent?: {
-            [k: string]: unknown;
-          }[];
-          items: {
-            media?: string | Media;
-            content?: {
-              [k: string]: unknown;
-            }[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                image?: string | Media;
-                description?: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cta';
-      }
-    | {
         featuredFaqsFields: {
           bgColor?: string;
           leadingContent?: {
@@ -241,6 +198,28 @@ export interface Page {
         blockType: 'featuredReviews';
       }
     | {
+        stepsFields?: {
+          layout?: 'horizontal';
+          bgColor?: string;
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items?: {
+            image?: string | Media;
+            content?: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'steps';
+      }
+    | {
         heroFields: {
           image: string | Media;
           content?: {
@@ -275,7 +254,8 @@ export interface Page {
     | {
         mediaContentFields: {
           layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
-          media: string | Media;
+          bgColor?: string;
+          image: string | Media;
           content?: {
             [k: string]: unknown;
           }[];
@@ -491,7 +471,8 @@ export interface Product {
     | {
         mediaContentFields: {
           layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
-          media: string | Media;
+          bgColor?: string;
+          image: string | Media;
           content?: {
             [k: string]: unknown;
           }[];
@@ -609,10 +590,7 @@ export interface Faq {
   answer?: {
     [k: string]: unknown;
   }[];
-  tags?: {
-    name?: string;
-    id?: string;
-  }[];
+  categories?: string[] | Category[];
   updatedAt: string;
   createdAt: string;
 }
@@ -674,49 +652,6 @@ export interface ReusableContent {
         id?: string;
         blockName?: string;
         blockType: 'content';
-      }
-    | {
-        ctaFields: {
-          layout?: '2options' | 'simpleCentred' | 'centredImage';
-          bgColor?: string;
-          leadingContent?: {
-            [k: string]: unknown;
-          }[];
-          trailingContent?: {
-            [k: string]: unknown;
-          }[];
-          items: {
-            media?: string | Media;
-            content?: {
-              [k: string]: unknown;
-            }[];
-            links?: {
-              link: {
-                type?: 'reference' | 'custom';
-                newTab?: boolean;
-                reference:
-                  | {
-                      value: string | Page;
-                      relationTo: 'pages';
-                    }
-                  | {
-                      value: string | Product;
-                      relationTo: 'products';
-                    };
-                url: string;
-                label: string;
-                image?: string | Media;
-                description?: string;
-                appearance?: 'primary' | 'secondary' | 'default';
-              };
-              id?: string;
-            }[];
-            id?: string;
-          }[];
-        };
-        id?: string;
-        blockName?: string;
-        blockType: 'cta';
       }
     | {
         featuredFaqsFields: {
@@ -841,9 +776,32 @@ export interface ReusableContent {
         blockType: 'hero';
       }
     | {
+        stepsFields?: {
+          layout?: 'horizontal';
+          bgColor?: string;
+          leadingContent?: {
+            [k: string]: unknown;
+          }[];
+          trailingContent?: {
+            [k: string]: unknown;
+          }[];
+          items?: {
+            image?: string | Media;
+            content?: {
+              [k: string]: unknown;
+            }[];
+            id?: string;
+          }[];
+        };
+        id?: string;
+        blockName?: string;
+        blockType: 'steps';
+      }
+    | {
         mediaContentFields: {
           layout?: 'contentMedia' | 'mediaContent' | 'centredMedia';
-          media: string | Media;
+          bgColor?: string;
+          image: string | Media;
           content?: {
             [k: string]: unknown;
           }[];

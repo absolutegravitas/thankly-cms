@@ -6,6 +6,7 @@ import linkGroup from '../../fields/linkGroup'
 // import { lexicalRichTextField, YouTubeFeature, LinkFeature } from 'payload-plugin-lexical'
 import lexicalRichText from '../../fields/LexicalRichTextField'
 import colorField from '../../fields/colorPicker/config'
+import richText from '../../fields/richText'
 
 export const BasicContentBlock: Block = {
   slug: 'content',
@@ -66,7 +67,6 @@ export const BasicContentBlock: Block = {
             }),
           ],
         },
-
         {
           name: 'items',
           type: 'array',
