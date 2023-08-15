@@ -5,7 +5,6 @@ import { publishedOnly } from '../access/publishedOnly'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
 import { regeneratePage } from '../utilities/regeneratePage'
 
-import { CallToActionBlock } from '../blocks/CallToAction'
 import { BasicContentBlock } from '../blocks/BasicContent'
 import { HeroBlock } from '../blocks/Hero'
 import { MediaBlock } from '../blocks/Media'
@@ -59,7 +58,6 @@ const Pages: CollectionConfig = {
       required: true,
       blocks: [
         BasicContentBlock, // a basic content block for chunks of text
-        CallToActionBlock, // a call to action block with additional functions
         FeaturedFaqsBlock,
         FeaturedLogosBlock,
         FeaturedProductsBlock,

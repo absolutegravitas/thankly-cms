@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload/types'
 import { isAdmin } from '../access/isAdmin'
 
-import { CallToActionBlock } from '../blocks/CallToAction'
 import { BasicContentBlock } from '../blocks/BasicContent'
 import { HeroBlock } from '../blocks/Hero'
 import { MediaBlock } from '../blocks/Media'
@@ -30,7 +29,6 @@ const ReusableContent: CollectionConfig = {
       required: true,
       blocks: [
         BasicContentBlock,
-        CallToActionBlock,
         FeaturedFaqsBlock,
         FeaturedLogosBlock,
         FeaturedProductsBlock,

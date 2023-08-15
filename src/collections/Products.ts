@@ -5,7 +5,6 @@ import { publishedOnly } from '../access/publishedOnly'
 import { formatPreviewURL } from '../utilities/formatPreviewURL'
 import { regeneratePage } from '../utilities/regeneratePage'
 
-import { CallToActionBlock } from '../blocks/CallToAction'
 import { BasicContentBlock } from '../blocks/BasicContent'
 import { HeroBlock } from '../blocks/Hero'
 import { MediaBlock } from '../blocks/Media'
@@ -14,7 +13,6 @@ import { ReusableContentBlock } from '../blocks/ReusableContent'
 import { fullTitle } from '../fields/fullTitle'
 import { slugField } from '../fields/slug'
 import { ProductOverviewBlock } from '../blocks/ProductOverview'
-import { ProductComponentsBlock } from '../blocks/ProductComponents'
 import { FeaturedReviewsBlock } from '../blocks/FeaturedReviews'
 import { FeaturedFaqsBlock } from '../blocks/FeaturedFaqs'
 import { FeaturedLogosBlock } from '../blocks/FeaturedLogos'
@@ -112,13 +110,11 @@ const Products: CollectionConfig = {
       required: true,
       blocks: [
         BasicContentBlock, // a basic content block for chunks of text
-        // CallToActionBlock, // a call to action block with additional functions
         FeaturedFaqsBlock,
         FeaturedLogosBlock,
         FeaturedReviewsBlock,
         HeroBlock, // a hero block with image, video etc. overlays
         MediaContentBlock, // image with some content positioned left & right e.g. feature
-        // ProductComponentsBlock,
         ProductOverviewBlock, //https://tailwindui.com/components/ecommerce/components/product-overviews#component-2904df5d10ee9fc81ba07d1ad61a27ca
         ReusableContentBlock, // re-use an already created block, ie. one of the above typess
       ],
