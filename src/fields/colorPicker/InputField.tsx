@@ -18,17 +18,13 @@ import './styles.scss'
 
 // keep a list of default colors to choose from
 const defaultColors = [
-  '#E7ECEF', // dusty gray - background
-  '#0D1317', // rich black // '#292929' // jet  black
-
-  '#dfded9', // lightest brown
-  '#c2c0ae', // light brown
-  '#ddd1b9', // baby poo brown
-  '#985934', // raw umber brown
-
-  // '#0E544B', // brunswick green
-  '#749b4e', // asparagus
-  '#557755', // fern green - accent
+  '#557755', // thankly green (dark)
+  '#c2c0ae', // light khaki
+  '#dfded9', // lighter khaki
+  '#E7ECEF', // off-white
+  '#d9d9d9', // slate gray
+  '#292929', // slate black
+  '#0D1317', // black
 ]
 const baseClass = 'custom-color-picker'
 
@@ -57,26 +53,26 @@ const InputField: React.FC<Props> = props => {
     mergeColorsFromPreferences()
   }, [getPreference, setColorOptions])
 
-  const handleAddColor = useCallback(() => {
-    setIsAdding(false)
-    setValue(colorToAdd)
+  // const handleAddColor = useCallback(() => {
+  //   setIsAdding(false)
+  //   setValue(colorToAdd)
 
-    // prevent adding duplicates
-    if (colorOptions.indexOf(colorToAdd) > -1) return
+  //   // prevent adding duplicates
+  //   if (colorOptions.indexOf(colorToAdd) > -1) return
 
-    let newOptions = colorOptions
-    newOptions.unshift(colorToAdd)
+  //   let newOptions = colorOptions
+  //   newOptions.unshift(colorToAdd)
 
-    // update state with new colors
-    setColorOptions(newOptions)
-    // store the user color preferences for future use
-    setPreference(preferenceKey, newOptions)
-  }, [colorOptions, setPreference, colorToAdd, setIsAdding, setValue])
+  //   // update state with new colors
+  //   setColorOptions(newOptions)
+  //   // store the user color preferences for future use
+  //   setPreference(preferenceKey, newOptions)
+  // }, [colorOptions, setPreference, colorToAdd, setIsAdding, setValue])
 
   return (
     <div className={baseClass}>
       <Label htmlFor={path} label={label} required={required} />
-      {isAdding && (
+      {/* {isAdding && (
         <div>
           <input
             className={`${baseClass}__input`}
@@ -107,7 +103,7 @@ const InputField: React.FC<Props> = props => {
             Cancel
           </Button>
         </div>
-      )}
+      )} */}
       {!isAdding && (
         <Fragment>
           <ul className={`${baseClass}__colors`}>
@@ -124,7 +120,7 @@ const InputField: React.FC<Props> = props => {
               </li>
             ))}
           </ul>
-          <Button
+          {/* <Button
             className="add-color"
             icon="plus"
             buttonStyle="icon-label"
@@ -134,7 +130,7 @@ const InputField: React.FC<Props> = props => {
               setIsAdding(true)
               setValue('')
             }}
-          />
+          /> */}
         </Fragment>
       )}
     </div>

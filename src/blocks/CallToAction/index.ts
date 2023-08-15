@@ -5,6 +5,7 @@ import linkGroup from '../../fields/linkGroup'
 import richText from '../../fields/richText'
 import link from '../../fields/link'
 import lexicalRichText from '../../fields/LexicalRichTextField'
+import colorField from '../../fields/colorPicker/config'
 
 export const CallToActionBlock: Block = {
   slug: 'cta',
@@ -32,30 +33,32 @@ export const CallToActionBlock: Block = {
             { label: 'Centred Image', value: 'centredImage' },
           ],
         },
-        {
-          name: 'bgColor',
-          type: 'select',
-          label: 'Section Background Color',
-          defaultValue: 'black',
-          options: [
-            // green: '#557755', // thankly green //colors.green,
-            // lightgreen: '#749b4e', // thankly green //colors.green,
-            // brown: '#985934', //  thankly brown
-            // khaki: '#ddd1b9', // thankly khaki
-            // lightbrown: '#c2c0ae',
-            // lighterbrown: '#dfded9',
-            // offwhite: '#E7ECEF', // thankly off-white / dusty gray
+        colorField('bgColor', 'Background Color'),
 
-            { label: 'White', value: 'text-white' },
-            { label: 'Off White', value: 'text-offwhite' },
-            { label: 'Black', value: 'text-black' },
-            { label: 'Thankly Dark Green', value: 'text-green' },
-            { label: 'Thankly Light Green', value: 'text-lightgreen' },
-            { label: 'Thankly Khaki', value: 'text-khaki' },
-            { label: 'Thankly Light Brown', value: 'text-lightbrown' },
-            { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
-          ],
-        },
+        // {
+        //   name: 'bgColor',
+        //   type: 'select',
+        //   label: 'Section Background Color',
+        //   defaultValue: 'black',
+        //   options: [
+        //     // green: '#557755', // thankly green //colors.green,
+        //     // lightgreen: '#749b4e', // thankly green //colors.green,
+        //     // brown: '#985934', //  thankly brown
+        //     // khaki: '#ddd1b9', // thankly khaki
+        //     // lightbrown: '#c2c0ae',
+        //     // lighterbrown: '#dfded9',
+        //     // offwhite: '#E7ECEF', // thankly off-white / dusty gray
+
+        //     { label: 'White', value: 'text-white' },
+        //     { label: 'Off White', value: 'text-offwhite' },
+        //     { label: 'Black', value: 'text-black' },
+        //     { label: 'Thankly Dark Green', value: 'text-green' },
+        //     { label: 'Thankly Light Green', value: 'text-lightgreen' },
+        //     { label: 'Thankly Khaki', value: 'text-khaki' },
+        //     { label: 'Thankly Light Brown', value: 'text-lightbrown' },
+        //     { label: 'Thankly Lighter Brown', value: 'text-lighterbrown' },
+        //   ],
+        // },
 
         {
           label: 'Leading & Trailing Content',

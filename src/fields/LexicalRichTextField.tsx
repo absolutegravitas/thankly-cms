@@ -34,8 +34,8 @@ function lexicalRichText(props?: {
       defaultEditorConfig.toggles.tables.enabled = true
       defaultEditorConfig.toggles.tables.display = false
       defaultEditorConfig.toggles.comments.enabled = false
-      defaultEditorConfig.output.html.enabled = true
-      defaultEditorConfig.output.markdown.enabled = true
+      defaultEditorConfig.output.html.enabled = false
+      defaultEditorConfig.output.markdown.enabled = false
       // Optional: these are the default features. Feel free to customize them or remove the ones you do not like!
       defaultEditorConfig.features = [
         YouTubeFeature({}), // YouTube Embed
