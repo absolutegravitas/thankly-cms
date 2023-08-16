@@ -132,7 +132,6 @@ export interface Page {
       }
     | {
         featuredLogosFields?: {
-          layout?: 'threeColumn' | 'Accordion';
           bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
@@ -395,7 +394,6 @@ export interface Product {
       }
     | {
         featuredLogosFields?: {
-          layout?: 'threeColumn' | 'Accordion';
           bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
@@ -678,7 +676,6 @@ export interface ReusableContent {
       }
     | {
         featuredLogosFields?: {
-          layout?: 'threeColumn' | 'Accordion';
           bgColor?: string;
           leadingContent?: {
             [k: string]: unknown;
