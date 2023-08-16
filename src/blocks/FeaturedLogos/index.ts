@@ -11,17 +11,17 @@ export const FeaturedLogosBlock: Block = {
     blockFields({
       name: 'featuredLogosFields',
       fields: [
-        {
-          type: 'select',
-          name: 'layout',
-          label: 'Layout',
-          required: false,
-          defaultValue: 'accordion',
-          options: [
-            { label: 'Three Columns', value: 'threeColumn' },
-            { label: 'Accordion', value: 'Accordion' },
-          ],
-        },
+        // {
+        //   type: 'select',
+        //   name: 'layout',
+        //   label: 'Layout',
+        //   required: false,
+        //   defaultValue: 'accordion',
+        //   options: [
+        //     { label: 'Three Columns', value: 'threeColumn' },
+        //     { label: 'Accordion', value: 'Accordion' },
+        //   ],
+        // },
         colorField('bgColor', 'Background Color'),
         // {
         //   name: 'bgColor',
